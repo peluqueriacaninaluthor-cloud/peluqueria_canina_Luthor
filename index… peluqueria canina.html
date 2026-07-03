@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Peluquería Canina Luthor · Estilo y Cuidado</title>
+  <title>Peluquería Canina Luthor · ERP</title>
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
   </script>
   <style>
-    /* ========== ESTILOS GLOBALES ========== */
+    /* ===== Estilos globales (idénticos a versión anterior, con mejoras menores) ===== */
     :root {
       --c-bg: #f7f2e8;
       --c-paper: #fdfaf3;
@@ -323,7 +323,7 @@
       color: #7a5600;
       border: 1px solid #ffd54f;
     }
-    /* ========== TOAST ========== */
+    /* ===== TOAST ===== */
     #toast-container {
       position: fixed;
       bottom: 1.5rem;
@@ -381,7 +381,7 @@
         transform: translateX(0);
       }
     }
-    /* ========== TOPBAR ========== */
+    /* ===== TOPBAR, TABS, CARD, GRID, BADGE, etc. (mismos estilos que versión anterior) ===== */
     .topbar {
       background: var(--c-paper);
       border-bottom: 1.5px solid var(--c-border);
@@ -439,7 +439,6 @@
       gap: 0.65rem;
       flex-wrap: wrap;
     }
-    /* ========== TABS ========== */
     .tab-nav {
       background: var(--c-paper);
       border-bottom: 1.5px solid var(--c-border);
@@ -474,7 +473,6 @@
     .tab-btn:hover:not(.active) {
       color: var(--c-brown2);
     }
-    /* ========== MAIN ========== */
     .main {
       flex: 1;
       padding: 1.5rem;
@@ -488,7 +486,6 @@
     .panel.active {
       display: block;
     }
-    /* ========== CARDS ========== */
     .card {
       background: var(--c-paper);
       border-radius: var(--r);
@@ -517,7 +514,6 @@
       color: var(--c-muted);
       margin-left: auto;
     }
-    /* ========== GRIDS ========== */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -533,138 +529,6 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
-    /* ========== PRICES ========== */
-    .price-display {
-      background: linear-gradient(135deg, #fdf5e0, #f5e4b8);
-      border: 1.5px solid var(--c-amber3);
-      border-radius: var(--r-sm);
-      padding: 1rem;
-      text-align: center;
-      margin: 0.75rem 0;
-    }
-    .price-big {
-      font-family: var(--font-head);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--c-brown);
-    }
-    .price-label {
-      font-size: 0.8rem;
-      color: var(--c-muted);
-      margin-top: 0.15rem;
-    }
-    .price-rule {
-      font-size: 0.82rem;
-      color: var(--c-amber);
-      margin-top: 0.3rem;
-      font-style: italic;
-      min-height: 1.2em;
-    }
-    .total-bar {
-      background: var(--c-pale);
-      border-radius: var(--r-sm);
-      padding: 0.7rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      margin: 0.5rem 0;
-      font-size: 1.05rem;
-    }
-    .total-bar .total-num {
-      font-family: var(--font-head);
-      font-size: 1.2rem;
-      color: var(--c-brown);
-    }
-    .promo-banner {
-      background: linear-gradient(95deg, #fff4d6, #ffeab5);
-      border-left: 5px solid var(--c-amber2);
-      border-radius: 0 var(--r-sm) var(--r-sm) 0;
-      padding: 0.75rem 1.1rem;
-      margin-bottom: 1.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-weight: 600;
-      color: var(--c-brown2);
-      font-size: 0.95rem;
-    }
-    .cart-empty {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      color: var(--c-muted);
-      font-style: italic;
-      font-size: 1.1rem;
-    }
-    .cart-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.6rem 0;
-      border-bottom: 1px dashed var(--c-border);
-    }
-    .cart-row:last-of-type {
-      border-bottom: none;
-    }
-    .cart-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      background: var(--c-pale);
-      border-radius: var(--r-sm);
-      font-weight: 700;
-      margin-top: 0.5rem;
-    }
-    /* ========== ORDER CARDS ========== */
-    .order-card {
-      background: var(--c-cream);
-      border: 1.5px solid var(--c-border);
-      border-radius: var(--r-sm);
-      padding: 0.9rem 1rem 0.9rem 1.3rem;
-      margin-bottom: 0.75rem;
-      position: relative;
-      transition: box-shadow .2s;
-    }
-    .order-card:hover {
-      box-shadow: 0 4px 16px var(--c-shadow);
-    }
-    .order-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: var(--c-amber3);
-      border-radius: 4px 0 0 4px;
-    }
-    .order-card.delivered::before {
-      background: var(--c-green);
-    }
-    .order-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .order-num {
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--c-brown2);
-    }
-    .order-date {
-      font-size: 0.8rem;
-      color: var(--c-muted);
-    }
-    .order-total {
-      font-family: var(--font-head);
-      font-weight: 700;
-      color: var(--c-brown);
-    }
-    /* ========== BADGES ========== */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -714,7 +578,6 @@
       color: #721c24;
       border: 1px solid #dc3545;
     }
-    /* ========== META HERO ========== */
     .meta-hero {
       background: linear-gradient(145deg, #1c0f05, #3a1e06, #5a2e0a);
       border-radius: var(--r);
@@ -749,34 +612,6 @@
       color: var(--c-amber3);
       margin: 0.3rem 0;
     }
-    .meta-progress {
-      background: rgba(255, 255, 255, 0.12);
-      border-radius: 2rem;
-      height: 12px;
-      overflow: hidden;
-      margin: 1rem 0;
-    }
-    .meta-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--c-amber), var(--c-amber3), #f5c542);
-      border-radius: 2rem;
-      transition: width 1s ease;
-      width: 0%;
-    }
-    .meta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .meta-pct {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    .meta-figure {
-      font-size: 2rem;
-    }
-    /* ========== STAT CARDS ========== */
     .stat-card {
       background: var(--c-cream);
       border: 1.5px solid var(--c-border);
@@ -799,7 +634,6 @@
       color: var(--c-muted);
       margin-top: 0.2rem;
     }
-    /* ========== TABLES ========== */
     .data-table-wrap {
       overflow-x: auto;
     }
@@ -840,7 +674,6 @@
       background: white;
       width: 100%;
     }
-    /* ========== MODALS ========== */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -887,282 +720,52 @@
     .hidden {
       display: none !important;
     }
-    /* ========== INVOICE ========== */
-    .invoice-header {
+    .cart-empty {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--c-muted);
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+    .order-card {
+      background: var(--c-cream);
+      border: 1.5px solid var(--c-border);
+      border-radius: var(--r-sm);
+      padding: 0.9rem 1rem 0.9rem 1.3rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+      transition: box-shadow .2s;
+    }
+    .order-card:hover {
+      box-shadow: 0 4px 16px var(--c-shadow);
+    }
+    .order-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--c-amber3);
+      border-radius: 4px 0 0 4px;
+    }
+    .order-meta {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid var(--c-pale);
     }
-    .invoice-brand {
-      font-family: var(--font-head);
-      font-size: 1.25rem;
-      font-style: italic;
-    }
-    .invoice-num {
+    .order-num {
       font-family: var(--font-mono);
       font-size: 0.88rem;
-      text-align: right;
-      color: var(--c-muted);
-    }
-    .invoice-section {
-      margin-bottom: 1rem;
-    }
-    .invoice-section h4 {
-      font-family: var(--font-head);
-      font-size: 0.95rem;
-      color: var(--c-brown2);
-      margin-bottom: 0.4rem;
-    }
-    .invoice-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .invoice-table th {
-      background: var(--c-pale);
-      padding: 0.4rem 0.6rem;
-      text-align: left;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-    }
-    .invoice-table td {
-      padding: 0.4rem 0.6rem;
-      border-bottom: 1px solid var(--c-border);
-      font-size: 0.9rem;
-    }
-    .invoice-total {
-      text-align: right;
-      font-family: var(--font-head);
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-top: 0.75rem;
-      color: var(--c-brown);
-    }
-    .invoice-footer {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: var(--c-muted);
-      text-align: center;
-      border-top: 1px dashed var(--c-border);
-      padding-top: 0.75rem;
-      font-style: italic;
-    }
-    @media print {
-      body>*:not(#invoiceModal) {
-        display: none !important
-      }
-      .modal-overlay {
-        position: static;
-        background: none;
-      }
-      .modal-box {
-        box-shadow: none;
-        border: none;
-        padding: 0;
-      }
-      .modal-actions {
-        display: none;
-      }
-    }
-    /* ========== FOOTER ========== */
-    .app-footer {
-      background: var(--c-paper);
-      border-top: 1.5px solid var(--c-border);
-      padding: 0.7rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--c-muted);
-      font-style: italic;
-    }
-    .footer-links {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    /* ========== MISC ========== */
-    .logo-upload {
-      text-align: center;
-      padding: 1.5rem;
-      border: 2px dashed var(--c-border);
-      border-radius: var(--r-sm);
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
-    .logo-upload:hover {
-      border-color: var(--c-amber);
-    }
-    .logo-preview {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--c-amber);
-      margin: 0 auto 0.75rem;
-      display: block;
-    }
-    .qr-box {
-      background: var(--c-cream);
-      border: 1.5px dashed var(--c-amber3);
-      border-radius: var(--r-sm);
-      padding: 1rem;
-      text-align: center;
-      margin-top: 0.75rem;
-      color: var(--c-muted);
-    }
-    .qr-box i {
-      font-size: 2.5rem;
-      color: var(--c-amber);
-    }
-    .loader {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-    }
-    .loader::after {
-      content: '';
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--c-pale);
-      border-top-color: var(--c-amber);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.75rem;
-    }
-    .chip {
-      padding: 0.28rem 0.75rem;
-      border-radius: 2rem;
-      border: 1.5px solid var(--c-border);
-      background: white;
-      font-family: var(--font-body);
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .chip.active {
-      background: var(--c-amber);
-      border-color: var(--c-amber);
-      color: white;
-    }
-    .sug-card {
-      background: var(--c-cream);
-      border: 1.5px solid var(--c-border);
-      border-radius: var(--r-sm);
-      padding: 0.85rem 1rem;
-      margin-bottom: 0.65rem;
-    }
-    .sug-meta {
-      font-size: 0.8rem;
-      color: var(--c-muted);
-      margin-top: 0.35rem;
-    }
-    .notification-banner {
-      background: #fff3cd;
-      border-left: 6px solid #ffc107;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
-      border-radius: var(--r-sm);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
       font-weight: 600;
-      color: #856404;
+      color: var(--c-brown2);
     }
-    .notification-banner i {
-      font-size: 1.4rem;
+    .order-date {
+      font-size: 0.8rem;
+      color: var(--c-muted);
     }
-    .shipping-card {
-      background: #e6f4ea;
-      border-left: 6px solid var(--c-green);
-      border-radius: var(--r-sm);
-      padding: 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .shipping-card p {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-    }
-    .stock-card {
-      background: linear-gradient(135deg, #e8f0fe, #d9e6f5);
-      border: 1px solid var(--c-blue);
-      border-radius: var(--r-sm);
-      padding: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .stock-card .stock-number {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--c-blue);
-    }
-    .logo-small {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: 0.3rem;
-    }
-    .link-forgot {
-      cursor: pointer;
-      color: var(--c-amber);
-      font-size: 0.85rem;
-      text-align: right;
-      margin-top: 0.5rem;
-      display: inline-block;
-    }
-    .link-forgot:hover {
-      text-decoration: underline;
-    }
-    .new-orders-card {
-      background: #fef7e0;
-      border-left: 6px solid var(--c-amber);
-      cursor: pointer;
-      transition: transform 0.2s;
-      margin-bottom: 1rem;
-    }
-    .new-orders-card:hover {
-      transform: scale(1.01);
-      background: #fff2cc;
-    }
-    .order-contact-info {
-      background: #f9f5f0;
-      padding: 0.5rem;
-      border-radius: 8px;
-      margin-bottom: 0.5rem;
-    }
-    .mt-1 {
-      margin-top: 0.5rem;
-    }
-    .mt-2 {
-      margin-top: 1rem;
-    }
-    /* ========== PHOTO GALLERY ========== */
     .photo-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -1191,32 +794,71 @@
       padding: 0.5rem 0.75rem;
       font-size: 0.85rem;
     }
-    .photo-card .photo-info .photo-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--c-muted);
-      font-size: 0.75rem;
-    }
-    .photo-card .photo-info .photo-tags {
-      display: flex;
-      gap: 0.3rem;
-      flex-wrap: wrap;
-      margin-top: 0.3rem;
-    }
-    .photo-card .photo-info .photo-tags .tag {
-      background: var(--c-pale);
-      padding: 0.1rem 0.5rem;
-      border-radius: 2rem;
-      font-size: 0.7rem;
-      color: var(--c-brown2);
-    }
     .photo-card .photo-actions {
       padding: 0.5rem 0.75rem;
       display: flex;
       gap: 0.4rem;
       border-top: 1px solid var(--c-border);
       background: var(--c-cream);
+    }
+    .app-footer {
+      background: var(--c-paper);
+      border-top: 1.5px solid var(--c-border);
+      padding: 0.7rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--c-muted);
+      font-style: italic;
+    }
+    .footer-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+    }
+    .loader::after {
+      content: '';
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--c-pale);
+      border-top-color: var(--c-amber);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .mt-1 {
+      margin-top: 0.5rem;
+    }
+    .mt-2 {
+      margin-top: 1rem;
+    }
+    .promo-banner {
+      background: linear-gradient(95deg, #fff4d6, #ffeab5);
+      border-left: 5px solid var(--c-amber2);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      padding: 0.75rem 1.1rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      color: var(--c-brown2);
+      font-size: 0.95rem;
     }
     .photo-pair {
       display: flex;
@@ -1245,7 +887,6 @@
       padding: 0.2rem 0;
       background: var(--c-pale);
     }
-    /* ========== RESPONSIVE ========== */
     @media(max-width:768px) {
       .grid-2,
       .grid-3,
@@ -1280,14 +921,10 @@
 </head>
 <body>
 
-  <!-- ============================================================ -->
-  <!-- TOAST CONTAINER -->
-  <!-- ============================================================ -->
+  <!-- ===== TOAST ===== -->
   <div id="toast-container" role="status" aria-live="polite"></div>
 
-  <!-- ============================================================ -->
-  <!-- AUTH PAGE -->
-  <!-- ============================================================ -->
+  <!-- ===== AUTH PAGE ===== -->
   <div id="authPage" class="page">
     <div class="auth-wrap">
       <div class="auth-brand">
@@ -1329,9 +966,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- CLIENT PAGE -->
-  <!-- ============================================================ -->
+  <!-- ===== CLIENT PAGE ===== -->
   <div id="clientPage">
     <header class="topbar">
       <div class="topbar-inner">
@@ -1353,9 +988,7 @@
     <div id="footerClient"></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- ADMIN PAGE -->
-  <!-- ============================================================ -->
+  <!-- ===== ADMIN PAGE ===== -->
   <div id="adminPage">
     <header class="topbar">
       <div class="topbar-inner">
@@ -1378,208 +1011,23 @@
     <div id="footerAdmin"></div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- MODALES -->
-  <!-- ============================================================ -->
-  <div id="invoiceModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div id="invoiceContent"></div>
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="printInvoiceBtn"><i class="fas fa-print"></i> Imprimir</button>
-        <button class="btn btn-ghost" id="closeInvoiceBtn">Cerrar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="suggestionModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-title">Enviar sugerencia</div>
-      <div class="form-row">
-        <div class="fg"><label for="sugNombre">Nombre *</label><input type="text" id="sugNombre" placeholder="Tu nombre" /></div>
-        <div class="fg"><label for="sugEmail">Correo (opcional)</label><input type="email" id="sugEmail" placeholder="correo@ejemplo.com" /></div>
-        <div class="fg"><label for="sugMsg">Mensaje *</label><textarea id="sugMsg" placeholder="Cuéntanos tu sugerencia..."></textarea></div>
-      </div>
-      <div id="sugErr"></div>
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="sendSugBtn"><i class="fas fa-paper-plane"></i> Enviar</button>
-        <button class="btn btn-ghost" id="closeSugBtn">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="supportModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-title">Soporte</div>
-      <p style="margin-bottom:0.75rem;line-height:1.7">
-        <strong>WhatsApp:</strong> <a href="https://wa.me/573142245598" target="_blank">314 224 5598</a><br />
-        <strong>Teléfono:</strong> 314 224 5598<br />
-        <strong>Dirección:</strong> Carrera 11 # 5-33, Úbate, Cundinamarca
-      </p>
-      <div class="modal-actions"><button class="btn btn-ghost" id="closeSupportBtn">Cerrar</button></div>
-    </div>
-  </div>
-
-  <div id="forgotModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-title">Recuperar contraseña</div>
-      <div class="form-row">
-        <div class="fg"><label for="resetEmail">Correo electrónico</label><input type="email" id="resetEmail" placeholder="correo@ejemplo.com" /></div>
-      </div>
-      <div id="resetMsg"></div>
-      <div class="modal-actions">
-        <button class="btn btn-primary" id="sendResetBtn">Enviar instrucciones</button>
-        <button class="btn btn-ghost" id="closeForgotBtn">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="newPasswordModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <div class="modal-title">Nueva contraseña</div>
-      <div class="form-row">
-        <div class="fg"><label for="newPassword">Nueva contraseña (mín. 6 caracteres)</label><input type="password" id="newPassword" placeholder="••••••••" /></div>
-        <div class="fg"><label for="confirmPassword">Confirmar contraseña</label><input type="password" id="confirmPassword" placeholder="••••••••" /></div>
-      </div>
-      <div id="newPassMsg"></div>
-      <div class="modal-actions">
-        <button class="btn btn-success" id="updatePasswordBtn">Actualizar contraseña</button>
-        <button class="btn btn-ghost" id="closeNewPassBtn">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="appointmentModal" class="modal-overlay hidden">
-    <div class="modal-box wide">
-      <div class="modal-title">Agendar cita <span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">(Mostrador)</span></div>
-      <div id="appointmentForm">
-        <div class="form-row">
-          <div class="fg">
-            <label for="appClientSearch">Buscar cliente (nombre o teléfono)</label>
-            <input type="text" id="appClientSearch" placeholder="Escribe para buscar..." />
-            <div id="appClientResults" style="max-height:120px;overflow-y:auto;margin-top:0.3rem;"></div>
-          </div>
-        </div>
-        <div class="form-row c2">
-          <div class="fg">
-            <label>Cliente seleccionado</label>
-            <input type="text" id="appClientSelected" readonly placeholder="Ninguno" style="background:var(--c-cream);" />
-          </div>
-          <div class="fg">
-            <label for="appPetSelect">Mascota</label>
-            <select id="appPetSelect"><option value="">-- Selecciona una mascota --</option></select>
-            <button class="btn btn-ghost btn-sm" id="appNewPetBtn" style="margin-top:0.3rem;" type="button">+ Nueva mascota</button>
-          </div>
-        </div>
-        <div class="form-row c2">
-          <div class="fg">
-            <label for="appServiceSelect">Servicio</label>
-            <select id="appServiceSelect">
-              <option value="baño">Baño básico</option>
-              <option value="corte">Corte estilizado</option>
-              <option value="baño_corte" selected>Baño + Corte</option>
-              <option value="spa">Spa completo</option>
-              <option value="uñas">Corte de uñas</option>
-              <option value="oidos">Limpieza de oídos</option>
-            </select>
-          </div>
-          <div class="fg">
-            <label for="appPrice">Precio ($)</label>
-            <input type="number" id="appPrice" placeholder="0" value="40000" min="0" step="1000" />
-          </div>
-        </div>
-        <div class="form-row c2">
-          <div class="fg">
-            <label for="appDate">Fecha</label>
-            <input type="date" id="appDate" />
-          </div>
-          <div class="fg">
-            <label for="appTime">Hora</label>
-            <select id="appTime">
-              <option value="08:00">8:00 AM</option>
-              <option value="10:00">10:00 AM</option>
-              <option value="12:00">12:00 PM</option>
-              <option value="14:00">2:00 PM</option>
-              <option value="16:00">4:00 PM</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label for="appNotes">Notas adicionales</label>
-            <textarea id="appNotes" rows="2" placeholder="Ej: perro nervioso, dejar bigote largo..."></textarea>
-          </div>
-        </div>
-        <div id="appMsg"></div>
-        <div class="modal-actions">
-          <button class="btn btn-success" id="appConfirmBtn"><i class="fas fa-check"></i> Confirmar cita</button>
-          <button class="btn btn-ghost" id="appCancelBtn">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="photoUploadModal" class="modal-overlay hidden">
-    <div class="modal-box wide">
-      <div class="modal-title">Subir fotos de tu mascota</div>
-      <div id="photoUploadForm">
-        <div class="form-row">
-          <div class="fg">
-            <label for="photoPetSelect">Selecciona tu mascota</label>
-            <select id="photoPetSelect"><option value="">-- Elige una mascota --</option></select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label for="photoBefore">Foto "Antes" (obligatoria)</label>
-            <input type="file" id="photoBefore" accept="image/*" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label for="photoAfter">Foto "Después" (opcional, pero muy recomendada)</label>
-            <input type="file" id="photoAfter" accept="image/*" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="fg">
-            <label for="photoDesc">Descripción (opcional)</label>
-            <input type="text" id="photoDesc" placeholder="Ej: ¡Mi perro después del corte!" />
-          </div>
-        </div>
-        <div id="photoUploadMsg"></div>
-        <div class="modal-actions">
-          <button class="btn btn-primary" id="photoUploadBtn"><i class="fas fa-upload"></i> Subir fotos</button>
-          <button class="btn btn-ghost" id="photoUploadCancelBtn">Cancelar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="photoDetailModal" class="modal-overlay hidden">
-    <div class="modal-box wide">
-      <div class="modal-title" id="photoDetailTitle">Fotos</div>
-      <div id="photoDetailContent"></div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="photoDetailCloseBtn">Cerrar</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="photoReviewModal" class="modal-overlay hidden">
-    <div class="modal-box wide">
-      <div class="modal-title">Revisar fotos pendientes</div>
-      <div id="photoReviewContent"></div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" id="photoReviewCloseBtn">Cerrar</button>
-      </div>
-    </div>
-  </div>
+  <!-- ===== MODALES ===== -->
+  <div id="invoiceModal" class="modal-overlay hidden"><div class="modal-box"><div id="invoiceContent"></div><div class="modal-actions"><button class="btn btn-primary" id="printInvoiceBtn"><i class="fas fa-print"></i> Imprimir</button><button class="btn btn-ghost" id="closeInvoiceBtn">Cerrar</button></div></div></div>
+  <div id="suggestionModal" class="modal-overlay hidden"><div class="modal-box"><div class="modal-title">Enviar sugerencia</div><div class="form-row"><div class="fg"><label for="sugNombre">Nombre *</label><input type="text" id="sugNombre" placeholder="Tu nombre" /></div><div class="fg"><label for="sugEmail">Correo (opcional)</label><input type="email" id="sugEmail" placeholder="correo@ejemplo.com" /></div><div class="fg"><label for="sugMsg">Mensaje *</label><textarea id="sugMsg" placeholder="Cuéntanos tu sugerencia..."></textarea></div></div><div id="sugErr"></div><div class="modal-actions"><button class="btn btn-primary" id="sendSugBtn"><i class="fas fa-paper-plane"></i> Enviar</button><button class="btn btn-ghost" id="closeSugBtn">Cancelar</button></div></div></div>
+  <div id="supportModal" class="modal-overlay hidden"><div class="modal-box"><div class="modal-title">Soporte</div><p style="margin-bottom:0.75rem;line-height:1.7"><strong>WhatsApp:</strong> <a href="https://wa.me/573142245598" target="_blank">314 224 5598</a><br /><strong>Teléfono:</strong> 314 224 5598<br /><strong>Dirección:</strong> Carrera 11 # 5-33, Úbate, Cundinamarca</p><div class="modal-actions"><button class="btn btn-ghost" id="closeSupportBtn">Cerrar</button></div></div></div>
+  <div id="forgotModal" class="modal-overlay hidden"><div class="modal-box"><div class="modal-title">Recuperar contraseña</div><div class="form-row"><div class="fg"><label for="resetEmail">Correo electrónico</label><input type="email" id="resetEmail" placeholder="correo@ejemplo.com" /></div></div><div id="resetMsg"></div><div class="modal-actions"><button class="btn btn-primary" id="sendResetBtn">Enviar instrucciones</button><button class="btn btn-ghost" id="closeForgotBtn">Cancelar</button></div></div></div>
+  <div id="newPasswordModal" class="modal-overlay hidden"><div class="modal-box"><div class="modal-title">Nueva contraseña</div><div class="form-row"><div class="fg"><label for="newPassword">Nueva contraseña (mín. 6 caracteres)</label><input type="password" id="newPassword" placeholder="••••••••" /></div><div class="fg"><label for="confirmPassword">Confirmar contraseña</label><input type="password" id="confirmPassword" placeholder="••••••••" /></div></div><div id="newPassMsg"></div><div class="modal-actions"><button class="btn btn-success" id="updatePasswordBtn">Actualizar contraseña</button><button class="btn btn-ghost" id="closeNewPassBtn">Cancelar</button></div></div></div>
+  <div id="appointmentModal" class="modal-overlay hidden"><div class="modal-box wide"><div class="modal-title">Agendar cita <span style="font-size:0.8rem;font-weight:400;color:var(--c-muted)">(Mostrador)</span></div><div id="appointmentForm"><div class="form-row"><div class="fg"><label for="appClientSearch">Buscar cliente (nombre o teléfono)</label><input type="text" id="appClientSearch" placeholder="Escribe para buscar..." /><div id="appClientResults" style="max-height:120px;overflow-y:auto;margin-top:0.3rem;"></div></div></div><div class="form-row c2"><div class="fg"><label>Cliente seleccionado</label><input type="text" id="appClientSelected" readonly placeholder="Ninguno" style="background:var(--c-cream);" /></div><div class="fg"><label for="appPetSelect">Mascota</label><select id="appPetSelect"><option value="">-- Selecciona una mascota --</option></select><button class="btn btn-ghost btn-sm" id="appNewPetBtn" style="margin-top:0.3rem;" type="button">+ Nueva mascota</button></div></div><div class="form-row c2"><div class="fg"><label for="appServiceSelect">Servicio</label><select id="appServiceSelect"></select></div><div class="fg"><label for="appPrice">Precio ($)</label><input type="number" id="appPrice" placeholder="0" min="0" step="1000" /></div></div><div class="form-row c2"><div class="fg"><label for="appDate">Fecha</label><input type="date" id="appDate" /></div><div class="fg"><label for="appTime">Hora</label><select id="appTime"></select></div></div><div class="form-row"><div class="fg"><label for="appNotes">Notas adicionales</label><textarea id="appNotes" rows="2" placeholder="Ej: perro nervioso, dejar bigote largo..."></textarea></div></div><div id="appMsg"></div><div class="modal-actions"><button class="btn btn-success" id="appConfirmBtn"><i class="fas fa-check"></i> Confirmar cita</button><button class="btn btn-ghost" id="appCancelBtn">Cancelar</button></div></div></div></div>
+  <div id="photoUploadModal" class="modal-overlay hidden"><div class="modal-box wide"><div class="modal-title">Subir fotos de tu mascota</div><div id="photoUploadForm"><div class="form-row"><div class="fg"><label for="photoPetSelect">Selecciona tu mascota</label><select id="photoPetSelect"><option value="">-- Elige una mascota --</option></select></div></div><div class="form-row"><div class="fg"><label for="photoBefore">Foto "Antes" (obligatoria)</label><input type="file" id="photoBefore" accept="image/*" /></div></div><div class="form-row"><div class="fg"><label for="photoAfter">Foto "Después" (opcional, pero muy recomendada)</label><input type="file" id="photoAfter" accept="image/*" /></div></div><div class="form-row"><div class="fg"><label for="photoDesc">Descripción (opcional)</label><input type="text" id="photoDesc" placeholder="Ej: ¡Mi perro después del corte!" /></div></div><div id="photoUploadMsg"></div><div class="modal-actions"><button class="btn btn-primary" id="photoUploadBtn"><i class="fas fa-upload"></i> Subir fotos</button><button class="btn btn-ghost" id="photoUploadCancelBtn">Cancelar</button></div></div></div></div>
+  <div id="photoDetailModal" class="modal-overlay hidden"><div class="modal-box wide"><div class="modal-title" id="photoDetailTitle">Fotos</div><div id="photoDetailContent"></div><div class="modal-actions"><button class="btn btn-ghost" id="photoDetailCloseBtn">Cerrar</button></div></div></div>
+  <div id="photoReviewModal" class="modal-overlay hidden"><div class="modal-box wide"><div class="modal-title">Revisar fotos pendientes</div><div id="photoReviewContent"></div><div class="modal-actions"><button class="btn btn-ghost" id="photoReviewCloseBtn">Cerrar</button></div></div></div>
+  <div id="configModal" class="modal-overlay hidden"><div class="modal-box wide"><div class="modal-title">Configuración de la empresa</div><div id="configForm"><div class="form-row"><div class="fg"><label for="cfgNombre">Nombre comercial</label><input type="text" id="cfgNombre" /></div><div class="fg"><label for="cfgDireccion">Dirección</label><input type="text" id="cfgDireccion" /></div></div><div class="form-row c2"><div class="fg"><label for="cfgTelefono">Teléfono</label><input type="text" id="cfgTelefono" /></div><div class="fg"><label for="cfgWhatsApp">WhatsApp</label><input type="text" id="cfgWhatsApp" /></div></div><div class="form-row"><div class="fg"><label for="cfgHorarios">Horarios (JSON, ejemplo: {"lunes":["08:00","10:00","12:00","14:00","16:00"], ...})</label><textarea id="cfgHorarios" rows="4"></textarea></div></div><div class="form-row"><div class="fg"><label for="cfgMeta">Meta mensual de ingresos ($)</label><input type="number" id="cfgMeta" /></div></div><div id="configMsg"></div><div class="modal-actions"><button class="btn btn-success" id="cfgSaveBtn"><i class="fas fa-save"></i> Guardar</button><button class="btn btn-ghost" id="cfgCloseBtn">Cerrar</button></div></div></div></div>
 
   <input type="file" id="logoFileInput" accept="image/*" style="display:none" />
 
-  <!-- ============================================================ -->
-  <!-- SCRIPT MEJORADO -->
-  <!-- ============================================================ -->
+  <!-- ================================================================ -->
+  <!-- SCRIPT COMPLETO MEJORADO (versión 2.0 - alineado con la ficha)   -->
+  <!-- ================================================================ -->
   <script>
     // ================================================================
     // CONFIGURACIÓN SUPABASE (pública)
@@ -1589,10 +1037,12 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // ================================================================
-    // APP - Módulo principal (evita contaminación global)
+    // APP - Módulo principal (encapsulado)
     // ================================================================
-    const App = (function() {
-      // --- Estado global ---
+    (function() {
+      'use strict';
+
+      // --- Estado ---
       const state = {
         userId: null,
         tipo: null,
@@ -1600,7 +1050,6 @@
         nombre: '',
         email: '',
         telefono: '',
-        carrito: [],
         citasAll: [],
         clientesAll: [],
         mascotasAll: [],
@@ -1608,11 +1057,10 @@
         productosAll: [],
         gastosAll: [],
         pagosAll: [],
+        preciosAll: [], // tabla de precios por raza/servicio
+        configuracion: {}, // configuración de la empresa
         chartIngresos: null,
         chartGastos: null,
-        META_MENSUAL: 4000000,
-        stockActual: 0,
-        // para cache
         _mascotasCache: {},
         _clientesCache: {},
       };
@@ -1655,7 +1103,7 @@
         return 'id_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
       }
 
-      // --- Toast (notificaciones) ---
+      // --- Toast ---
       function toast(message, type = 'info', duration = 4000) {
         const container = document.getElementById('toast-container');
         if (!container) return;
@@ -1671,12 +1119,12 @@
         setTimeout(() => { if (toastEl.parentNode) toastEl.remove(); }, duration);
       }
 
-      // --- LocalStorage helpers ---
+      // --- LocalStorage ---
       function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (_) {} }
 
       function lsGet(k) { try { return localStorage.getItem(k); } catch (_) { return null; } }
 
-      // --- Logo management ---
+      // --- Logo ---
       function setLogoEl(el) {
         if (!el) return;
         const saved = lsGet('luthorLogo');
@@ -1699,7 +1147,7 @@
           fallback.style.display = 'block'; }
       }
 
-      // --- Render footer ---
+      // --- Footer ---
       function renderFooter(id) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -1733,7 +1181,6 @@
         });
         if (error) throw error;
         if (!data.user) throw new Error('No se pudo crear el usuario.');
-        // Esperar a que el trigger de Supabase cree el registro en usuarios (si existe), pero mejor insertamos directamente.
         const { error: updateErr } = await supabaseClient.from('usuarios').update({
           nombre: ud.nombre,
           documento: ud.documento || '',
@@ -1743,7 +1190,6 @@
           tipo: 'cliente',
         }).eq('user_id', data.user.id);
         if (updateErr) {
-          // Si no existe, insertamos
           await supabaseClient.from('usuarios').insert({
             user_id: data.user.id,
             nombre: ud.nombre,
@@ -1899,33 +1345,51 @@
         if (error) throw error;
       }
 
-      // --- Carga de datos con caché simple ---
-      async function loadAllCitas() {
-        state.citasAll = await dbAllCitas();
-        return state.citasAll;
+      // --- Precios y configuración ---
+      async function dbAllPrecios() {
+        const { data, error } = await supabaseClient.from('precios_servicios').select('*');
+        if (error) throw error;
+        return data || [];
       }
 
-      async function loadAllPagos() {
-        state.pagosAll = await dbAllPagos();
-        return state.pagosAll;
+      async function dbUpdatePrecio(id, upd) {
+        const { error } = await supabaseClient.from('precios_servicios').update(upd).eq('id', id);
+        if (error) throw error;
       }
 
-      async function loadAllGastos() {
-        state.gastosAll = await dbAllGastos();
-        return state.gastosAll;
+      async function dbCreatePrecio(p) {
+        const { data, error } = await supabaseClient.from('precios_servicios').insert(p).select();
+        if (error) throw error;
+        return data;
       }
 
-      async function loadAllFotos() {
-        state.fotosAll = await dbAllFotos();
-        return state.fotosAll;
+      async function dbGetConfiguracion() {
+        const { data, error } = await supabaseClient.from('configuracion').select('*').single();
+        if (error && error.code !== 'PGRST116') throw error;
+        return data || {};
       }
 
-      async function loadAllProductos() {
-        state.productosAll = await dbAllProductos();
-        return state.productosAll;
+      async function dbSaveConfiguracion(cfg) {
+        const { error } = await supabaseClient.from('configuracion').upsert(cfg);
+        if (error) throw error;
       }
 
-      // --- Funciones de ayuda para citas (validación) ---
+      // --- Carga de datos con caché ---
+      async function loadAllCitas() { state.citasAll = await dbAllCitas(); return state.citasAll; }
+
+      async function loadAllPagos() { state.pagosAll = await dbAllPagos(); return state.pagosAll; }
+
+      async function loadAllGastos() { state.gastosAll = await dbAllGastos(); return state.gastosAll; }
+
+      async function loadAllFotos() { state.fotosAll = await dbAllFotos(); return state.fotosAll; }
+
+      async function loadAllProductos() { state.productosAll = await dbAllProductos(); return state.productosAll; }
+
+      async function loadAllPrecios() { state.preciosAll = await dbAllPrecios(); return state.preciosAll; }
+
+      async function loadConfiguracion() { state.configuracion = await dbGetConfiguracion(); return state.configuracion; }
+
+      // --- Validación de citas ---
       function isTimeSlotTaken(citas, date, time) {
         const target = new Date(date + 'T' + time + ':00').getTime();
         return citas.some(c => {
@@ -1933,6 +1397,28 @@
           const cDate = new Date(c.fecha_hora);
           return cDate.getTime() === target && c.estado !== 'Cancelada';
         });
+      }
+
+      // --- Obtener horarios del día ---
+      function getHorariosDia(dia) {
+        const cfg = state.configuracion;
+        if (!cfg.horarios) return ['08:00', '10:00', '12:00', '14:00', '16:00'];
+        try {
+          const h = JSON.parse(cfg.horarios);
+          return h[dia] || ['08:00', '10:00', '12:00', '14:00', '16:00'];
+        } catch (_) { return ['08:00', '10:00', '12:00', '14:00', '16:00']; }
+      }
+
+      // --- Calcular precio dinámico ---
+      function calcularPrecio(raza, servicio) {
+        // Buscar en tabla de precios (raza puede ser "Pinscher", "Pequeño", "Mediano", "Grande", "ExtraGrande")
+        const precios = state.preciosAll;
+        const match = precios.find(p => p.raza === raza && p.servicio === servicio);
+        if (match) return match.precio;
+        // Fallback: buscar por raza genérica
+        const gen = precios.find(p => p.raza === raza && p.servicio === 'base');
+        if (gen) return gen.precio;
+        return 40000; // valor por defecto
       }
 
       // ================================================================
@@ -1971,13 +1457,12 @@
         };
         document.getElementById('photoDetailCloseBtn').onclick = () => modalClose('photoDetailModal');
         document.getElementById('photoReviewCloseBtn').onclick = () => modalClose('photoReviewModal');
+        document.getElementById('cfgCloseBtn').onclick = () => modalClose('configModal');
 
-        // Cerrar modales al hacer clic fuera
         document.querySelectorAll('.modal-overlay').forEach(m => {
           m.addEventListener('click', e => { if (e.target === m) m.classList.add('hidden'); });
         });
 
-        // Logo upload
         document.getElementById('logoFileInput').onchange = e => {
           const file = e.target.files[0];
           if (!file) return;
@@ -2000,8 +1485,8 @@
         document.getElementById('clientTopLogoWrap').addEventListener('click', () => document.getElementById(
           'logoFileInput').click());
 
-        // Recuperación de contraseña
         initForgotPassword();
+        initConfigModal();
       }
 
       // ================================================================
@@ -2060,6 +1545,42 @@
       }
 
       // ================================================================
+      // CONFIGURACIÓN DE EMPRESA (Modal)
+      // ================================================================
+      function initConfigModal() {
+        document.getElementById('cfgSaveBtn').onclick = async () => {
+          const nombre = document.getElementById('cfgNombre').value.trim();
+          const direccion = document.getElementById('cfgDireccion').value.trim();
+          const telefono = document.getElementById('cfgTelefono').value.trim();
+          const whatsapp = document.getElementById('cfgWhatsApp').value.trim();
+          const horarios = document.getElementById('cfgHorarios').value.trim();
+          const meta = parseFloat(document.getElementById('cfgMeta').value) || 0;
+          try {
+            const cfg = {
+              nombre_comercial: nombre,
+              direccion: direccion,
+              telefono: telefono,
+              whatsapp: whatsapp,
+              horarios: horarios || '{"lunes":["08:00","10:00","12:00","14:00","16:00"],"martes":["08:00","10:00","12:00","14:00","16:00"],"miercoles":["08:00","10:00","12:00","14:00","16:00"],"jueves":["08:00","10:00","12:00","14:00","16:00"],"viernes":["08:00","10:00","12:00","14:00","16:00"],"sabado":["08:00","10:00","12:00"],"domingo":[]}',
+              meta_mensual: meta,
+            };
+            await dbSaveConfiguracion(cfg);
+            await loadConfiguracion();
+            toast('Configuración guardada', 'success');
+            document.getElementById('configModal').classList.add('hidden');
+            // Actualizar topbar y demás
+            actualizarTopbar();
+          } catch (e) { toast('Error: ' + e.message, 'error'); }
+        };
+      }
+
+      function actualizarTopbar() {
+        const cfg = state.configuracion;
+        const nombre = cfg.nombre_comercial || 'Peluquería Canina Luthor';
+        document.querySelectorAll('.topbar-title').forEach(el => el.textContent = nombre);
+      }
+
+      // ================================================================
       // AUTH PAGE
       // ================================================================
       function initAuthPage() {
@@ -2112,7 +1633,6 @@
           } catch (e) { toast(e.message || 'Error al registrar', 'error'); } finally { btn.disabled = false;
             btn.textContent = 'Crear cuenta'; }
         };
-        // Enter para login
         document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') document
             .getElementById('loginBtn').click(); });
         renderFooter('footerAuth');
@@ -2144,7 +1664,6 @@
           `<div id="ctab-${t.id}" class="panel${i===0?' active':''}"></div>`
         ).join('');
 
-        // Renderizar cada panel
         nav.querySelectorAll('[data-ctab]').forEach(btn => {
           btn.onclick = () => {
             nav.querySelectorAll('[data-ctab]').forEach(b => b.classList.remove('active'));
@@ -2155,13 +1674,13 @@
           };
         });
 
-        // Cargar pestañas iniciales
         renderClientTab('agendar');
         renderClientTab('mis_citas');
         renderClientTab('mis_mascotas');
         renderClientTab('galeria');
 
         renderFooter('footerClient');
+        actualizarTopbar();
       }
 
       async function renderClientTab(tab) {
@@ -2175,6 +1694,21 @@
 
       async function renderClientBooking(cont) {
         const mascotas = await dbMascotasUser(state.userId);
+        const servicios = ['baño', 'corte', 'baño_corte', 'spa', 'uñas', 'oidos', 'cepillado', 'glandulas'];
+        const labels = {
+          baño: 'Baño básico',
+          corte: 'Corte estilizado',
+          baño_corte: 'Baño + Corte',
+          spa: 'Spa completo',
+          uñas: 'Corte de uñas',
+          oidos: 'Limpieza de oídos',
+          cepillado: 'Cepillado / Deslanado',
+          glandulas: 'Glándulas anales'
+        };
+        const today = new Date().toISOString().split('T')[0];
+        const diaSemana = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'][new Date().getDay()];
+        const horarios = getHorariosDia(diaSemana);
+
         cont.innerHTML = `
           <div class="promo-banner"><i class="fas fa-paw"></i> ¡Agenda la cita de tu peludo! Recuerda traer su carnet de vacunación.</div>
           <div class="grid-2">
@@ -2183,27 +1717,18 @@
               <div class="fg"><label for="clientPetSelect">Mascota</label>
                 <select id="clientPetSelect">
                   <option value="">-- Elige una mascota --</option>
-                  ${mascotas.map(m => `<option value="${m.id}">${escAttr(m.nombre)} (${escAttr(m.raza||'sin raza')})</option>`).join('')}
+                  ${mascotas.map(m => `<option value="${m.id}" data-raza="${escAttr(m.raza||'')}" data-peso="${m.peso||0}">${escAttr(m.nombre)} (${escAttr(m.raza||'sin raza')})</option>`).join('')}
                 </select>
               </div>
               <div class="fg" style="margin-top:0.5rem;"><label for="clientServiceSelect">Servicio</label>
                 <select id="clientServiceSelect">
-                  <option value="baño">Baño básico</option>
-                  <option value="corte">Corte estilizado</option>
-                  <option value="baño_corte">Baño + Corte</option>
-                  <option value="spa">Spa completo</option>
-                  <option value="uñas">Corte de uñas</option>
-                  <option value="oidos">Limpieza de oídos</option>
+                  ${servicios.map(s => `<option value="${s}">${labels[s]||s}</option>`).join('')}
                 </select>
               </div>
-              <div class="fg" style="margin-top:0.5rem;"><label for="clientBookingDate">Fecha</label><input type="date" id="clientBookingDate" /></div>
+              <div class="fg" style="margin-top:0.5rem;"><label for="clientBookingDate">Fecha</label><input type="date" id="clientBookingDate" min="${today}" /></div>
               <div class="fg" style="margin-top:0.5rem;"><label for="clientBookingTime">Hora</label>
                 <select id="clientBookingTime">
-                  <option value="08:00">8:00 AM</option>
-                  <option value="10:00">10:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="14:00">2:00 PM</option>
-                  <option value="16:00">4:00 PM</option>
+                  ${horarios.map(h => `<option value="${h}">${h}</option>`).join('')}
                 </select>
               </div>
               <div class="fg" style="margin-top:0.5rem;"><label for="clientBookingNotes">Notas adicionales</label><textarea id="clientBookingNotes" rows="2" placeholder="Ej: perro nervioso, dejar bigote largo..."></textarea></div>
@@ -2212,22 +1737,24 @@
             </div>
             <div class="card">
               <div class="card-title">Precios de referencia</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;font-size:0.9rem;">
-                <div><strong>Pinscher</strong></div><div style="text-align:right;">$25.000</div>
-                <div><strong>Perros pequeños</strong></div><div style="text-align:right;">$40.000</div>
-                <div><strong>Perros medianos</strong></div><div style="text-align:right;">$50.000 - $70.000</div>
-                <div><strong>Perros grandes</strong></div><div style="text-align:right;">$70.000 - $100.000</div>
-                <div><strong>Perros extra grandes</strong></div><div style="text-align:right;">$100.000 - $150.000</div>
-              </div>
-              <div style="margin-top:0.75rem;font-size:0.85rem;color:var(--c-muted);font-style:italic;">* El precio final depende del estado del manto y el tamaño.</div>
+              <div id="precioRef" style="font-size:1.1rem;padding:0.5rem 0;">Selecciona mascota y servicio</div>
+              <div style="margin-top:0.75rem;font-size:0.85rem;color:var(--c-muted);font-style:italic;">* El precio final puede variar según estado del manto y comportamiento.</div>
             </div>
           </div>
         `;
 
-        // Fecha por defecto: mañana
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        document.getElementById('clientBookingDate').value = tomorrow.toISOString().split('T')[0];
+        // Actualizar precio al seleccionar
+        const updatePrecio = () => {
+          const sel = document.getElementById('clientPetSelect');
+          const option = sel.options[sel.selectedIndex];
+          const raza = option ? option.dataset.raza : '';
+          const servicio = document.getElementById('clientServiceSelect').value;
+          const precio = calcularPrecio(raza, servicio);
+          document.getElementById('precioRef').innerHTML = `<strong>${pesos(precio)}</strong> · ${raza||'genérico'} / ${document.getElementById('clientServiceSelect').options[document.getElementById('clientServiceSelect').selectedIndex]?.text||servicio}`;
+        };
+        document.getElementById('clientPetSelect').onchange = updatePrecio;
+        document.getElementById('clientServiceSelect').onchange = updatePrecio;
+        setTimeout(updatePrecio, 100);
 
         document.getElementById('clientBookBtn').onclick = async () => {
           const mascotaId = document.getElementById('clientPetSelect').value;
@@ -2241,7 +1768,6 @@
           btn.disabled = true;
           btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Agendando...';
           try {
-            // Validar disponibilidad
             const allCitas = await loadAllCitas();
             if (isTimeSlotTaken(allCitas, fecha, hora)) {
               toast('Ya hay una cita agendada para esa fecha y hora', 'error');
@@ -2251,13 +1777,17 @@
             }
             const fechaHora = new Date(fecha + 'T' + hora + ':00').toISOString();
             const inv = genInvoiceNumber('CIT');
+            const option = document.getElementById('clientPetSelect').options[document.getElementById('clientPetSelect')
+              .selectedIndex];
+            const raza = option ? option.dataset.raza : '';
+            const precio = calcularPrecio(raza, servicio);
             await dbCreateCita({
               invoice_number: inv,
               user_id: state.userId,
               mascota_id: mascotaId,
               servicio: servicio,
               fecha_hora: fechaHora,
-              precio: 40000,
+              precio: precio,
               notas_cliente: notas,
               estado: 'Pendiente',
               origen: 'web',
@@ -2295,41 +1825,39 @@
                 <span style="color:var(--c-muted);font-size:.9rem;">${escAttr(c.servicio||'')} · <strong>${pesos(c.precio||0)}</strong></span>
                 ${c.notas_cliente ? ` · <span style="font-style:italic;font-size:.85rem;">${escAttr(c.notas_cliente)}</span>` : ''}
               </div>
-              ${puedeCancelar ? `<div style="margin-top:.5rem;"><button class="btn btn-danger btn-sm" onclick="App.cancelarCitaCliente('${c.id}')">Cancelar cita</button></div>` : ''}
-              <div style="margin-top:.5rem;"><button class="btn btn-outline btn-sm" onclick="App.abrirSubirFotos('${c.id}','${c.mascota_id}')"><i class="fas fa-camera"></i> Subir fotos</button></div>
+              ${puedeCancelar ? `<div style="margin-top:.5rem;"><button class="btn btn-danger btn-sm" onclick="window.AppCliente.cancelarCita('${c.id}')">Cancelar cita</button></div>` : ''}
+              <div style="margin-top:.5rem;"><button class="btn btn-outline btn-sm" onclick="window.AppCliente.abrirSubirFotos('${c.id}','${c.mascota_id}')"><i class="fas fa-camera"></i> Subir fotos</button></div>
             </div>`;
           }).join('');
         } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
       }
 
-      // Función global para cancelar cita (cliente)
-      window.App = window.App || {};
-      App.cancelarCitaCliente = async (id) => {
-        if (confirm('¿Cancelar esta cita?')) {
-          await dbUpdateCita(id, { estado: 'Cancelada' });
-          renderClientTab('mis_citas');
-          toast('Cita cancelada', 'info');
+      // Funciones cliente (expuestas globalmente para onclick)
+      window.AppCliente = {
+        cancelarCita: async (id) => {
+          if (confirm('¿Cancelar esta cita?')) {
+            await dbUpdateCita(id, { estado: 'Cancelada' });
+            renderClientTab('mis_citas');
+            toast('Cita cancelada', 'info');
+          }
+        },
+        abrirSubirFotos: (citaId, mascotaId) => {
+          const modal = document.getElementById('photoUploadModal');
+          modal.classList.remove('hidden');
+          dbMascotasUser(state.userId).then(mascotas => {
+            const sel = document.getElementById('photoPetSelect');
+            sel.innerHTML = mascotas.map(m =>
+              `<option value="${m.id}"${m.id===mascotaId?' selected':''}>${escAttr(m.nombre)}</option>`
+            ).join('');
+          }).catch(() => {});
+          modal.dataset.citaId = citaId;
+          document.getElementById('photoUploadMsg').innerHTML = '';
+          document.getElementById('photoBefore').value = '';
+          document.getElementById('photoAfter').value = '';
+          document.getElementById('photoDesc').value = '';
         }
       };
 
-      App.abrirSubirFotos = (citaId, mascotaId) => {
-        const modal = document.getElementById('photoUploadModal');
-        modal.classList.remove('hidden');
-        // Cargar mascotas
-        dbMascotasUser(state.userId).then(mascotas => {
-          const sel = document.getElementById('photoPetSelect');
-          sel.innerHTML = mascotas.map(m =>
-            `<option value="${m.id}"${m.id===mascotaId?' selected':''}>${escAttr(m.nombre)}</option>`
-          ).join('');
-        }).catch(() => {});
-        modal.dataset.citaId = citaId;
-        document.getElementById('photoUploadMsg').innerHTML = '';
-        document.getElementById('photoBefore').value = '';
-        document.getElementById('photoAfter').value = '';
-        document.getElementById('photoDesc').value = '';
-      };
-
-      // Subir fotos
       document.getElementById('photoUploadBtn').onclick = async () => {
         const mascotaId = document.getElementById('photoPetSelect').value;
         const citaId = document.getElementById('photoUploadModal').dataset.citaId;
@@ -2368,7 +1896,7 @@
               estado: 'pendiente'
             });
           }
-          toast('¡Fotos subidas! Espera la autorización del administrador.', 'success');
+          toast('¡Fotos subidas! Espera la autorización.', 'success');
           setTimeout(() => {
             document.getElementById('photoUploadModal').classList.add('hidden');
             renderClientTab('galeria');
@@ -2399,8 +1927,9 @@
             html += `<div class="order-card">
               <div class="order-meta">
                 <div><strong>${escAttr(m.nombre)}</strong> <span style="color:var(--c-muted);font-size:0.85rem;">${escAttr(m.raza||'sin raza')}</span></div>
-                <span style="font-size:0.85rem;color:var(--c-muted);">${m.edad ? m.edad+' años' : ''}${m.peso ? ' · '+m.peso+' kg' : ''}</span>
+                <span style="font-size:0.85rem;color:var(--c-muted);">${m.edad ? m.edad+' años' : ''}${m.peso ? ' · '+m.peso+' kg' : ''} · ${m.sexo||''}</span>
               </div>
+              <div style="font-size:0.85rem;color:var(--c-muted);">${m.comportamiento ? 'Comportamiento: '+escAttr(m.comportamiento) : ''} ${m.alergias ? '· Alergias: '+escAttr(m.alergias) : ''}</div>
               <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;">${fotosHtml}</div>
               ${fotos.length > 4 ? `<div style="font-size:0.8rem;color:var(--c-muted);margin-top:0.3rem;">+${fotos.length-4} más</div>` : ''}
             </div>`;
@@ -2416,9 +1945,21 @@
         const raza = prompt('Raza:') || '';
         const edad = prompt('Edad (años):') || '';
         const peso = prompt('Peso (kg):') || '';
+        const sexo = prompt('Sexo (Macho/Hembra):') || '';
+        const comportamiento = prompt('Comportamiento (ej: tranquilo, nervioso):') || '';
+        const alergias = prompt('Alergias:') || '';
         try {
-          await dbCreateMascota({ user_id: state.userId, nombre, raza, edad: parseInt(edad) || 0, peso: parseFloat(peso) ||
-              0 });
+          await dbCreateMascota({
+            user_id: state.userId,
+            nombre,
+            raza,
+            edad: parseInt(edad) || 0,
+            peso: parseFloat(peso) || 0,
+            sexo,
+            comportamiento,
+            alergias,
+            notas: ''
+          });
           renderClientTab('mis_mascotas');
           toast('Mascota agregada', 'success');
         } catch (e) { toast('Error: ' + e.message, 'error'); }
@@ -2433,7 +1974,6 @@
             cont.innerHTML = '<div class="cart-empty">🐾<br>No hay fotos autorizadas aún. ¡Sé el primero en subir tu transformación!</div>';
             return;
           }
-          // Agrupar por mascota
           const grouped = {};
           for (const f of autorizadas) {
             if (!grouped[f.mascota_id]) grouped[f.mascota_id] = { antes: null, despues: null };
@@ -2444,7 +1984,7 @@
           for (const [mascotaId, pair] of Object.entries(grouped)) {
             const { data: m } = await supabaseClient.from('mascotas').select('nombre').eq('id', mascotaId).single();
             const nombre = m ? m.nombre : 'Mascota';
-            html += `<div class="photo-card" onclick="App.verDetalleFotos('${mascotaId}')">`;
+            html += `<div class="photo-card" onclick="window.AppCliente.verDetalle('${mascotaId}')">`;
             if (pair.antes && pair.despues) {
               html += `<div style="display:grid;grid-template-columns:1fr 1fr;height:150px;">
                 <img src="${escAttr(pair.antes.url)}" style="width:100%;height:100%;object-fit:cover;border-right:1px solid var(--c-border);" />
@@ -2466,7 +2006,7 @@
         } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
       }
 
-      App.verDetalleFotos = async (mascotaId) => {
+      window.AppCliente.verDetalle = async (mascotaId) => {
         const fotos = await dbFotosMascota(mascotaId);
         const autorizadas = fotos.filter(f => f.estado === 'autorizada');
         const { data: m } = await supabaseClient.from('mascotas').select('nombre').eq('id', mascotaId).single();
@@ -2510,6 +2050,7 @@
           { id: 'clientes', label: '👥 Clientes' },
           { id: 'fotos', label: '📸 Fotos' },
           { id: 'inventario', label: '📦 Inventario' },
+          { id: 'precios', label: '💲 Precios' },
           { id: 'gastos', label: '💰 Gastos' },
           { id: 'caja', label: '💵 Caja' },
           { id: 'reportes', label: '📈 Reportes' },
@@ -2535,13 +2076,13 @@
           };
         });
 
-        // Cargar datos iniciales
-        await Promise.all([loadAllCitas(), loadAllPagos(), loadAllGastos(), loadAllFotos(), loadAllProductos()]);
+        await Promise.all([loadAllCitas(), loadAllPagos(), loadAllGastos(), loadAllFotos(), loadAllProductos(),
+          loadAllPrecios(), loadConfiguracion()
+        ]);
         await renderAdminTab('dashboard');
         renderFooter('footerAdmin');
-
-        // Configurar modal de cita rápida
         initAppointmentModal();
+        actualizarTopbar();
       }
 
       async function renderAdminTab(tab) {
@@ -2552,6 +2093,7 @@
         else if (tab === 'clientes') await renderAdminClientes(cont);
         else if (tab === 'fotos') await renderAdminFotos(cont);
         else if (tab === 'inventario') await renderAdminInventario(cont);
+        else if (tab === 'precios') await renderAdminPrecios(cont);
         else if (tab === 'gastos') await renderAdminGastos(cont);
         else if (tab === 'caja') await renderAdminCaja(cont);
         else if (tab === 'reportes') await renderAdminReportes(cont);
@@ -2573,6 +2115,8 @@
           const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
           const totalGastos = gastos.reduce((s, g) => s + (g.monto || 0), 0);
           const utilidad = totalIngresos - totalGastos;
+          const meta = state.configuracion.meta_mensual || 4000000;
+          const progreso = Math.min(100, Math.round((totalIngresos / meta) * 100));
 
           cont.innerHTML = `
             <div class="meta-hero">
@@ -2582,7 +2126,9 @@
                 <span>Ingresos: <strong>${pesos(totalIngresos)}</strong></span>
                 <span>Gastos: <strong>${pesos(totalGastos)}</strong></span>
                 <span>Citas hoy: <strong>${citasHoy.length}</strong></span>
+                <span>Meta mensual: <strong>${pesos(meta)}</strong> (${progreso}%)</span>
               </div>
+              <div class="meta-progress"><div class="meta-fill" style="width:${progreso}%;"></div></div>
             </div>
             <div class="grid-4" style="margin-bottom:1.25rem;">
               <div class="stat-card"><div class="stat-val">${citas.length}</div><div class="stat-label">Total citas</div></div>
@@ -2591,11 +2137,10 @@
               <div class="stat-card"><div class="stat-val">${pesos(totalGastos)}</div><div class="stat-label">Gastos totales</div></div>
             </div>
             ${pendientesAutorizar.length > 0 ?
-              `<div class="card new-orders-card" onclick="App.abrirFotosAdmin()"><div class="card-title">📸 Fotos pendientes de autorizar <span style="background:var(--c-red);color:white;border-radius:20px;padding:0 8px;">${pendientesAutorizar.length}</span></div><p>Haz clic para revisarlas.</p></div>` : ''}
+              `<div class="card new-orders-card" onclick="window.AppAdmin.abrirFotos()"><div class="card-title">📸 Fotos pendientes de autorizar <span style="background:var(--c-red);color:white;border-radius:20px;padding:0 8px;">${pendientesAutorizar.length}</span></div><p>Haz clic para revisarlas.</p></div>` : ''}
             <div class="card"><div class="card-title">Ingresos vs Gastos (últimos 30 días)</div><canvas id="dashboardChart" height="120"></canvas></div>
           `;
 
-          // Gráfico
           setTimeout(() => {
             const canvas = document.getElementById('dashboardChart');
             if (!canvas) return;
@@ -2630,9 +2175,11 @@
         } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
       }
 
-      App.abrirFotosAdmin = () => {
-        const tabs = document.querySelectorAll('[data-atab]');
-        tabs.forEach(t => { if (t.textContent.includes('Fotos')) t.click(); });
+      window.AppAdmin = {
+        abrirFotos: () => {
+          const tabs = document.querySelectorAll('[data-atab]');
+          tabs.forEach(t => { if (t.textContent.includes('Fotos')) t.click(); });
+        }
       };
 
       // --- Agenda ---
@@ -2647,10 +2194,25 @@
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
               <h3 style="font-family:var(--font-head);">📅 Citas de hoy (${citasHoy.length})</h3>
               <button class="btn btn-primary" id="adminNewAppointmentBtn"><i class="fas fa-plus"></i> Nueva cita (mostrador)</button>
+              <button class="btn btn-outline btn-sm" id="adminConfigBtn"><i class="fas fa-cog"></i> Configuración</button>
             </div>
             <div id="adminAgendaList"></div>
             <div class="card"><div class="card-title">Todas las citas</div><div id="adminAllCitasList"></div></div>
           `;
+
+          document.getElementById('adminConfigBtn').onclick = () => {
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('hidden');
+            const cfg = state.configuracion;
+            document.getElementById('cfgNombre').value = cfg.nombre_comercial || '';
+            document.getElementById('cfgDireccion').value = cfg.direccion || '';
+            document.getElementById('cfgTelefono').value = cfg.telefono || '';
+            document.getElementById('cfgWhatsApp').value = cfg.whatsapp || '';
+            document.getElementById('cfgHorarios').value = cfg.horarios ||
+              '{"lunes":["08:00","10:00","12:00","14:00","16:00"],"martes":["08:00","10:00","12:00","14:00","16:00"],"miercoles":["08:00","10:00","12:00","14:00","16:00"],"jueves":["08:00","10:00","12:00","14:00","16:00"],"viernes":["08:00","10:00","12:00","14:00","16:00"],"sabado":["08:00","10:00","12:00"],"domingo":[]}';
+            document.getElementById('cfgMeta').value = cfg.meta_mensual || 4000000;
+            document.getElementById('configMsg').innerHTML = '';
+          };
 
           const renderList = (lista, containerId) => {
             const container = document.getElementById(containerId);
@@ -2677,10 +2239,10 @@
                   ${c.notas_cliente ? ` · <span style="font-style:italic;font-size:.85rem;">${escAttr(c.notas_cliente)}</span>` : ''}
                 </div>
                 <div style="margin-top:8px;display:flex;gap:0.4rem;flex-wrap:wrap;">
-                  ${c.estado === 'Pendiente' ? `<button class="btn btn-info btn-sm" onclick="App.confirmarCitaAdmin('${c.id}')">Confirmar</button>` : ''}
-                  ${c.estado === 'Confirmada' || c.estado === 'Pendiente' ? `<button class="btn btn-success btn-sm" onclick="App.finalizarCitaAdmin('${c.id}')">Finalizar</button>` : ''}
-                  ${c.estado !== 'Cancelada' && c.estado !== 'Finalizada' ? `<button class="btn btn-danger btn-sm" onclick="App.cancelarCitaAdmin('${c.id}')">Cancelar</button>` : ''}
-                  <button class="btn btn-outline btn-sm" onclick="App.verCitaAdmin('${c.id}')">Detalles</button>
+                  ${c.estado === 'Pendiente' ? `<button class="btn btn-info btn-sm" onclick="window.AppAdmin.confirmarCita('${c.id}')">Confirmar</button>` : ''}
+                  ${c.estado === 'Confirmada' || c.estado === 'Pendiente' ? `<button class="btn btn-success btn-sm" onclick="window.AppAdmin.finalizarCita('${c.id}')">Finalizar</button>` : ''}
+                  ${c.estado !== 'Cancelada' && c.estado !== 'Finalizada' ? `<button class="btn btn-danger btn-sm" onclick="window.AppAdmin.cancelarCita('${c.id}')">Cancelar</button>` : ''}
+                  <button class="btn btn-outline btn-sm" onclick="window.AppAdmin.verCita('${c.id}')">Detalles</button>
                 </div>
               </div>`;
             }).join('');
@@ -2693,14 +2255,14 @@
         } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
       }
 
-      App.confirmarCitaAdmin = async (id) => {
+      window.AppAdmin.confirmarCita = async (id) => {
         await dbUpdateCita(id, { estado: 'Confirmada' });
         await loadAllCitas();
         renderAdminTab('agenda');
         toast('Cita confirmada', 'success');
       };
 
-      App.finalizarCitaAdmin = async (id) => {
+      window.AppAdmin.finalizarCita = async (id) => {
         await dbUpdateCita(id, { estado: 'Finalizada' });
         const cita = state.citasAll.find(c => c.id === id);
         if (cita && cita.precio) {
@@ -2719,7 +2281,7 @@
         toast('Cita finalizada y pago registrado', 'success');
       };
 
-      App.cancelarCitaAdmin = async (id) => {
+      window.AppAdmin.cancelarCita = async (id) => {
         if (confirm('¿Cancelar esta cita?')) {
           await dbUpdateCita(id, { estado: 'Cancelada' });
           await loadAllCitas();
@@ -2728,10 +2290,12 @@
         }
       };
 
-      App.verCitaAdmin = (id) => {
+      window.AppAdmin.verCita = (id) => {
         const cita = state.citasAll.find(c => c.id === id);
         if (!cita) return;
-        toast(`Cita ${cita.invoice_number}\nServicio: ${cita.servicio}\nPrecio: ${pesos(cita.precio||0)}\nEstado: ${cita.estado}\nFecha: ${fmtDate(cita.fecha_hora)}\nNotas: ${cita.notas_cliente||'N/A'}`, 'info', 6000);
+        toast(
+          `Cita ${cita.invoice_number}\nServicio: ${cita.servicio}\nPrecio: ${pesos(cita.precio||0)}\nEstado: ${cita.estado}\nFecha: ${fmtDate(cita.fecha_hora)}\nNotas: ${cita.notas_cliente||'N/A'}`,
+          'info', 6000);
       };
 
       // --- Modal de cita rápida (mostrador) ---
@@ -2739,6 +2303,29 @@
         const searchInput = document.getElementById('appClientSearch');
         const resultsDiv = document.getElementById('appClientResults');
         let searchTimeout;
+
+        // Cargar servicios en el select
+        const servicios = ['baño', 'corte', 'baño_corte', 'spa', 'uñas', 'oidos', 'cepillado', 'glandulas'];
+        const labels = {
+          baño: 'Baño básico',
+          corte: 'Corte estilizado',
+          baño_corte: 'Baño + Corte',
+          spa: 'Spa completo',
+          uñas: 'Corte de uñas',
+          oidos: 'Limpieza de oídos',
+          cepillado: 'Cepillado / Deslanado',
+          glandulas: 'Glándulas anales'
+        };
+        const selServ = document.getElementById('appServiceSelect');
+        selServ.innerHTML = servicios.map(s => `<option value="${s}">${labels[s]||s}</option>`).join('');
+
+        // Horarios dinámicos
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('appDate').value = today;
+        const diaSemana = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'][new Date().getDay()];
+        const horarios = getHorariosDia(diaSemana);
+        const selTime = document.getElementById('appTime');
+        selTime.innerHTML = horarios.map(h => `<option value="${h}">${h}</option>`).join('');
 
         searchInput.oninput = () => {
           clearTimeout(searchTimeout);
@@ -2749,25 +2336,25 @@
               .ilike('nombre', '%' + query + '%').limit(5);
             if (data && data.length) {
               resultsDiv.innerHTML = data.map(u =>
-                `<div style="padding:0.4rem 0.6rem;cursor:pointer;border-bottom:1px solid var(--c-border);" onclick="App.seleccionarClienteModal('${u.user_id}','${escAttr(u.nombre)}','${escAttr(u.telefono||'')}')">
+                `<div style="padding:0.4rem 0.6rem;cursor:pointer;border-bottom:1px solid var(--c-border);" onclick="window.AppAdmin.seleccionarClienteModal('${u.user_id}','${escAttr(u.nombre)}','${escAttr(u.telefono||'')}')">
                   ${escAttr(u.nombre)}${u.telefono ? ' - '+escAttr(u.telefono) : ''}
                 </div>`
               ).join('');
             } else {
               resultsDiv.innerHTML =
-                `<div style="padding:0.4rem 0.6rem;color:var(--c-muted);">No se encontraron clientes. <button class="btn btn-primary btn-sm" onclick="App.crearClienteRapido()">Crear nuevo</button></div>`;
+                `<div style="padding:0.4rem 0.6rem;color:var(--c-muted);">No se encontraron clientes. <button class="btn btn-primary btn-sm" onclick="window.AppAdmin.crearClienteRapido()">Crear nuevo</button></div>`;
             }
           }, 300);
         };
 
-        window.App.seleccionarClienteModal = (userId, nombre, telefono) => {
+        window.AppAdmin.seleccionarClienteModal = (userId, nombre, telefono) => {
           document.getElementById('appClientSelected').value = nombre + (telefono ? ' - ' + telefono : '');
           document.getElementById('appClientResults').innerHTML = '';
           window._appSelectedClientId = userId;
           cargarMascotasModal(userId);
         };
 
-        window.App.crearClienteRapido = () => {
+        window.AppAdmin.crearClienteRapido = () => {
           const nombre = prompt('Nombre del cliente:');
           if (!nombre) return;
           const telefono = prompt('Teléfono:') || '';
@@ -2791,7 +2378,7 @@
           const { data } = await supabaseClient.from('mascotas').select('*').eq('user_id', userId);
           const sel = document.getElementById('appPetSelect');
           sel.innerHTML = '<option value="">-- Selecciona una mascota --</option>' +
-            (data || []).map(m => `<option value="${m.id}">${escAttr(m.nombre)} (${escAttr(m.raza||'sin raza')})</option>`)
+            (data || []).map(m => `<option value="${m.id}" data-raza="${escAttr(m.raza||'')}">${escAttr(m.nombre)} (${escAttr(m.raza||'sin raza')})</option>`)
             .join('');
           if (!data || !data.length) {
             sel.innerHTML += '<option value="new">+ Crear nueva mascota</option>';
@@ -2805,6 +2392,14 @@
               }
               sel.value = '';
             }
+            // Actualizar precio
+            const option = sel.options[sel.selectedIndex];
+            if (option && option.value) {
+              const raza = option.dataset.raza || '';
+              const servicio = document.getElementById('appServiceSelect').value;
+              const precio = calcularPrecio(raza, servicio);
+              document.getElementById('appPrice').value = precio;
+            }
           };
         }
 
@@ -2814,6 +2409,17 @@
           const nombre = prompt('Nombre de la mascota:');
           if (nombre) {
             supabaseClient.from('mascotas').insert({ user_id: userId, nombre }).then(() => cargarMascotasModal(userId));
+          }
+        };
+
+        document.getElementById('appServiceSelect').onchange = () => {
+          const selPet = document.getElementById('appPetSelect');
+          const option = selPet.options[selPet.selectedIndex];
+          if (option && option.value) {
+            const raza = option.dataset.raza || '';
+            const servicio = document.getElementById('appServiceSelect').value;
+            const precio = calcularPrecio(raza, servicio);
+            document.getElementById('appPrice').value = precio;
           }
         };
 
@@ -2828,7 +2434,6 @@
           if (!clienteId) { toast('Selecciona un cliente', 'error'); return; }
           if (!mascotaId) { toast('Selecciona una mascota', 'error'); return; }
           if (!fecha) { toast('Selecciona una fecha', 'error'); return; }
-          // Validar disponibilidad
           const allCitas = await loadAllCitas();
           if (isTimeSlotTaken(allCitas, fecha, hora)) {
             toast('Ya hay una cita agendada para esa fecha y hora', 'error');
@@ -2875,8 +2480,8 @@
               <td>${escAttr(u.telefono||'')}</td>
               <td>${escAttr(u.email||'')}</td>
               <td>
-                <button class="btn btn-primary btn-sm" onclick="App.guardarCliente('${u.user_id}')">Guardar</button>
-                ${u.user_id !== state.userId ? `<button class="btn btn-danger btn-sm" onclick="App.eliminarCliente('${u.user_id}')">Eliminar</button>` : ''}
+                <button class="btn btn-primary btn-sm" onclick="window.AppAdmin.guardarCliente('${u.user_id}')">Guardar</button>
+                ${u.user_id !== state.userId ? `<button class="btn btn-danger btn-sm" onclick="window.AppAdmin.eliminarCliente('${u.user_id}')">Eliminar</button>` : ''}
               </td>
             </tr>`
           ).join('');
@@ -2885,14 +2490,14 @@
             <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Nombre</th><th>Teléfono</th><th>Email</th><th>Acciones</th></tr></thead>
             <tbody>${rows}</tbody></table></div>
             <div id="clientesAdminMsg"></div></div>`;
-          window.App.guardarCliente = async (uid) => {
+          window.AppAdmin.guardarCliente = async (uid) => {
             const nombre = document.getElementById('ac_n_' + uid).value.trim();
             if (!nombre) { toast('El nombre no puede estar vacío', 'error'); return; }
             try { await dbUpdateUser(uid, { nombre });
               toast('Cliente actualizado', 'success');
               await renderAdminTab('clientes'); } catch (e) { toast(e.message, 'error'); }
           };
-          window.App.eliminarCliente = async (uid) => {
+          window.AppAdmin.eliminarCliente = async (uid) => {
             if (uid === state.userId) { toast('No puedes eliminarte a ti mismo', 'error'); return; }
             if (!confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) return;
             try { await supabaseClient.from('usuarios').delete().eq('user_id', uid);
@@ -2918,13 +2523,13 @@
             ${autorizadas.length ? autorizadas.slice(0, 20).map(f => buildFotoCard(f)).join('') : '<div class="cart-empty">No hay fotos autorizadas</div>'}
             </div>`;
 
-          window.App.adminAutorizarFoto = async (id) => {
+          window.AppAdmin.autorizarFoto = async (id) => {
             await dbUpdateFoto(id, { estado: 'autorizada', fecha_autorizacion: new Date().toISOString() });
             await loadAllFotos();
             renderAdminTab('fotos');
             toast('Foto autorizada', 'success');
           };
-          window.App.adminRechazarFoto = async (id) => {
+          window.AppAdmin.rechazarFoto = async (id) => {
             if (confirm('¿Rechazar esta foto?')) {
               await dbUpdateFoto(id, { estado: 'rechazada' });
               await loadAllFotos();
@@ -2932,7 +2537,7 @@
               toast('Foto rechazada', 'info');
             }
           };
-          window.App.adminEliminarFoto = async (id) => {
+          window.AppAdmin.eliminarFoto = async (id) => {
             if (confirm('¿Eliminar esta foto permanentemente?')) {
               await supabaseClient.from('fotos_mascotas').delete().eq('id', id);
               await loadAllFotos();
@@ -2959,11 +2564,11 @@
           </div>
           ${f.estado === 'pendiente' ?
             `<div class="photo-actions">
-              <button class="btn btn-success btn-sm" onclick="App.adminAutorizarFoto('${f.id}')"><i class="fas fa-check"></i> Autorizar</button>
-              <button class="btn btn-danger btn-sm" onclick="App.adminRechazarFoto('${f.id}')"><i class="fas fa-times"></i> Rechazar</button>
+              <button class="btn btn-success btn-sm" onclick="window.AppAdmin.autorizarFoto('${f.id}')"><i class="fas fa-check"></i> Autorizar</button>
+              <button class="btn btn-danger btn-sm" onclick="window.AppAdmin.rechazarFoto('${f.id}')"><i class="fas fa-times"></i> Rechazar</button>
             </div>` :
             `<div class="photo-actions">
-              <button class="btn btn-danger btn-sm" onclick="App.adminEliminarFoto('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
+              <button class="btn btn-danger btn-sm" onclick="window.AppAdmin.eliminarFoto('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
             </div>`
           }
         </div>`;
@@ -2988,8 +2593,8 @@
                 <td>${p.stock_minimo}</td>
                 <td>${estado}</td>
                 <td>
-                  <button class="btn btn-info btn-sm" onclick="App.adminAjustarStock('${p.id}')">Ajustar</button>
-                  <button class="btn btn-danger btn-sm" onclick="App.adminEliminarProducto('${p.id}')">Eliminar</button>
+                  <button class="btn btn-info btn-sm" onclick="window.AppAdmin.ajustarStock('${p.id}')">Ajustar</button>
+                  <button class="btn btn-danger btn-sm" onclick="window.AppAdmin.eliminarProducto('${p.id}')">Eliminar</button>
                 </td>
               </tr>`;
             }).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--c-muted);">No hay productos</td></tr>'}</tbody></table></div></div>
@@ -3008,7 +2613,7 @@
               .catch(e => toast('Error: ' + e.message, 'error'));
           };
 
-          window.App.adminAjustarStock = async (id) => {
+          window.AppAdmin.ajustarStock = async (id) => {
             const cantidad = prompt('Cantidad a añadir (usa - para restar):');
             if (cantidad === null) return;
             const num = parseFloat(cantidad);
@@ -3028,12 +2633,69 @@
             renderAdminInventario(cont);
             toast('Stock ajustado', 'success');
           };
-          window.App.adminEliminarProducto = async (id) => {
+          window.AppAdmin.eliminarProducto = async (id) => {
             if (confirm('¿Eliminar este producto?')) {
               await supabaseClient.from('productos_inventario').delete().eq('id', id);
               await loadAllProductos();
               renderAdminInventario(cont);
               toast('Producto eliminado', 'info');
+            }
+          };
+        } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
+      }
+
+      // --- Precios (Admin) ---
+      async function renderAdminPrecios(cont) {
+        cont.innerHTML = '<div class="loader"></div>';
+        try {
+          const precios = await dbAllPrecios();
+          const razas = ['Pinscher', 'Pequeño', 'Mediano', 'Grande', 'ExtraGrande'];
+          const servicios = ['baño', 'corte', 'baño_corte', 'spa'];
+
+          cont.innerHTML = `
+            <div class="card"><div class="card-title">💲 Tabla de precios</div>
+            <div style="margin-bottom:1rem;"><button class="btn btn-primary btn-sm" id="addPrecioBtn"><i class="fas fa-plus"></i> Agregar precio</button></div>
+            <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Raza</th><th>Servicio</th><th>Precio ($)</th><th>Acciones</th></tr></thead>
+            <tbody>${precios.map(p =>
+              `<tr>
+                <td>${escAttr(p.raza)}</td>
+                <td>${escAttr(p.servicio)}</td>
+                <td><input type="number" id="precio_${p.id}" value="${p.precio}" min="0" step="1000" style="width:120px;" /></td>
+                <td>
+                  <button class="btn btn-info btn-sm" onclick="window.AppAdmin.actualizarPrecio('${p.id}')">Actualizar</button>
+                  <button class="btn btn-danger btn-sm" onclick="window.AppAdmin.eliminarPrecio('${p.id}')">Eliminar</button>
+                </td>
+              </tr>`
+            ).join('')}</tbody></table></div></div>
+          `;
+
+          document.getElementById('addPrecioBtn').onclick = () => {
+            const raza = prompt('Raza (Pinscher, Pequeño, Mediano, Grande, ExtraGrande):');
+            if (!raza) return;
+            const servicio = prompt('Servicio (baño, corte, baño_corte, spa):');
+            if (!servicio) return;
+            const precio = parseFloat(prompt('Precio ($):')) || 0;
+            dbCreatePrecio({ raza, servicio, precio }).then(() => {
+              loadAllPrecios();
+              renderAdminPrecios(cont);
+              toast('Precio agregado', 'success');
+            }).catch(e => toast('Error: ' + e.message, 'error'));
+          };
+
+          window.AppAdmin.actualizarPrecio = async (id) => {
+            const input = document.getElementById('precio_' + id);
+            const precio = parseFloat(input.value);
+            if (isNaN(precio) || precio < 0) { toast('Precio inválido', 'error'); return; }
+            await dbUpdatePrecio(id, { precio });
+            await loadAllPrecios();
+            toast('Precio actualizado', 'success');
+          };
+          window.AppAdmin.eliminarPrecio = async (id) => {
+            if (confirm('¿Eliminar este precio?')) {
+              await supabaseClient.from('precios_servicios').delete().eq('id', id);
+              await loadAllPrecios();
+              renderAdminPrecios(cont);
+              toast('Precio eliminado', 'info');
             }
           };
         } catch (e) { cont.innerHTML = `<div class="alert alert-error">Error: ${escHtml(e.message)}</div>`; }
@@ -3056,13 +2718,14 @@
                 <td>${escAttr(g.categoria)}</td>
                 <td>${escAttr(g.descripcion||'')}</td>
                 <td><strong>${pesos(g.monto)}</strong></td>
-                <td><button class="btn btn-danger btn-sm" onclick="App.adminEliminarGasto('${g.id}')">Eliminar</button></td>
+                <td><button class="btn btn-danger btn-sm" onclick="window.AppAdmin.eliminarGasto('${g.id}')">Eliminar</button></td>
               </tr>`
             ).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--c-muted);">No hay gastos registrados</td></tr>'}</tbody></table></div></div>
           `;
 
           document.getElementById('addGastoBtn').onclick = () => {
-            const categoria = prompt('Categoría (Arriendo, Luz, Agua, Nómina, Insumos, Publicidad, Otro):') || 'Otro';
+            const categoria = prompt('Categoría (Arriendo, Luz, Agua, Internet, Nómina, Insumos, Publicidad, Otro):') ||
+              'Otro';
             const descripcion = prompt('Descripción:') || '';
             const monto = parseFloat(prompt('Monto ($):')) || 0;
             if (!monto) { toast('Monto inválido', 'error'); return; }
@@ -3073,7 +2736,7 @@
                 toast('Gasto registrado', 'success'); })
               .catch(e => toast('Error: ' + e.message, 'error'));
           };
-          window.App.adminEliminarGasto = async (id) => {
+          window.AppAdmin.eliminarGasto = async (id) => {
             if (confirm('¿Eliminar este gasto?')) {
               await supabaseClient.from('gastos_operativos').delete().eq('id', id);
               await loadAllGastos();
@@ -3099,7 +2762,7 @@
               <div class="stat-card"><div class="stat-val">${pesos(totalHoy)}</div><div class="stat-label">Ingresos hoy</div></div>
               <div class="stat-card"><div class="stat-val">${pagosHoy.length}</div><div class="stat-label">Pagos registrados</div></div>
             </div>
-            <div style="margin-top:1rem;"><button class="btn btn-primary btn-sm" onclick="App.adminRegistrarPago()"><i class="fas fa-plus"></i> Registrar pago</button></div>
+            <div style="margin-top:1rem;"><button class="btn btn-primary btn-sm" onclick="window.AppAdmin.registrarPago()"><i class="fas fa-plus"></i> Registrar pago</button></div>
             </div>
             <div class="card"><div class="card-title">Últimos pagos</div>
             <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Fecha</th><th>Cita</th><th>Monto</th><th>Método</th></tr></thead>
@@ -3108,7 +2771,7 @@
             ).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--c-muted);">No hay pagos registrados</td></tr>'}</tbody></table></div></div>
           `;
 
-          window.App.adminRegistrarPago = () => {
+          window.AppAdmin.registrarPago = () => {
             const citaId = prompt('ID de la cita (opcional):') || null;
             const monto = parseFloat(prompt('Monto ($):')) || 0;
             if (!monto) { toast('Monto inválido', 'error'); return; }
@@ -3145,13 +2808,13 @@
             </div></div>
             <div class="card"><div class="card-title">Exportar datos</div>
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
-              <button class="btn btn-primary btn-sm" onclick="App.exportarCSV('citas')"><i class="fas fa-file-csv"></i> Citas CSV</button>
-              <button class="btn btn-primary btn-sm" onclick="App.exportarCSV('pagos')"><i class="fas fa-file-csv"></i> Pagos CSV</button>
-              <button class="btn btn-primary btn-sm" onclick="App.exportarCSV('gastos')"><i class="fas fa-file-csv"></i> Gastos CSV</button>
+              <button class="btn btn-primary btn-sm" onclick="window.AppAdmin.exportarCSV('citas')"><i class="fas fa-file-csv"></i> Citas CSV</button>
+              <button class="btn btn-primary btn-sm" onclick="window.AppAdmin.exportarCSV('pagos')"><i class="fas fa-file-csv"></i> Pagos CSV</button>
+              <button class="btn btn-primary btn-sm" onclick="window.AppAdmin.exportarCSV('gastos')"><i class="fas fa-file-csv"></i> Gastos CSV</button>
             </div></div>
           `;
 
-          window.App.exportarCSV = (tipo) => {
+          window.AppAdmin.exportarCSV = (tipo) => {
             let data = [],
               headers = [];
             if (tipo === 'citas') { data = state.citasAll || [];
@@ -3190,7 +2853,7 @@
             <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Nombre</th><th>Email</th><th>Acciones</th></tr></thead>
             <tbody>${admins.length ? admins.map(a =>
               `<tr><td>${escAttr(a.nombre)}</td><td>${escAttr(a.email)}</td><td>
-                ${a.user_id !== state.userId ? `<button class="btn btn-danger btn-sm" onclick="App.adminQuitarAdmin('${a.user_id}')">Quitar admin</button>` : '<span style="color:var(--c-muted);">Tú</span>'}
+                ${a.user_id !== state.userId ? `<button class="btn btn-danger btn-sm" onclick="window.AppAdmin.quitarAdmin('${a.user_id}')">Quitar admin</button>` : '<span style="color:var(--c-muted);">Tú</span>'}
               </td></tr>`
             ).join('') : '<tr><td colspan="3" style="text-align:center;color:var(--c-muted);">No hay administradores</td></tr>'}</tbody></table></div></div>
           `;
@@ -3209,7 +2872,7 @@
               renderAdminAdmins(cont);
             } catch (e) { toast('Error: ' + e.message, 'error'); }
           };
-          window.App.adminQuitarAdmin = async (uid) => {
+          window.AppAdmin.quitarAdmin = async (uid) => {
             if (confirm('¿Quitar permisos de administrador a este usuario?')) {
               await dbUpdateUser(uid, { es_admin: false });
               renderAdminAdmins(cont);
@@ -3259,40 +2922,13 @@
         }
       }
 
-      // Exponer funciones globales necesarias
-      window.App = {
-        cancelarCitaCliente: App.cancelarCitaCliente,
-        abrirSubirFotos: App.abrirSubirFotos,
-        verDetalleFotos: App.verDetalleFotos,
-        seleccionarClienteModal: App.seleccionarClienteModal,
-        crearClienteRapido: App.crearClienteRapido,
-        confirmarCitaAdmin: App.confirmarCitaAdmin,
-        finalizarCitaAdmin: App.finalizarCitaAdmin,
-        cancelarCitaAdmin: App.cancelarCitaAdmin,
-        verCitaAdmin: App.verCitaAdmin,
-        guardarCliente: App.guardarCliente,
-        eliminarCliente: App.eliminarCliente,
-        adminAutorizarFoto: App.adminAutorizarFoto,
-        adminRechazarFoto: App.adminRechazarFoto,
-        adminEliminarFoto: App.adminEliminarFoto,
-        adminAjustarStock: App.adminAjustarStock,
-        adminEliminarProducto: App.adminEliminarProducto,
-        adminEliminarGasto: App.adminEliminarGasto,
-        adminRegistrarPago: App.adminRegistrarPago,
-        exportarCSV: App.exportarCSV,
-        adminQuitarAdmin: App.adminQuitarAdmin,
-        abrirFotosAdmin: App.abrirFotosAdmin,
-      };
+      // Exponer funciones globales para los onclick
+      window.AppAdmin = window.AppAdmin || {};
+      // Ya hemos asignado funciones a window.AppAdmin en los lugares correspondientes.
 
       // Iniciar
       boot().catch(e => console.error('Boot error:', e));
-
-      // Retornar el objeto público
-      return {
-        // Puedes agregar métodos públicos si lo deseas
-      };
     })();
   </script>
 </body>
 </html>
-

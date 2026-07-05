@@ -1145,7 +1145,7 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.0
   ============================ -->
   <script>
     /**
@@ -1279,7 +1279,7 @@
       // --- Autenticación ---
       async login(email, password) {
         Logger.info('Login attempt', { email });
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw new Error(error.message);
         Logger.success('Login successful', { userId: data.user.id });
         return data.user;
@@ -1287,7 +1287,7 @@
 
       async register(email, password, userData) {
         Logger.info('Register attempt', { email });
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabaseClient.auth.signUp({
           email,
           password,
           options: { data: { nombre: userData.nombre } },
@@ -1295,8 +1295,7 @@
         if (error) throw new Error(error.message);
         if (!data.user) throw new Error('No se pudo crear el usuario');
 
-        // Crear perfil en tabla usuarios
-        const { error: profileError } = await supabase
+        const { error: profileError } = await supabaseClient
           .from('usuarios')
           .insert({
             user_id: data.user.id,
@@ -1308,8 +1307,7 @@
           });
         if (profileError) {
           Logger.error('Profile creation error', profileError);
-          // Intentar de nuevo con upsert
-          await supabase.from('usuarios').upsert({
+          await supabaseClient.from('usuarios').upsert({
             user_id: data.user.id,
             nombre: userData.nombre,
             email: email,
@@ -1324,14 +1322,14 @@
 
       async logout() {
         Logger.info('Logout');
-        await supabase.auth.signOut();
+        await supabaseClient.auth.signOut();
         Cache.clear();
         Logger.success('Logout successful');
       },
 
       async resetPassword(email) {
         Logger.info('Password reset requested', { email });
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
           redirectTo: window.location.origin + window.location.pathname,
         });
         if (error) throw new Error(error.message);
@@ -1339,7 +1337,7 @@
       },
 
       async getSession() {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session } } = await supabaseClient.auth.getSession();
         return session;
       },
 
@@ -1348,7 +1346,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('usuarios')
           .select('*')
           .eq('user_id', userId)
@@ -1364,7 +1362,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('mascotas')
           .select('*')
           .eq('user_id', userId)
@@ -1375,7 +1373,7 @@
       },
 
       async createMascota(mascotaData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('mascotas')
           .insert(mascotaData)
           .select();
@@ -1391,7 +1389,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('citas')
           .select('*')
           .eq('user_id', userId)
@@ -1406,7 +1404,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('citas')
           .select('*')
           .order('fecha_hora', { ascending: false });
@@ -1416,7 +1414,7 @@
       },
 
       async createCita(citaData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('citas')
           .insert(citaData)
           .select();
@@ -1427,7 +1425,7 @@
       },
 
       async updateCita(id, updates) {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('citas')
           .update(updates)
           .eq('id', id);
@@ -1442,7 +1440,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('pagos')
           .select('*')
           .order('fecha_pago', { ascending: false });
@@ -1452,7 +1450,7 @@
       },
 
       async createPago(pagoData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('pagos')
           .insert(pagoData)
           .select();
@@ -1468,7 +1466,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('gastos_operativos')
           .select('*')
           .order('fecha', { ascending: false });
@@ -1478,7 +1476,7 @@
       },
 
       async createGasto(gastoData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('gastos_operativos')
           .insert(gastoData)
           .select();
@@ -1494,7 +1492,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('fotos_mascotas')
           .select('*')
           .order('fecha_subida', { ascending: false });
@@ -1504,7 +1502,7 @@
       },
 
       async createFoto(fotoData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('fotos_mascotas')
           .insert(fotoData)
           .select();
@@ -1515,7 +1513,7 @@
       },
 
       async updateFoto(id, updates) {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('fotos_mascotas')
           .update(updates)
           .eq('id', id);
@@ -1530,7 +1528,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('productos_inventario')
           .select('*')
           .order('nombre');
@@ -1540,7 +1538,7 @@
       },
 
       async createProducto(productoData) {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('productos_inventario')
           .insert(productoData)
           .select();
@@ -1556,7 +1554,7 @@
         const cached = Cache.get(cacheKey);
         if (cached) return cached;
 
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
           .from('usuarios')
           .select('*')
           .order('created_at', { ascending: false });
@@ -1566,7 +1564,7 @@
       },
 
       async updateUser(userId, updates) {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('usuarios')
           .update(updates)
           .eq('user_id', userId);
@@ -1578,7 +1576,7 @@
 
       // --- Sugerencias ---
       async createSugerencia(sugData) {
-        const { error } = await supabase
+        const { error } = await supabaseClient
           .from('sugerencias')
           .insert(sugData);
         if (error) throw new Error(error.message);
@@ -2358,12 +2356,12 @@
           try {
             // Subir foto "antes"
             const beforePath = `mascotas/${mascotaId}/antes_${Date.now()}.jpg`;
-            const { error: beforeError } = await supabase.storage
+            const { error: beforeError } = await supabaseClient.storage
               .from('fotos')
               .upload(beforePath, beforeFile);
             if (beforeError) throw new Error(beforeError.message);
 
-            const { data: beforeUrl } = supabase.storage
+            const { data: beforeUrl } = supabaseClient.storage
               .from('fotos')
               .getPublicUrl(beforePath);
 
@@ -2378,11 +2376,11 @@
             // Subir foto "después" si existe
             if (afterFile) {
               const afterPath = `mascotas/${mascotaId}/despues_${Date.now()}.jpg`;
-              const { error: afterError } = await supabase.storage
+              const { error: afterError } = await supabaseClient.storage
                 .from('fotos')
                 .upload(afterPath, afterFile);
               if (!afterError) {
-                const { data: afterUrl } = supabase.storage
+                const { data: afterUrl } = supabaseClient.storage
                   .from('fotos')
                   .getPublicUrl(afterPath);
                 await Services.createFoto({
@@ -3031,7 +3029,7 @@
           if (query.length < 2) { resultsDiv.innerHTML = ''; return; }
           searchTimeout = setTimeout(async () => {
             try {
-              const { data } = await supabase
+              const { data } = await supabaseClient
                 .from('usuarios')
                 .select('user_id, nombre, telefono, email')
                 .ilike('nombre', `%${query}%`)
@@ -3124,7 +3122,7 @@
         if (!nombre) return;
         const telefono = prompt('Teléfono:') || '';
         const uid = crypto.randomUUID ? crypto.randomUUID() : 'id_' + Date.now();
-        supabase.from('usuarios').insert({
+        supabaseClient.from('usuarios').insert({
           user_id: uid,
           nombre,
           telefono,
@@ -3141,7 +3139,7 @@
 
       async _cargarMascotasModal(userId) {
         try {
-          const { data } = await supabase
+          const { data } = await supabaseClient
             .from('mascotas')
             .select('*')
             .eq('user_id', userId);
@@ -3240,7 +3238,7 @@
       _eliminarCliente(uid) {
         if (uid === State.get('userId')) { showToast('No puedes eliminarte a ti mismo', 'error'); return; }
         if (!confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) return;
-        supabase.from('usuarios').delete().eq('user_id', uid)
+        supabaseClient.from('usuarios').delete().eq('user_id', uid)
           .then(async () => {
             showToast('Cliente eliminado', 'info');
             const usuarios = await Services.getAllUsers();
@@ -3275,7 +3273,7 @@
 
       _eliminarFoto(id) {
         if (!confirm('¿Eliminar esta foto permanentemente?')) return;
-        supabase.from('fotos_mascotas').delete().eq('id', id)
+        supabaseClient.from('fotos_mascotas').delete().eq('id', id)
           .then(async () => {
             showToast('Foto eliminada', 'info');
             const fotos = await Services.getFotos();
@@ -3300,7 +3298,7 @@
 
       _eliminarProducto(id) {
         if (!confirm('¿Eliminar este producto?')) return;
-        supabase.from('productos_inventario').delete().eq('id', id)
+        supabaseClient.from('productos_inventario').delete().eq('id', id)
           .then(async () => {
             showToast('Producto eliminado', 'info');
             const productos = await Services.getProductos();
@@ -3312,7 +3310,7 @@
 
       _eliminarGasto(id) {
         if (!confirm('¿Eliminar este gasto?')) return;
-        supabase.from('gastos_operativos').delete().eq('id', id)
+        supabaseClient.from('gastos_operativos').delete().eq('id', id)
           .then(async () => {
             showToast('Gasto eliminado', 'info');
             const gastos = await Services.getGastos();

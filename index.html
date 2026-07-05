@@ -1273,7 +1273,7 @@
     // ================================================================
 
     // Crear cliente Supabase
-    const supabase = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+    const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
     const Services = {
       // --- Autenticación ---

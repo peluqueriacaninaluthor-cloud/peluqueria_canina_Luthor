@@ -1145,26 +1145,36 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v4.0
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.1
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.0
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.1 (CORREGIDA)
      * ================================================================
-     * Módulos:
-     *   1. Configuración y Constantes
-     *   2. Logger y Monitoreo
-     *   3. Sistema de Caché
-     *   4. Servicios (API Layer)
-     *   5. Gestión de Estado (State Manager)
-     *   6. UI Helpers (Toast, Modals, Render)
-     *   7. Módulo de Autenticación
-     *   8. Módulo de Clientes
-     *   9. Módulo de Administración
-     *   10. Bootstrap
+     * Cambios realizados:
+     *   1. Eliminado process.env.NODE_ENV (no funciona en navegador)
+     *   2. Agregada declaración de APP global
+     *   3. Corregidas referencias a funciones
+     *   4. Mejorado manejo de errores
+     *   5. Agregados polyfills para navegadores antiguos
      * ================================================================
      */
+
+    // ================================================================
+    // 0. POLYFILLS Y SEGURIDAD
+    // ================================================================
+
+    // Polyfill para crypto.randomUUID en navegadores antiguos
+    if (!crypto.randomUUID) {
+      crypto.randomUUID = function() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      };
+    }
 
     // ================================================================
     // 1. CONFIGURACIÓN Y CONSTANTES
@@ -1174,15 +1184,16 @@
       SUPABASE_URL: 'https://ihrgoufqnbekhcqjulsy.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_M6xBnv5GIEg0h59ktGYOHg_cWw8cnVo',
       APP_NAME: 'Luthor',
-      APP_VERSION: '4.0.0',
+      APP_VERSION: '4.1.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
-      CACHE_TTL: 300000, // 5 minutos
+      CACHE_TTL: 300000,
       META_MENSUAL: 4000000,
+      IS_DEBUG: false, // ✅ Cambiar a true solo para desarrollo
     };
 
     // ================================================================
-    // 2. LOGGER Y MONITOREO
+    // 2. LOGGER Y MONITOREO (CORREGIDO)
     // ================================================================
 
     const Logger = {
@@ -1202,7 +1213,6 @@
         } else {
           console.log(prefix, message);
         }
-        // En producción, enviar a servicio de monitoreo
         if (window._luthor_logs) {
           window._luthor_logs.push({ level, message, data, timestamp });
         }
@@ -1212,8 +1222,9 @@
       success(msg, data) { this._log(this.levels.SUCCESS, msg, data); },
       warn(msg, data) { this._log(this.levels.WARNING, msg, data); },
       error(msg, data) { this._log(this.levels.ERROR, msg, data); },
+      // ✅ CORREGIDO: usa CONFIG.IS_DEBUG en lugar de process.env
       debug(msg, data) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (CONFIG.IS_DEBUG) {
           this._log(this.levels.DEBUG, msg, data);
         }
       },
@@ -1257,7 +1268,6 @@
         Logger.info('Cache cleared');
       },
 
-      // Invalida múltiples keys por prefijo
       invalidatePattern(prefix) {
         for (const key of this._store.keys()) {
           if (key.startsWith(prefix)) {
@@ -1272,7 +1282,21 @@
     // 4. SERVICIOS (API Layer)
     // ================================================================
 
-    // Crear cliente Supabase
+    // ✅ Verificar que la librería Supabase está cargada
+    if (typeof supabase === 'undefined') {
+      console.error('❌ Supabase no está cargado');
+      document.body.innerHTML = `
+        <div style="padding:40px;text-align:center;font-family:sans-serif;">
+          <h1>⚠️ Error de carga</h1>
+          <p>No se pudo cargar la librería de Supabase. Por favor, recarga la página.</p>
+          <button onclick="location.reload()" style="padding:10px 30px;background:#b8712a;color:white;border:none;border-radius:8px;cursor:pointer;">
+            Recargar
+          </button>
+        </div>
+      `;
+      throw new Error('Supabase library not loaded');
+    }
+
     const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
     const Services = {
@@ -1760,25 +1784,25 @@
       async init() {
         Logger.info('AuthModule init');
 
-        // Verificar sesión
-        const session = await Services.getSession();
-        if (session) {
-          Logger.info('Session found', { userId: session.user.id });
-          await this._handleAuthenticated(session.user);
-          return true;
+        try {
+          const session = await Services.getSession();
+          if (session) {
+            Logger.info('Session found', { userId: session.user.id });
+            await this._handleAuthenticated(session.user);
+            return true;
+          }
+        } catch (error) {
+          Logger.error('Session check error', error);
         }
 
-        // Mostrar página de autenticación
         this._showAuthPage();
         return false;
       },
 
       async _handleAuthenticated(user) {
         try {
-          // Obtener perfil
           const profile = await Services.getUserProfile(user.id);
 
-          // Actualizar estado
           State.update({
             userId: user.id,
             profile: profile,
@@ -1788,7 +1812,6 @@
             telefono: profile?.telefono || '',
           });
 
-          // Cargar datos según rol
           if (State.get('esAdmin')) {
             await this._loadAdminData();
             this._showAdminPage();
@@ -1820,14 +1843,7 @@
             Services.getProductos(),
             Services.getAllUsers(),
           ]);
-          State.update({
-            citas,
-            pagos,
-            gastos,
-            fotos,
-            productos,
-            usuarios,
-          });
+          State.update({ citas, pagos, gastos, fotos, productos, usuarios });
         } catch (error) {
           Logger.error('Admin data load error', error);
           showToast('Error al cargar datos: ' + error.message, 'error');
@@ -1893,7 +1909,6 @@
           loginPanel.classList.add('hidden');
         };
 
-        // Login
         document.getElementById('loginBtn').onclick = async () => {
           const email = getFormValue('loginEmail');
           const pass = getFormValue('loginPass');
@@ -1911,7 +1926,6 @@
           }
         };
 
-        // Register
         document.getElementById('registerBtn').onclick = async () => {
           const nombre = getFormValue('regNombre');
           const telefono = getFormValue('regTelefono');
@@ -1931,7 +1945,6 @@
           try {
             await Services.register(email, pass, { nombre, telefono });
             showToast('Cuenta creada. Por favor inicia sesión.', 'success');
-            // Cambiar a login
             document.getElementById('tabLoginBtn').click();
             setFormValue('loginEmail', email);
             setFormValue('loginPass', '');
@@ -1942,7 +1955,6 @@
           }
         };
 
-        // Forgot password
         document.getElementById('forgotPasswordLink').onclick = () => {
           openModal('forgotModal');
         };
@@ -1967,7 +1979,6 @@
 
         document.getElementById('closeForgotBtn').onclick = () => closeModal('forgotModal');
 
-        // Enter key support
         document.getElementById('loginPass').addEventListener('keydown', e => {
           if (e.key === 'Enter') document.getElementById('loginBtn').click();
         });
@@ -1975,13 +1986,12 @@
           if (e.key === 'Enter') document.getElementById('registerBtn').click();
         });
 
-        // Footer
         renderFooter('footerAuth');
       },
     };
 
     // ================================================================
-    // 8. MÓDULO DE CLIENTES
+    // 8. MÓDULO DE CLIENTES (CORREGIDO)
     // ================================================================
 
     const ClientModule = {
@@ -2124,18 +2134,15 @@
           </div>
         `;
 
-        // Fecha por defecto: mañana
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('clientBookingDate').value = tomorrow.toISOString().split('T')[0];
 
-        // Precio estimado
         const updatePrecio = () => {
           const select = document.getElementById('clientPetSelect');
           const option = select.options[select.selectedIndex];
           const raza = option ? option.dataset.raza : '';
           const servicio = document.getElementById('clientServiceSelect').value;
-          // Precios base (simplificado)
           const precios = { baño: 25000, corte: 35000, baño_corte: 50000, spa: 80000, uñas: 15000, oidos: 15000,
             cepillado: 20000, glandulas: 10000 };
           const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000 };
@@ -2148,7 +2155,6 @@
         document.getElementById('clientServiceSelect').onchange = updatePrecio;
         setTimeout(updatePrecio, 100);
 
-        // Agendar
         document.getElementById('clientBookBtn').onclick = async () => {
           const mascotaId = getFormValue('clientPetSelect');
           const servicio = getFormValue('clientServiceSelect');
@@ -2161,7 +2167,6 @@
 
           setLoading('clientBookBtn', true, 'Agendando...');
           try {
-            // Validar disponibilidad
             const allCitas = await Services.getAllCitas();
             const target = new Date(`${fecha}T${hora}:00`).getTime();
             const ocupado = allCitas.some(c => {
@@ -2197,7 +2202,6 @@
 
             showToast('¡Cita agendada! Código: ' + invoice, 'success');
             document.getElementById('clientBookingNotes').value = '';
-            // Recargar citas
             const citas = await Services.getCitas(State.get('userId'));
             State.set('citas', citas);
             this._renderTab('mis_citas');
@@ -2242,7 +2246,7 @@
                   </div>
                   ${c.estado === 'Pendiente' ? `
                     <div style="margin-top:8px;">
-                      <button class="btn btn-danger btn-sm" onclick="ClientModule._cancelarCita('${c.id}')">Cancelar</button>
+                      <button class="btn btn-danger btn-sm" onclick="ClientModule.cancelarCitaCliente('${c.id}')">Cancelar</button>
                     </div>
                   ` : ''}
                 </div>
@@ -2252,7 +2256,8 @@
         `;
       },
 
-      _cancelarCita(id) {
+      // ✅ EXPUESTO PÚBLICAMENTE para onclick
+      cancelarCitaCliente(id) {
         if (!confirm('¿Cancelar esta cita?')) return;
         Services.updateCita(id, { estado: 'Cancelada' })
           .then(async () => {
@@ -2282,12 +2287,13 @@
                 `).join('')}
               </div>
             ` : '<p class="text-muted">No tienes mascotas registradas. Agrega una desde tu perfil o al agendar una cita.</p>'}
-            <button class="btn btn-primary mt-2" onclick="ClientModule._agregarMascota()"><i class="fas fa-plus"></i> Agregar mascota</button>
+            <button class="btn btn-primary mt-2" onclick="ClientModule.agregarMascotaCliente()"><i class="fas fa-plus"></i> Agregar mascota</button>
           </div>
         `;
       },
 
-      _agregarMascota() {
+      // ✅ EXPUESTO PÚBLICAMENTE para onclick
+      agregarMascotaCliente() {
         const nombre = prompt('Nombre de tu mascota:');
         if (!nombre) return;
         const raza = prompt('Raza (opcional):') || '';
@@ -2335,14 +2341,12 @@
       },
 
       _initModals() {
-        // Cerrar modales
         document.querySelectorAll('.modal-overlay').forEach(m => {
           m.addEventListener('click', e => {
             if (e.target === m) m.classList.add('hidden');
           });
         });
 
-        // Photo upload
         document.getElementById('photoUploadBtn').onclick = async () => {
           const mascotaId = getFormValue('photoPetSelect');
           const beforeFile = document.getElementById('photoBefore').files[0];
@@ -2354,7 +2358,6 @@
 
           setLoading('photoUploadBtn', true, 'Subiendo...');
           try {
-            // Subir foto "antes"
             const beforePath = `mascotas/${mascotaId}/antes_${Date.now()}.jpg`;
             const { error: beforeError } = await supabaseClient.storage
               .from('fotos')
@@ -2373,7 +2376,6 @@
               estado: 'pendiente',
             });
 
-            // Subir foto "después" si existe
             if (afterFile) {
               const afterPath = `mascotas/${mascotaId}/despues_${Date.now()}.jpg`;
               const { error: afterError } = await supabaseClient.storage
@@ -2399,7 +2401,6 @@
             document.getElementById('photoAfter').value = '';
             document.getElementById('photoDesc').value = '';
 
-            // Recargar fotos
             const fotos = await Services.getFotos();
             State.set('fotos', fotos);
             this._renderTab('galeria');
@@ -2414,7 +2415,6 @@
           closeModal('photoUploadModal');
         };
 
-        // Soporte y sugerencias
         document.getElementById('closeSupportBtn').onclick = () => closeModal('supportModal');
         document.getElementById('closeSugBtn').onclick = () => closeModal('suggestionModal');
 
@@ -2441,43 +2441,13 @@
           }
         };
       },
-
-      // Exponer métodos para uso en HTML
-      _cancelarCita(id) {
-        if (!confirm('¿Cancelar esta cita?')) return;
-        Services.updateCita(id, { estado: 'Cancelada' })
-          .then(async () => {
-            showToast('Cita cancelada', 'info');
-            const citas = await Services.getCitas(State.get('userId'));
-            State.set('citas', citas);
-            this._renderTab('mis_citas');
-          })
-          .catch(err => showToast('Error: ' + err.message, 'error'));
-      },
-
-      _agregarMascota() {
-        const nombre = prompt('Nombre de tu mascota:');
-        if (!nombre) return;
-        const raza = prompt('Raza (opcional):') || '';
-        Services.createMascota({
-          user_id: State.get('userId'),
-          nombre: nombre,
-          raza: raza,
-        }).then(async () => {
-          showToast('Mascota agregada', 'success');
-          const mascotas = await Services.getMascotas(State.get('userId'));
-          State.set('mascotas', mascotas);
-          this._renderTab('mis_mascotas');
-          this._renderTab('agendar');
-        }).catch(err => showToast('Error: ' + err.message, 'error'));
-      },
     };
 
-    // Exponer métodos al window para uso en onclick
+    // ✅ EXPONER MÓDULO DE CLIENTES GLOBALMENTE
     window.ClientModule = ClientModule;
 
     // ================================================================
-    // 9. MÓDULO DE ADMINISTRACIÓN
+    // 9. MÓDULO DE ADMINISTRACIÓN (CORREGIDO)
     // ================================================================
 
     const AdminModule = {
@@ -2612,7 +2582,7 @@
             </div>
           </div>
           ${pendientes.length > 0 ? `
-            <div style="background:#fef7e0;border-left:6px solid var(--warning);padding:16px 20px;border-radius:8px;margin-bottom:20px;cursor:pointer;" onclick="AdminModule._goToTab('fotos')">
+            <div style="background:#fef7e0;border-left:6px solid var(--warning);padding:16px 20px;border-radius:8px;margin-bottom:20px;cursor:pointer;" onclick="AdminModule.goToTab('fotos')">
               <div style="font-weight:600;">📸 Fotos pendientes de autorizar <span style="background:var(--error);color:white;border-radius:20px;padding:0 10px;">${pendientes.length}</span></div>
               <div style="font-size:0.9rem;color:var(--text-secondary);">Haz clic para revisarlas.</div>
             </div>
@@ -2623,11 +2593,9 @@
           </div>
         `;
 
-        // Renderizar gráfico
         setTimeout(() => {
           const canvas = document.getElementById('dashboardChart');
           if (!canvas) return;
-          // Datos simulados para demostración
           const ctx = canvas.getContext('2d');
           if (window._dashboardChart) window._dashboardChart.destroy();
           window._dashboardChart = new Chart(ctx, {
@@ -2706,10 +2674,10 @@
               ${c.notas_admin ? ` · <span style="color:var(--info);font-size:0.85rem;">📝 ${escHtml(c.notas_admin)}</span>` : ''}
             </div>
             <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
-              ${c.estado === 'Pendiente' ? `<button class="btn btn-info btn-sm" onclick="AdminModule._confirmarCita('${c.id}')">Confirmar</button>` : ''}
-              ${c.estado === 'Confirmada' || c.estado === 'Pendiente' ? `<button class="btn btn-success btn-sm" onclick="AdminModule._finalizarCita('${c.id}')">Finalizar</button>` : ''}
-              ${c.estado !== 'Cancelada' && c.estado !== 'Finalizada' ? `<button class="btn btn-danger btn-sm" onclick="AdminModule._cancelarCita('${c.id}')">Cancelar</button>` : ''}
-              <button class="btn btn-ghost btn-sm" onclick="AdminModule._verCita('${c.id}')">Detalles</button>
+              ${c.estado === 'Pendiente' ? `<button class="btn btn-info btn-sm" onclick="AdminModule.confirmarCitaAdmin('${c.id}')">Confirmar</button>` : ''}
+              ${c.estado === 'Confirmada' || c.estado === 'Pendiente' ? `<button class="btn btn-success btn-sm" onclick="AdminModule.finalizarCitaAdmin('${c.id}')">Finalizar</button>` : ''}
+              ${c.estado !== 'Cancelada' && c.estado !== 'Finalizada' ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.cancelarCitaAdmin('${c.id}')">Cancelar</button>` : ''}
+              <button class="btn btn-ghost btn-sm" onclick="AdminModule.verCitaAdmin('${c.id}')">Detalles</button>
             </div>
           </div>
         `;
@@ -2735,8 +2703,8 @@
                       <td>${escHtml(u.telefono || '')}</td>
                       <td>${escHtml(u.email || '')}</td>
                       <td>
-                        <button class="btn btn-primary btn-sm" onclick="AdminModule._guardarCliente('${u.user_id}')">Guardar</button>
-                        ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule._eliminarCliente('${u.user_id}')">Eliminar</button>` : ''}
+                        <button class="btn btn-primary btn-sm" onclick="AdminModule.guardarClienteAdmin('${u.user_id}')">Guardar</button>
+                        ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarClienteAdmin('${u.user_id}')">Eliminar</button>` : ''}
                       </td>
                     </tr>
                   `).join('')}
@@ -2746,7 +2714,6 @@
           </div>
         `;
 
-        // Búsqueda
         document.getElementById('clientSearchInput').addEventListener('input', function() {
           const query = this.value.toLowerCase().trim();
           const filtered = (State.get('usuarios') || []).filter(u =>
@@ -2760,8 +2727,8 @@
               <td>${escHtml(u.telefono || '')}</td>
               <td>${escHtml(u.email || '')}</td>
               <td>
-                <button class="btn btn-primary btn-sm" onclick="AdminModule._guardarCliente('${u.user_id}')">Guardar</button>
-                ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule._eliminarCliente('${u.user_id}')">Eliminar</button>` : ''}
+                <button class="btn btn-primary btn-sm" onclick="AdminModule.guardarClienteAdmin('${u.user_id}')">Guardar</button>
+                ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarClienteAdmin('${u.user_id}')">Eliminar</button>` : ''}
               </td>
             </tr>
           `).join('') : '<tr><td colspan="4" class="text-muted text-center">No se encontraron clientes</td></tr>';
@@ -2798,12 +2765,12 @@
               </div>
               ${showActions ? `
                 <div style="padding:8px 12px;border-top:1px solid #f0ece4;display:flex;gap:6px;">
-                  <button class="btn btn-success btn-sm" onclick="AdminModule._autorizarFoto('${f.id}')"><i class="fas fa-check"></i></button>
-                  <button class="btn btn-danger btn-sm" onclick="AdminModule._rechazarFoto('${f.id}')"><i class="fas fa-times"></i></button>
+                  <button class="btn btn-success btn-sm" onclick="AdminModule.autorizarFotoAdmin('${f.id}')"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-danger btn-sm" onclick="AdminModule.rechazarFotoAdmin('${f.id}')"><i class="fas fa-times"></i></button>
                 </div>
               ` : `
                 <div style="padding:8px 12px;border-top:1px solid #f0ece4;">
-                  <button class="btn btn-danger btn-sm" onclick="AdminModule._eliminarFoto('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
+                  <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarFotoAdmin('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
                 </div>
               `}
             </div>
@@ -2831,8 +2798,8 @@
                       <td>${p.stock_minimo || 0}</td>
                       <td>${formatCurrency(p.precio_compra || 0)}</td>
                       <td>
-                        <button class="btn btn-info btn-sm" onclick="AdminModule._ajustarStock('${p.id}')">Ajustar</button>
-                        <button class="btn btn-danger btn-sm" onclick="AdminModule._eliminarProducto('${p.id}')">Eliminar</button>
+                        <button class="btn btn-info btn-sm" onclick="AdminModule.ajustarStockAdmin('${p.id}')">Ajustar</button>
+                        <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarProductoAdmin('${p.id}')">Eliminar</button>
                       </td>
                     </tr>
                   `).join('')}
@@ -2887,7 +2854,7 @@
                       <td>${formatCurrency(g.monto || 0)}</td>
                       <td>${formatDateShort(g.fecha)}</td>
                       <td>
-                        <button class="btn btn-danger btn-sm" onclick="AdminModule._eliminarGasto('${g.id}')">Eliminar</button>
+                        <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarGastoAdmin('${g.id}')">Eliminar</button>
                       </td>
                     </tr>
                   `).join('')}
@@ -3005,20 +2972,18 @@
                 <div><strong>Pendientes:</strong> ${citas.filter(c => c.estado === 'Pendiente').length}</div>
               </div>
             </div>
-            <button class="btn btn-primary mt-2" onclick="AdminModule._exportarCSV()"><i class="fas fa-download"></i> Exportar reporte CSV</button>
+            <button class="btn btn-primary mt-2" onclick="AdminModule.exportarCSVAdmin()"><i class="fas fa-download"></i> Exportar reporte CSV</button>
           </div>
         `;
       },
 
       _initModals() {
-        // Cerrar modales
         document.querySelectorAll('.modal-overlay').forEach(m => {
           m.addEventListener('click', e => {
             if (e.target === m) m.classList.add('hidden');
           });
         });
 
-        // Modal de cita rápida
         const searchInput = document.getElementById('appClientSearch');
         const resultsDiv = document.getElementById('appClientResults');
         let searchTimeout;
@@ -3036,13 +3001,13 @@
                 .limit(5);
               if (data && data.length) {
                 resultsDiv.innerHTML = data.map(u =>
-                  `<div style="padding:8px 12px;cursor:pointer;border-bottom:1px solid #f0ece4;" onclick="AdminModule._seleccionarCliente('${u.user_id}','${escHtml(u.nombre)}','${escHtml(u.telefono || '')}')">
+                  `<div style="padding:8px 12px;cursor:pointer;border-bottom:1px solid #f0ece4;" onclick="AdminModule.seleccionarClienteAdmin('${u.user_id}','${escHtml(u.nombre)}','${escHtml(u.telefono || '')}')">
                     ${escHtml(u.nombre)}${u.telefono ? ` - ${escHtml(u.telefono)}` : ''}
                   </div>`
                 ).join('');
               } else {
                 resultsDiv.innerHTML =
-                  `<div style="padding:8px 12px;color:var(--text-secondary);">No se encontraron clientes. <button class="btn btn-primary btn-sm" onclick="AdminModule._crearClienteRapido()">Crear nuevo</button></div>`;
+                  `<div style="padding:8px 12px;color:var(--text-secondary);">No se encontraron clientes. <button class="btn btn-primary btn-sm" onclick="AdminModule.crearClienteRapidoAdmin()">Crear nuevo</button></div>`;
               }
             } catch (e) {
               resultsDiv.innerHTML = '';
@@ -3082,7 +3047,6 @@
             });
             showToast('¡Cita agendada!', 'success');
             closeModal('appointmentModal');
-            // Recargar datos
             const citas = await Services.getAllCitas();
             State.set('citas', citas);
             this._renderTab('agenda');
@@ -3106,22 +3070,22 @@
           }
         };
 
-        // Fecha por defecto
         document.getElementById('appDate').value = new Date().toISOString().split('T')[0];
       },
 
-      _seleccionarCliente(userId, nombre, telefono) {
+      // ✅ MÉTODOS PÚBLICOS EXPUESTOS
+      seleccionarClienteAdmin(userId, nombre, telefono) {
         document.getElementById('appClientSelected').value = nombre + (telefono ? ` - ${telefono}` : '');
         document.getElementById('appClientResults').innerHTML = '';
         window._appSelectedClientId = userId;
         this._cargarMascotasModal(userId);
       },
 
-      _crearClienteRapido() {
+      crearClienteRapidoAdmin() {
         const nombre = prompt('Nombre del cliente:');
         if (!nombre) return;
         const telefono = prompt('Teléfono:') || '';
-        const uid = crypto.randomUUID ? crypto.randomUUID() : 'id_' + Date.now();
+        const uid = crypto.randomUUID();
         supabaseClient.from('usuarios').insert({
           user_id: uid,
           nombre,
@@ -3164,8 +3128,7 @@
         }
       },
 
-      // Acciones de admin
-      _confirmarCita(id) {
+      confirmarCitaAdmin(id) {
         Services.updateCita(id, { estado: 'Confirmada' })
           .then(async () => {
             showToast('Cita confirmada', 'success');
@@ -3176,7 +3139,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _finalizarCita(id) {
+      finalizarCitaAdmin(id) {
         Services.updateCita(id, { estado: 'Finalizada' })
           .then(async () => {
             const cita = (State.get('citas') || []).find(c => c.id === id);
@@ -3201,7 +3164,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _cancelarCita(id) {
+      cancelarCitaAdmin(id) {
         if (!confirm('¿Cancelar esta cita?')) return;
         Services.updateCita(id, { estado: 'Cancelada' })
           .then(async () => {
@@ -3213,7 +3176,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _verCita(id) {
+      verCitaAdmin(id) {
         const cita = (State.get('citas') || []).find(c => c.id === id);
         if (!cita) return;
         showToast(
@@ -3222,7 +3185,7 @@
         );
       },
 
-      _guardarCliente(uid) {
+      guardarClienteAdmin(uid) {
         const nombre = document.getElementById(`ac_n_${uid}`).value.trim();
         if (!nombre) { showToast('El nombre no puede estar vacío', 'error'); return; }
         Services.updateUser(uid, { nombre })
@@ -3235,7 +3198,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _eliminarCliente(uid) {
+      eliminarClienteAdmin(uid) {
         if (uid === State.get('userId')) { showToast('No puedes eliminarte a ti mismo', 'error'); return; }
         if (!confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) return;
         supabaseClient.from('usuarios').delete().eq('user_id', uid)
@@ -3248,7 +3211,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _autorizarFoto(id) {
+      autorizarFotoAdmin(id) {
         Services.updateFoto(id, { estado: 'autorizada', fecha_autorizacion: new Date().toISOString() })
           .then(async () => {
             showToast('Foto autorizada', 'success');
@@ -3259,7 +3222,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _rechazarFoto(id) {
+      rechazarFotoAdmin(id) {
         if (!confirm('¿Rechazar esta foto?')) return;
         Services.updateFoto(id, { estado: 'rechazada' })
           .then(async () => {
@@ -3271,7 +3234,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _eliminarFoto(id) {
+      eliminarFotoAdmin(id) {
         if (!confirm('¿Eliminar esta foto permanentemente?')) return;
         supabaseClient.from('fotos_mascotas').delete().eq('id', id)
           .then(async () => {
@@ -3283,7 +3246,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _ajustarStock(id) {
+      ajustarStockAdmin(id) {
         const cantidad = parseInt(prompt('Nuevo stock:'));
         if (isNaN(cantidad) || cantidad < 0) { showToast('Cantidad inválida', 'error'); return; }
         Services.updateProducto(id, { stock_actual: cantidad })
@@ -3296,7 +3259,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _eliminarProducto(id) {
+      eliminarProductoAdmin(id) {
         if (!confirm('¿Eliminar este producto?')) return;
         supabaseClient.from('productos_inventario').delete().eq('id', id)
           .then(async () => {
@@ -3308,7 +3271,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _eliminarGasto(id) {
+      eliminarGastoAdmin(id) {
         if (!confirm('¿Eliminar este gasto?')) return;
         supabaseClient.from('gastos_operativos').delete().eq('id', id)
           .then(async () => {
@@ -3320,7 +3283,7 @@
           .catch(err => showToast('Error: ' + err.message, 'error'));
       },
 
-      _exportarCSV() {
+      exportarCSVAdmin() {
         const citas = State.get('citas') || [];
         if (!citas.length) { showToast('No hay datos para exportar', 'warning'); return; }
         let csv = 'Número,Servicio,Precio,Estado,Fecha\n';
@@ -3338,17 +3301,13 @@
         showToast('Reporte exportado', 'success');
       },
 
-      _goToTab(tab) {
+      goToTab(tab) {
         const btn = document.querySelector(`[data-atab="${tab}"]`);
         if (btn) btn.click();
       },
-
-      _cargarMascotasModal(userId) {
-        // Ya implementado arriba
-      },
     };
 
-    // Exponer métodos al window para uso en onclick
+    // ✅ EXPONER MÓDULO DE ADMINISTRACIÓN GLOBALMENTE
     window.AdminModule = AdminModule;
 
     // ================================================================
@@ -3356,15 +3315,13 @@
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v4.0 iniciando...');
+      Logger.info('🚀 Luthor v4.1 iniciando...');
 
-      // Manejar recuperación de contraseña
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {
         showToast('Ingresa tu nueva contraseña en el formulario', 'info');
       }
 
-      // Inicializar autenticación
       const authed = await AuthModule.init();
 
       if (authed) {
@@ -3373,7 +3330,6 @@
         Logger.info('🔐 Esperando autenticación');
       }
 
-      // Reportar errores no capturados
       window.addEventListener('error', (e) => {
         Logger.error('Error no capturado', { message: e.message, stack: e.error?.stack });
         showToast('Error inesperado. Revisa la consola.', 'error');

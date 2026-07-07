@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sistema de Gestión Empresarial Peluquería Canina Luthor" />
   <title>Luthor · Sistema Empresarial</title>
-  <!-- ✅ CSS Optimizado -->
   <link rel="icon" type="image/svg+xml" href="logo.svg" />
-  <!-- ✅ CDNs con versiones fijas -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
   </script>
-  <!-- ✅ Estilos optimizados -->
   <style>
     /* ============================
        VARIABLES DE DISEÑO EMPRESARIAL
@@ -45,6 +42,7 @@
       --radius-xl: 28px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --logo-url: url('logo.svg');
     }
 
     /* ============================
@@ -108,24 +106,6 @@
     }
     ::-webkit-scrollbar-thumb:hover {
       background: var(--primary);
-    }
-
-    /* ============================
-       LOADING SKELETON
-       ============================ */
-    .skeleton {
-      animation: shimmer 1.5s ease-in-out infinite;
-      background: linear-gradient(90deg, #f0ece4 25%, #e8e0d4 50%, #f0ece4 75%);
-      background-size: 200% 100%;
-      border-radius: var(--radius-sm);
-    }
-    @keyframes shimmer {
-      0% {
-        background-position: -200% 0;
-      }
-      100% {
-        background-position: 200% 0;
-      }
     }
 
     /* ============================
@@ -200,7 +180,7 @@
     }
 
     /* ============================
-       AUTH PAGE - MODERNA
+       AUTH PAGE
        ============================ */
     #authPage {
       min-height: 100vh;
@@ -237,10 +217,12 @@
       text-align: center;
       color: var(--text-white);
     }
-    .auth-brand .icon {
-      font-size: 4.5rem;
+    .auth-brand .logo-icon {
       display: block;
-      margin-bottom: 8px;
+      margin: 0 auto 12px;
+      width: 80px;
+      height: 80px;
+      background: var(--logo-url) no-repeat center/contain;
       animation: float 3s ease-in-out infinite;
     }
     .auth-brand h1 {
@@ -441,7 +423,7 @@
     }
 
     /* ============================
-       TOPBAR EMPRESARIAL
+       TOPBAR
        ============================ */
     .topbar {
       background: var(--bg-white);
@@ -468,13 +450,7 @@
     .topbar-brand .logo {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
-      background: var(--primary-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-white);
-      font-size: 1.2rem;
+      background: var(--logo-url) no-repeat center/contain;
     }
     .topbar-brand h2 {
       font-size: 1.1rem;
@@ -551,7 +527,7 @@
     }
 
     /* ============================
-       CARDS EMPRESARIALES
+       CARDS
        ============================ */
     .card {
       background: var(--bg-white);
@@ -579,7 +555,7 @@
     }
 
     /* ============================
-       GRIDS EMPRESARIALES
+       GRIDS
        ============================ */
     .grid-2 {
       display: grid;
@@ -692,7 +668,7 @@
     }
 
     /* ============================
-       MODAL EMPRESARIAL
+       MODAL
        ============================ */
     .modal-overlay {
       position: fixed;
@@ -760,7 +736,7 @@
     }
 
     /* ============================
-       FOOTER EMPRESARIAL
+       FOOTER
        ============================ */
     .app-footer {
       background: var(--bg-white);
@@ -775,6 +751,15 @@
     .footer-copy {
       font-size: 0.8rem;
       color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-copy .logo-small {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: var(--logo-url) no-repeat center/contain;
     }
     .footer-links {
       display: flex;
@@ -790,6 +775,55 @@
     }
     .footer-links button:hover {
       color: var(--primary);
+    }
+
+    /* ============================
+       INVOICE WATERMARK (MARCA DE AGUA)
+       ============================ */
+    @media print {
+      #invoiceContent {
+        position: relative;
+        overflow: hidden;
+      }
+      #invoiceContent::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-30deg);
+        width: 60%;
+        height: 60%;
+        background: var(--logo-url) no-repeat center/contain;
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 0;
+      }
+      #invoiceContent>* {
+        position: relative;
+        z-index: 1;
+      }
+      .modal-overlay {
+        position: static !important;
+        background: none !important;
+        backdrop-filter: none !important;
+      }
+      .modal-box {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 20px !important;
+      }
+      .modal-actions {
+        display: none !important;
+      }
+      .topbar,
+      .tab-nav,
+      .app-footer,
+      #toast-container {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+      }
     }
 
     /* ============================
@@ -898,7 +932,7 @@
   <div id="authPage" class="page">
     <div class="auth-container">
       <div class="auth-brand">
-        <span class="icon">🐩</span>
+        <span class="logo-icon" aria-label="Logo Luthor"></span>
         <h1>Luthor</h1>
         <p>Peluquería Canina · Estilo y Cuidado</p>
       </div>
@@ -952,7 +986,7 @@
     <header class="topbar">
       <div class="topbar-inner">
         <div class="topbar-brand">
-          <div class="logo">🐩</div>
+          <div class="logo" aria-label="Logo Luthor"></div>
           <div>
             <h2>Luthor</h2>
             <span id="clientSub">Cliente</span>
@@ -976,7 +1010,7 @@
     <header class="topbar">
       <div class="topbar-inner">
         <div class="topbar-brand">
-          <div class="logo">🐩</div>
+          <div class="logo" aria-label="Logo Luthor"></div>
           <div>
             <h2>Luthor</h2>
             <span>Panel Administrador</span>
@@ -997,6 +1031,104 @@
   <!-- ============================
   MODALES
   ============================ -->
+
+  <!-- Modal: Nueva Mascota (desde agendar cita) -->
+  <div id="newPetModal" class="modal-overlay hidden">
+    <div class="modal-box wide">
+      <div class="modal-title"><i class="fas fa-dog"></i> Registrar nueva mascota</div>
+      <div id="newPetForm">
+        <div class="form-group">
+          <label for="newPetNombre">Nombre de la mascota *</label>
+          <input type="text" id="newPetNombre" placeholder="Ej: Firulais" maxlength="50" />
+        </div>
+        <div class="form-group">
+          <label for="newPetRaza">Raza *</label>
+          <select id="newPetRaza">
+            <option value="">-- Selecciona una raza --</option>
+            <optgroup label="Miniatura (hasta 4 kg)">
+              <option value="Chihuahua">Chihuahua</option>
+              <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+              <option value="Maltés">Maltés</option>
+              <option value="Shih Tzu">Shih Tzu</option>
+              <option value="Pomerania">Pomerania</option>
+            </optgroup>
+            <optgroup label="Pequeño (4-10 kg)">
+              <option value="Poodle Toy">Poodle Toy</option>
+              <option value="Cocker Spaniel">Cocker Spaniel</option>
+              <option value="Beagle">Beagle</option>
+              <option value="Dachshund">Dachshund</option>
+              <option value="Pug">Pug</option>
+              <option value="Boston Terrier">Boston Terrier</option>
+            </optgroup>
+            <optgroup label="Mediano (10-25 kg)">
+              <option value="Poodle Mediano">Poodle Mediano</option>
+              <option value="Bulldog">Bulldog</option>
+              <option value="Shiba Inu">Shiba Inu</option>
+              <option value="Australian Shepherd">Australian Shepherd</option>
+              <option value="Border Collie">Border Collie</option>
+              <option value="Schnauzer">Schnauzer</option>
+            </optgroup>
+            <optgroup label="Grande (25-40 kg)">
+              <option value="Labrador Retriever">Labrador Retriever</option>
+              <option value="Golden Retriever">Golden Retriever</option>
+              <option value="Pastor Alemán">Pastor Alemán</option>
+              <option value="Doberman">Doberman</option>
+              <option value="Boxer">Boxer</option>
+            </optgroup>
+            <optgroup label="Extra Grande (40-60 kg)">
+              <option value="Samoyedo">Samoyedo</option>
+              <option value="Husky Siberiano">Husky Siberiano</option>
+              <option value="Akita">Akita</option>
+            </optgroup>
+            <optgroup label="Gigante (60+ kg)">
+              <option value="San Bernardo">San Bernardo</option>
+              <option value="Mastín Tibetano">Mastín Tibetano</option>
+              <option value="Gran Danés">Gran Danés</option>
+              <option value="Mastín Napolitano">Mastín Napolitano</option>
+              <option value="Terranova">Terranova</option>
+            </optgroup>
+            <option value="otra">Otra (especificar)</option>
+          </select>
+          <input type="text" id="newPetRazaOtra" placeholder="Especificar raza" style="display:none; margin-top:8px;" />
+        </div>
+        <div class="form-group">
+          <label for="newPetTamano">Tamaño *</label>
+          <select id="newPetTamano">
+            <option value="Miniatura">Miniatura (hasta 4 kg)</option>
+            <option value="Pequeño">Pequeño (4-10 kg)</option>
+            <option value="Mediano" selected>Mediano (10-25 kg)</option>
+            <option value="Grande">Grande (25-40 kg)</option>
+            <option value="ExtraGrande">Extra Grande (40-60 kg)</option>
+            <option value="Gigante">Gigante (60+ kg)</option>
+          </select>
+        </div>
+        <div class="grid-2" style="gap:12px;">
+          <div class="form-group">
+            <label for="newPetEdad">Edad (años humanos)</label>
+            <input type="number" id="newPetEdad" placeholder="Ej: 3" min="0" step="0.5" />
+          </div>
+          <div class="form-group">
+            <label for="newPetPeso">Peso (kg)</label>
+            <input type="number" id="newPetPeso" placeholder="Ej: 15" min="0" step="0.5" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="newPetSexo">Sexo</label>
+          <select id="newPetSexo">
+            <option value="">-- Selecciona --</option>
+            <option value="Macho">Macho</option>
+            <option value="Hembra">Hembra</option>
+          </select>
+        </div>
+        <div id="newPetMsg"></div>
+        <div class="modal-actions">
+          <button class="btn btn-success" id="newPetSaveBtn"><i class="fas fa-save"></i> Guardar mascota</button>
+          <button class="btn btn-ghost" id="newPetCancelBtn">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Soporte -->
   <div id="supportModal" class="modal-overlay hidden">
     <div class="modal-box">
@@ -1066,7 +1198,7 @@
         <div class="form-group">
           <label for="appPetSelect">Mascota</label>
           <select id="appPetSelect"><option value="">-- Selecciona --</option></select>
-          <button class="btn btn-ghost btn-sm mt-1" id="appNewPetBtn" type="button">+ Nueva mascota</button>
+          <button class="btn btn-primary btn-sm mt-1" id="appNewPetBtn" type="button"><i class="fas fa-plus"></i> Nueva mascota</button>
         </div>
       </div>
       <div class="grid-2" style="gap:12px;">
@@ -1145,19 +1277,20 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v4.1
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.3
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.1 (CORREGIDA)
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.3
      * ================================================================
      * Cambios realizados:
-     *   1. Eliminado process.env.NODE_ENV (no funciona en navegador)
-     *   2. Agregada declaración de APP global
-     *   3. Corregidas referencias a funciones
-     *   4. Mejorado manejo de errores
-     *   5. Agregados polyfills para navegadores antiguos
+     *   1. ✅ CORREGIDO: Credenciales del proyecto correcto (aeetpx...)
+     *   2. ✅ NUEVO: Modal para crear mascota desde agendar cita
+     *   3. ✅ NUEVO: Validación de campos en creación de mascotas
+     *   4. ✅ CORREGIDO: Actualización automática del desplegable
+     *   5. ✅ MEJORADO: Campos de raza, tamaño, edad, peso, sexo
+     *   6. ✅ NUEVO: Logo en todas las páginas y marca de agua en facturas
      * ================================================================
      */
 
@@ -1165,7 +1298,6 @@
     // 0. POLYFILLS Y SEGURIDAD
     // ================================================================
 
-    // Polyfill para crypto.randomUUID en navegadores antiguos
     if (!crypto.randomUUID) {
       crypto.randomUUID = function() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -1177,23 +1309,24 @@
     }
 
     // ================================================================
-    // 1. CONFIGURACIÓN Y CONSTANTES
+    // 1. CONFIGURACIÓN Y CONSTANTES (CORREGIDO)
     // ================================================================
 
     const CONFIG = {
+      // ✅ CORREGIDO: Usar el proyecto correcto
       SUPABASE_URL: 'https://aeetpxvalrrqzglylzld.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_tSciD_yZfoBGP_pNZWENzw_QP-lMujw',
-      APP_NAME: 'Peluqueria Canina Luthor',
-      APP_VERSION: '4.1.0',
+      APP_NAME: 'Luthor',
+      APP_VERSION: '4.3.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
       CACHE_TTL: 300000,
       META_MENSUAL: 4000000,
-      IS_DEBUG: false, // ✅ Cambiar a true solo para desarrollo
+      IS_DEBUG: false,
     };
 
     // ================================================================
-    // 2. LOGGER Y MONITOREO (CORREGIDO)
+    // 2. LOGGER (CORREGIDO)
     // ================================================================
 
     const Logger = {
@@ -1222,7 +1355,6 @@
       success(msg, data) { this._log(this.levels.SUCCESS, msg, data); },
       warn(msg, data) { this._log(this.levels.WARNING, msg, data); },
       error(msg, data) { this._log(this.levels.ERROR, msg, data); },
-      // ✅ CORREGIDO: usa CONFIG.IS_DEBUG en lugar de process.env
       debug(msg, data) {
         if (CONFIG.IS_DEBUG) {
           this._log(this.levels.DEBUG, msg, data);
@@ -1230,11 +1362,10 @@
       },
     };
 
-    // Inicializar logs
     window._luthor_logs = [];
 
     // ================================================================
-    // 3. SISTEMA DE CACHÉ
+    // 3. CACHÉ
     // ================================================================
 
     const Cache = {
@@ -1279,10 +1410,9 @@
     };
 
     // ================================================================
-    // 4. SERVICIOS (API Layer)
+    // 4. SERVICIOS
     // ================================================================
 
-    // ✅ Verificar que la librería Supabase está cargada
     if (typeof supabase === 'undefined') {
       console.error('❌ Supabase no está cargado');
       document.body.innerHTML = `
@@ -1314,7 +1444,12 @@
         const { data, error } = await supabaseClient.auth.signUp({
           email,
           password,
-          options: { data: { nombre: userData.nombre } },
+          options: {
+            data: {
+              nombre: userData.nombre,
+              telefono: userData.telefono || '',
+            }
+          },
         });
         if (error) throw new Error(error.message);
         if (!data.user) throw new Error('No se pudo crear el usuario');
@@ -1609,7 +1744,7 @@
     };
 
     // ================================================================
-    // 5. GESTIÓN DE ESTADO (State Manager)
+    // 5. STATE
     // ================================================================
 
     const State = {
@@ -1668,7 +1803,6 @@
     // 6. UI HELPERS
     // ================================================================
 
-    // --- Toast ---
     function showToast(message, type = 'info', duration = CONFIG.TOAST_DURATION) {
       const container = document.getElementById('toast-container');
       if (!container) return;
@@ -1702,7 +1836,6 @@
       Logger.info(`Toast: ${type} - ${message}`);
     }
 
-    // --- Modal helpers ---
     function openModal(id) {
       const el = document.getElementById(id);
       if (el) el.classList.remove('hidden');
@@ -1713,7 +1846,6 @@
       if (el) el.classList.add('hidden');
     }
 
-    // --- Form helpers ---
     function getFormValue(id) {
       const el = document.getElementById(id);
       return el ? el.value.trim() : '';
@@ -1737,7 +1869,6 @@
       }
     }
 
-    // --- Render helpers ---
     function formatCurrency(amount) {
       return '$' + Number(amount).toLocaleString('es-CO');
     }
@@ -1777,7 +1908,7 @@
     }
 
     // ================================================================
-    // 7. MÓDULO DE AUTENTICACIÓN
+    // 7. AUTH MODULE
     // ================================================================
 
     const AuthModule = {
@@ -1991,7 +2122,7 @@
     };
 
     // ================================================================
-    // 8. MÓDULO DE CLIENTES (CORREGIDO)
+    // 8. CLIENT MODULE (CORREGIDO CON MODAL DE MASCOTA)
     // ================================================================
 
     const ClientModule = {
@@ -2004,6 +2135,7 @@
         this._initTabs();
         this._renderTabs();
         this._initModals();
+        this._initNewPetModal();
         renderFooter('footerClient');
       },
 
@@ -2078,8 +2210,9 @@
                 <label for="clientPetSelect">Mascota</label>
                 <select id="clientPetSelect">
                   <option value="">-- Elige una mascota --</option>
-                  ${mascotas.map(m => `<option value="${m.id}" data-raza="${escHtml(m.raza || '')}">${escHtml(m.nombre)} (${escHtml(m.raza || 'sin raza')})</option>`).join('')}
+                  ${mascotas.map(m => `<option value="${m.id}" data-raza="${escHtml(m.raza || '')}" data-tamano="${escHtml(m.tamano || 'Mediano')}">${escHtml(m.nombre)} (${escHtml(m.raza || 'sin raza')})</option>`).join('')}
                 </select>
+                <button class="btn btn-primary btn-sm mt-1" id="clientNewPetBtn" type="button"><i class="fas fa-plus"></i> Nueva mascota</button>
               </div>
               <div class="form-group">
                 <label for="clientServiceSelect">Servicio</label>
@@ -2134,6 +2267,11 @@
           </div>
         `;
 
+        // ✅ Botón "Nueva mascota" en la sección de agendar
+        document.getElementById('clientNewPetBtn').onclick = () => {
+          this._openNewPetModal();
+        };
+
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         document.getElementById('clientBookingDate').value = tomorrow.toISOString().split('T')[0];
@@ -2145,7 +2283,7 @@
           const servicio = document.getElementById('clientServiceSelect').value;
           const precios = { baño: 25000, corte: 35000, baño_corte: 50000, spa: 80000, uñas: 15000, oidos: 15000,
             cepillado: 20000, glandulas: 10000 };
-          const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000 };
+          const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000, Gigante: 50000 };
           const base = precios[servicio] || 40000;
           const ajuste = ajustes[raza] || 0;
           document.getElementById('clientPrecioEstimado').textContent = formatCurrency(base + ajuste);
@@ -2185,7 +2323,7 @@
             const raza = option ? option.dataset.raza : '';
             const precios = { baño: 25000, corte: 35000, baño_corte: 50000, spa: 80000, uñas: 15000, oidos: 15000,
               cepillado: 20000, glandulas: 10000 };
-            const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000 };
+            const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000, Gigante: 50000 };
             const precio = (precios[servicio] || 40000) + (ajustes[raza] || 0);
 
             await Services.createCita({
@@ -2281,33 +2419,137 @@
                     <div style="font-size:2.5rem;margin-bottom:4px;">🐶</div>
                     <div><strong>${escHtml(m.nombre)}</strong></div>
                     <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(m.raza || 'Sin raza')}</div>
+                    <div style="font-size:0.8rem;color:var(--text-secondary);">${escHtml(m.tamano || 'Mediano')}</div>
                     ${m.edad ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${m.edad} años</div>` : ''}
                     ${m.peso ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${m.peso} kg</div>` : ''}
+                    ${m.sexo ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${escHtml(m.sexo)}</div>` : ''}
                   </div>
                 `).join('')}
               </div>
-            ` : '<p class="text-muted">No tienes mascotas registradas. Agrega una desde tu perfil o al agendar una cita.</p>'}
-            <button class="btn btn-primary mt-2" onclick="ClientModule.agregarMascotaCliente()"><i class="fas fa-plus"></i> Agregar mascota</button>
+            ` : '<p class="text-muted">No tienes mascotas registradas. Agrega una desde "Agendar cita".</p>'}
+            <button class="btn btn-primary mt-2" onclick="ClientModule._openNewPetModal()"><i class="fas fa-plus"></i> Agregar mascota</button>
           </div>
         `;
       },
 
-      // ✅ EXPUESTO PÚBLICAMENTE para onclick
-      agregarMascotaCliente() {
-        const nombre = prompt('Nombre de tu mascota:');
-        if (!nombre) return;
-        const raza = prompt('Raza (opcional):') || '';
-        Services.createMascota({
-          user_id: State.get('userId'),
-          nombre: nombre,
-          raza: raza,
-        }).then(async () => {
-          showToast('Mascota agregada', 'success');
-          const mascotas = await Services.getMascotas(State.get('userId'));
-          State.set('mascotas', mascotas);
-          this._renderTab('mis_mascotas');
-          this._renderTab('agendar');
-        }).catch(err => showToast('Error: ' + err.message, 'error'));
+      // ✅ NUEVO: Abrir modal para crear mascota
+      _openNewPetModal() {
+        // Limpiar formulario
+        document.getElementById('newPetNombre').value = '';
+        document.getElementById('newPetRaza').value = '';
+        document.getElementById('newPetRazaOtra').value = '';
+        document.getElementById('newPetRazaOtra').style.display = 'none';
+        document.getElementById('newPetTamano').value = 'Mediano';
+        document.getElementById('newPetEdad').value = '';
+        document.getElementById('newPetPeso').value = '';
+        document.getElementById('newPetSexo').value = '';
+        document.getElementById('newPetMsg').innerHTML = '';
+        openModal('newPetModal');
+      },
+
+      // ✅ NUEVO: Inicializar modal de nueva mascota
+      _initNewPetModal() {
+        const modal = document.getElementById('newPetModal');
+        const btnCancel = document.getElementById('newPetCancelBtn');
+        const btnSave = document.getElementById('newPetSaveBtn');
+
+        // Mostrar campo "otra raza"
+        document.getElementById('newPetRaza').onchange = function() {
+          const otraInput = document.getElementById('newPetRazaOtra');
+          if (this.value === 'otra') {
+            otraInput.style.display = 'block';
+            otraInput.focus();
+          } else {
+            otraInput.style.display = 'none';
+          }
+        };
+
+        btnCancel.onclick = () => closeModal('newPetModal');
+
+        btnSave.onclick = async () => {
+          const nombre = document.getElementById('newPetNombre').value.trim();
+          let raza = document.getElementById('newPetRaza').value;
+          const razaOtra = document.getElementById('newPetRazaOtra').value.trim();
+          const tamano = document.getElementById('newPetTamano').value;
+          const edad = parseInt(document.getElementById('newPetEdad').value) || null;
+          const peso = parseFloat(document.getElementById('newPetPeso').value) || null;
+          const sexo = document.getElementById('newPetSexo').value;
+
+          // ✅ Validaciones mejoradas
+          if (!nombre) {
+            showToast('El nombre de la mascota es obligatorio', 'error');
+            document.getElementById('newPetNombre').focus();
+            return;
+          }
+          if (nombre.length < 2) {
+            showToast('El nombre debe tener al menos 2 caracteres', 'error');
+            document.getElementById('newPetNombre').focus();
+            return;
+          }
+
+          if (raza === 'otra') {
+            if (!razaOtra) {
+              showToast('Especifica la raza de tu mascota', 'error');
+              document.getElementById('newPetRazaOtra').focus();
+              return;
+            }
+            raza = razaOtra;
+          } else if (!raza) {
+            showToast('Selecciona o especifica la raza', 'error');
+            document.getElementById('newPetRaza').focus();
+            return;
+          }
+
+          // Validar peso
+          if (peso !== null && peso <= 0) {
+            showToast('El peso debe ser mayor a 0', 'error');
+            document.getElementById('newPetPeso').focus();
+            return;
+          }
+
+          // Validar edad
+          if (edad !== null && edad < 0) {
+            showToast('La edad no puede ser negativa', 'error');
+            document.getElementById('newPetEdad').focus();
+            return;
+          }
+
+          setLoading('newPetSaveBtn', true, 'Guardando...');
+          try {
+            await Services.createMascota({
+              user_id: State.get('userId'),
+              nombre: nombre,
+              raza: raza,
+              tamano: tamano,
+              edad: edad,
+              peso: peso,
+              sexo: sexo,
+            });
+
+            showToast('¡Mascota registrada exitosamente!', 'success');
+            closeModal('newPetModal');
+
+            // ✅ Recargar mascotas y actualizar desplegables
+            const mascotas = await Services.getMascotas(State.get('userId'));
+            State.set('mascotas', mascotas);
+            this._renderTab('agendar');
+            this._renderTab('mis_mascotas');
+
+            // Limpiar formulario
+            document.getElementById('newPetNombre').value = '';
+            document.getElementById('newPetRaza').value = '';
+            document.getElementById('newPetRazaOtra').value = '';
+            document.getElementById('newPetRazaOtra').style.display = 'none';
+            document.getElementById('newPetEdad').value = '';
+            document.getElementById('newPetPeso').value = '';
+            document.getElementById('newPetSexo').value = '';
+
+          } catch (error) {
+            showToast('Error al guardar: ' + error.message, 'error');
+          } finally {
+            setLoading('newPetSaveBtn', false);
+          }
+        };
       },
 
       _renderGaleria(cont) {
@@ -2447,7 +2689,7 @@
     window.ClientModule = ClientModule;
 
     // ================================================================
-    // 9. MÓDULO DE ADMINISTRACIÓN (CORREGIDO)
+    // 9. ADMIN MODULE
     // ================================================================
 
     const AdminModule = {
@@ -3057,17 +3299,12 @@
           }
         };
 
+        // ✅ NUEVO: Botón "Nueva mascota" en el modal de cita rápida
         document.getElementById('appNewPetBtn').onclick = () => {
           const userId = window._appSelectedClientId;
           if (!userId) { showToast('Selecciona un cliente primero', 'error'); return; }
-          const nombre = prompt('Nombre de la mascota:');
-          if (nombre) {
-            Services.createMascota({ user_id: userId, nombre })
-              .then(() => {
-                this._cargarMascotasModal(userId);
-              })
-              .catch(err => showToast('Error: ' + err.message, 'error'));
-          }
+          // Abrir modal de nueva mascota (cliente)
+          ClientModule._openNewPetModal();
         };
 
         document.getElementById('appDate').value = new Date().toISOString().split('T')[0];
@@ -3315,7 +3552,7 @@
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v4.1 iniciando...');
+      Logger.info('🚀 Luthor v4.3 iniciando...');
 
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {
@@ -3352,7 +3589,10 @@
       if (!el) return;
       el.innerHTML = `
         <div class="app-footer">
-          <span class="footer-copy">🐩 Luthor v${CONFIG.APP_VERSION} · Estilo y cuidado para tu mejor amigo</span>
+          <span class="footer-copy">
+            <span class="logo-small" aria-label="Logo Luthor"></span>
+            Luthor v${CONFIG.APP_VERSION} · Estilo y cuidado para tu mejor amigo
+          </span>
           <div class="footer-links">
             <button onclick="window.open('https://wa.me/573142245598','_blank')"><i class="fab fa-whatsapp"></i> WhatsApp</button>
             <button onclick="openModal('supportModal')"><i class="fas fa-headset"></i> Soporte</button>

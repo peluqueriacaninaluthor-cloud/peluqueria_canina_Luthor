@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Sistema de Gestión Empresarial Peluquería Canina Luthor" />
-  <title>Luthor · Sistema Empresarial v5.0</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23b8712a'/%3E%3Ctext x='50' y='65' font-size='45' text-anchor='middle' fill='white' font-family='Arial'%3EL%3C/text%3E%3C/svg%3E" />
+  <title>Luthor · Sistema Empresarial v6.0</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%236B1A2A'/%3E%3Ctext x='50' y='65' font-size='45' text-anchor='middle' fill='white' font-family='Arial'%3EL%3C/text%3E%3C/svg%3E" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
@@ -14,28 +14,28 @@
   </script>
   <style>
     /* ============================
-       VARIABLES DE DISEÑO EMPRESARIAL
+       VARIABLES DE DISEÑO - VINO TINTO + NEGRO
        ============================ */
     :root {
-      --primary: #b8712a;
-      --primary-dark: #8a551f;
-      --primary-light: #e8c48a;
-      --primary-gradient: linear-gradient(135deg, #8a551f 0%, #b8712a 50%, #d4903f 100%);
-      --bg-primary: #fcf8f0;
-      --bg-secondary: #fff8ec;
-      --bg-white: #ffffff;
-      --bg-dark: #1a0f05;
-      --text-primary: #2c1a0a;
-      --text-secondary: #7a6548;
-      --text-white: #ffffff;
-      --success: #2d7d46;
-      --error: #b23b2a;
-      --warning: #f5a623;
-      --info: #2a6d8c;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
-      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
+      --primary: #8B1A2A;
+      --primary-dark: #6B1A2A;
+      --primary-light: #C44A5A;
+      --primary-gradient: linear-gradient(180deg, #6B1A2A 0%, #8B1A2A 35%, #2A0A0A 65%, #1A0A0A 100%);
+      --bg-primary: #1A0A0A;
+      --bg-secondary: #2A1212;
+      --bg-white: #F5F0EB;
+      --bg-dark: #0A0505;
+      --text-primary: #F5F0EB;
+      --text-secondary: #C4A8A0;
+      --text-white: #FFFFFF;
+      --success: #2D7D46;
+      --error: #B23B2A;
+      --warning: #F5A623;
+      --info: #2A6D8C;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.6);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 20px;
@@ -124,7 +124,7 @@
     }
 
     .toast {
-      background: var(--bg-white);
+      background: var(--bg-secondary);
       padding: 16px 20px;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-xl);
@@ -136,6 +136,7 @@
       border-left: 5px solid var(--primary);
       font-size: 0.92rem;
       color: var(--text-primary);
+      border: 1px solid rgba(139, 26, 42, 0.3);
     }
     .toast.success {
       border-left-color: var(--success);
@@ -179,7 +180,7 @@
     }
 
     /* ============================
-       AUTH PAGE
+       AUTH PAGE - VINO TINTO + NEGRO
        ============================ */
     #authPage {
       min-height: 100vh;
@@ -196,8 +197,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(139, 26, 42, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.5) 0%, transparent 50%);
       pointer-events: none;
     }
 
@@ -221,18 +222,21 @@
       margin: 0 auto 12px;
       width: 80px;
       height: 80px;
-      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23ffffff" opacity="0.2"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23FFFFFF" opacity="0.15"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
       animation: float 3s ease-in-out infinite;
     }
     .auth-brand h1 {
       font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.5px;
+      color: #FFFFFF;
+      text-shadow: 0 2px 20px rgba(139, 26, 42, 0.5);
     }
     .auth-brand p {
       opacity: 0.8;
       font-size: 0.95rem;
       margin-top: 4px;
+      color: #F5F0EB;
     }
 
     @keyframes float {
@@ -246,11 +250,12 @@
     }
 
     .auth-card {
-      background: var(--bg-white);
+      background: var(--bg-secondary);
       border-radius: var(--radius-lg);
       padding: 36px 32px;
       width: 100%;
       box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(139, 26, 42, 0.3);
     }
 
     .auth-tabs {
@@ -274,9 +279,9 @@
       cursor: pointer;
     }
     .auth-tab.active {
-      background: var(--bg-white);
-      color: var(--primary);
-      box-shadow: var(--shadow-sm);
+      background: var(--primary);
+      color: var(--text-white);
+      box-shadow: 0 4px 20px rgba(139, 26, 42, 0.4);
     }
     .auth-tab:hover:not(.active) {
       color: var(--text-primary);
@@ -299,12 +304,12 @@
     .form-group textarea {
       width: 100%;
       padding: 12px 16px;
-      border: 2px solid #e8e0d8;
+      border: 2px solid rgba(139, 26, 42, 0.2);
       border-radius: var(--radius-sm);
       font-size: 0.95rem;
       font-family: inherit;
       transition: var(--transition);
-      background: var(--bg-white);
+      background: var(--bg-primary);
       color: var(--text-primary);
     }
     .form-group input:focus,
@@ -312,7 +317,7 @@
     .form-group textarea:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(184, 113, 42, 0.1);
+      box-shadow: 0 0 0 4px rgba(139, 26, 42, 0.15);
     }
     .form-group textarea {
       resize: vertical;
@@ -347,7 +352,7 @@
     .btn-primary:hover:not(:disabled) {
       background: var(--primary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(184, 113, 42, 0.3);
+      box-shadow: 0 8px 24px rgba(139, 26, 42, 0.4);
     }
     .btn-success {
       background: var(--success);
@@ -384,11 +389,12 @@
       transform: translateY(-2px);
     }
     .btn-ghost {
-      background: var(--bg-primary);
+      background: rgba(139, 26, 42, 0.1);
       color: var(--text-secondary);
+      border: 1px solid rgba(139, 26, 42, 0.2);
     }
     .btn-ghost:hover:not(:disabled) {
-      background: #e8e0d4;
+      background: rgba(139, 26, 42, 0.2);
       transform: translateY(-2px);
     }
     .btn-sm {
@@ -404,7 +410,7 @@
       display: block;
       text-align: right;
       margin-top: 12px;
-      color: var(--primary);
+      color: var(--primary-light);
       font-size: 0.85rem;
       cursor: pointer;
     }
@@ -419,14 +425,14 @@
       margin-top: 12px;
     }
     .alert-error {
-      background: #fdf0ee;
+      background: rgba(178, 59, 42, 0.15);
       color: var(--error);
-      border: 1px solid #f5c6c1;
+      border: 1px solid rgba(178, 59, 42, 0.3);
     }
     .alert-success {
-      background: #edf7ed;
+      background: rgba(45, 125, 70, 0.15);
       color: var(--success);
-      border: 1px solid #b7dbb7;
+      border: 1px solid rgba(45, 125, 70, 0.3);
     }
 
     .hidden {
@@ -434,16 +440,16 @@
     }
 
     /* ============================
-       TOPBAR
+       TOPBAR - VINO TINTO + NEGRO
        ============================ */
     .topbar {
-      background: var(--bg-white);
-      border-bottom: 1px solid #e8e0d8;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid rgba(139, 26, 42, 0.3);
       position: sticky;
       top: 0;
       z-index: 100;
       backdrop-filter: blur(20px);
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(26, 10, 10, 0.95);
     }
     .topbar-inner {
       display: flex;
@@ -461,7 +467,7 @@
     .topbar-brand .logo {
       width: 40px;
       height: 40px;
-      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23b8712a"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%238B1A2A"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
     }
     .topbar-brand h2 {
       font-size: 1.1rem;
@@ -483,8 +489,8 @@
        TABS
        ============================ */
     .tab-nav {
-      background: var(--bg-white);
-      border-bottom: 1px solid #e8e0d8;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid rgba(139, 26, 42, 0.3);
       overflow-x: auto;
       padding: 0 16px;
       scrollbar-width: none;
@@ -512,12 +518,12 @@
     }
     .tab-btn:hover {
       color: var(--text-primary);
-      background: var(--bg-primary);
+      background: rgba(139, 26, 42, 0.1);
     }
     .tab-btn.active {
       background: var(--primary);
       color: var(--text-white);
-      box-shadow: 0 4px 12px rgba(184, 113, 42, 0.3);
+      box-shadow: 0 4px 20px rgba(139, 26, 42, 0.4);
     }
 
     /* ============================
@@ -538,19 +544,20 @@
     }
 
     /* ============================
-       CARDS
+       CARDS - VINO TINTO + NEGRO
        ============================ */
     .card {
-      background: var(--bg-white);
+      background: var(--bg-secondary);
       border-radius: var(--radius-md);
       padding: 24px;
       box-shadow: var(--shadow-sm);
-      border: 1px solid #f0ece4;
+      border: 1px solid rgba(139, 26, 42, 0.2);
       margin-bottom: 20px;
       transition: var(--transition);
     }
     .card:hover {
       box-shadow: var(--shadow-md);
+      border-color: rgba(139, 26, 42, 0.4);
     }
     .card-title {
       font-size: 1.1rem;
@@ -562,7 +569,7 @@
       gap: 10px;
     }
     .card-title i {
-      color: var(--primary);
+      color: var(--primary-light);
     }
 
     /* ============================
@@ -593,21 +600,22 @@
        STAT CARDS
        ============================ */
     .stat-card {
-      background: var(--bg-white);
+      background: var(--bg-secondary);
       border-radius: var(--radius-md);
       padding: 20px;
       text-align: center;
-      border: 1px solid #f0ece4;
+      border: 1px solid rgba(139, 26, 42, 0.2);
       transition: var(--transition);
     }
     .stat-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-md);
+      border-color: var(--primary);
     }
     .stat-value {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--primary);
+      color: var(--primary-light);
     }
     .stat-label {
       font-size: 0.8rem;
@@ -630,6 +638,7 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
+      color: var(--text-primary);
     }
     .table th {
       text-align: left;
@@ -640,13 +649,14 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      border-bottom: 2px solid rgba(139, 26, 42, 0.3);
     }
     .table td {
       padding: 12px 16px;
-      border-bottom: 1px solid #f0ece4;
+      border-bottom: 1px solid rgba(139, 26, 42, 0.15);
     }
     .table tr:hover td {
-      background: var(--bg-primary);
+      background: rgba(139, 26, 42, 0.05);
     }
 
     /* ============================
@@ -663,33 +673,118 @@
       text-transform: uppercase;
     }
     .badge-pending {
-      background: #fef3e0;
+      background: rgba(245, 166, 35, 0.2);
       color: var(--warning);
     }
     .badge-success {
-      background: #edf7ed;
+      background: rgba(45, 125, 70, 0.2);
       color: var(--success);
     }
     .badge-danger {
-      background: #fdf0ee;
+      background: rgba(178, 59, 42, 0.2);
       color: var(--error);
     }
     .badge-info {
-      background: #e8f0fe;
+      background: rgba(42, 109, 140, 0.2);
       color: var(--info);
     }
     .badge-admin {
-      background: #e8e0ff;
-      color: #4a2b7a;
+      background: rgba(139, 26, 42, 0.3);
+      color: var(--primary-light);
     }
     .badge-stock {
-      background: #fdf0ee;
+      background: rgba(178, 59, 42, 0.2);
       color: var(--error);
       font-weight: 700;
     }
     .badge-credit {
-      background: #fff4d6;
+      background: rgba(245, 166, 35, 0.2);
       color: var(--warning);
+    }
+
+    /* ============================
+       FACTURA - ESTILO COLOMBIANO
+       ============================ */
+    .factura-container {
+      background: var(--bg-white);
+      color: var(--text-primary);
+      padding: 30px;
+      border-radius: var(--radius-md);
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: 'Courier New', monospace;
+    }
+    .factura-container .factura-header {
+      text-align: center;
+      border-bottom: 2px solid #1A0A0A;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    .factura-container .factura-header h2 {
+      font-size: 1.8rem;
+      color: #6B1A2A;
+    }
+    .factura-container .factura-header p {
+      font-size: 0.8rem;
+      color: #666;
+    }
+    .factura-container .factura-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #f5f0eb;
+      border-radius: 8px;
+    }
+    .factura-container .factura-tabla {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.85rem;
+    }
+    .factura-container .factura-tabla th {
+      background: #6B1A2A;
+      color: white;
+      padding: 8px;
+      text-align: left;
+    }
+    .factura-container .factura-tabla td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    .factura-container .factura-total {
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 10px;
+      border-top: 2px solid #1A0A0A;
+      margin-top: 10px;
+    }
+    .factura-container .factura-footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #666;
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    .factura-container .factura-qr {
+      text-align: center;
+      margin: 10px 0;
+    }
+    .factura-container .factura-qr .qr-placeholder {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background: #1A0A0A;
+      border-radius: 8px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
     }
 
     /* ============================
@@ -698,7 +793,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
       display: flex;
       align-items: center;
@@ -719,7 +814,7 @@
       }
     }
     .modal-box {
-      background: var(--bg-white);
+      background: var(--bg-secondary);
       border-radius: var(--radius-lg);
       padding: 32px;
       max-width: 560px;
@@ -728,6 +823,7 @@
       overflow-y: auto;
       box-shadow: var(--shadow-xl);
       animation: slideUp 0.3s ease;
+      border: 1px solid rgba(139, 26, 42, 0.3);
     }
     @keyframes slideUp {
       from {
@@ -740,7 +836,7 @@
       }
     }
     .modal-box.wide {
-      max-width: 720px;
+      max-width: 820px;
     }
     .modal-title {
       font-size: 1.3rem;
@@ -749,9 +845,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      color: var(--text-primary);
     }
     .modal-title i {
-      color: var(--primary);
+      color: var(--primary-light);
     }
     .modal-actions {
       display: flex;
@@ -764,8 +861,8 @@
        FOOTER
        ============================ */
     .app-footer {
-      background: var(--bg-white);
-      border-top: 1px solid #e8e0d8;
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(139, 26, 42, 0.3);
       padding: 16px 24px;
       display: flex;
       justify-content: space-between;
@@ -784,7 +881,7 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23b8712a"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
+      background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%238B1A2A"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
     }
     .footer-links {
       display: flex;
@@ -799,15 +896,15 @@
       cursor: pointer;
     }
     .footer-links button:hover {
-      color: var(--primary);
+      color: var(--primary-light);
     }
 
     /* ============================
        PRIVACY BANNER
        ============================ */
     .privacy-banner {
-      background: var(--bg-primary);
-      border: 1px solid #e8e0d8;
+      background: rgba(139, 26, 42, 0.1);
+      border: 1px solid rgba(139, 26, 42, 0.2);
       border-radius: var(--radius-sm);
       padding: 12px 16px;
       font-size: 0.8rem;
@@ -822,58 +919,9 @@
       font-size: 1.2rem;
     }
     .privacy-banner a {
-      color: var(--primary);
+      color: var(--primary-light);
       text-decoration: underline;
       cursor: pointer;
-    }
-
-    /* ============================
-       INVOICE WATERMARK
-       ============================ */
-    @media print {
-      #invoiceContent {
-        position: relative;
-        overflow: hidden;
-      }
-      #invoiceContent::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-30deg);
-        width: 60%;
-        height: 60%;
-        background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="45" fill="%23b8712a"/%3E%3Ctext x="50" y="65" font-size="45" text-anchor="middle" fill="white" font-family="Arial"%3EL%3C/text%3E%3C/svg%3E') no-repeat center/contain;
-        opacity: 0.08;
-        pointer-events: none;
-        z-index: 0;
-      }
-      #invoiceContent>* {
-        position: relative;
-        z-index: 1;
-      }
-      .modal-overlay {
-        position: static !important;
-        background: none !important;
-        backdrop-filter: none !important;
-      }
-      .modal-box {
-        box-shadow: none !important;
-        border: none !important;
-        padding: 20px !important;
-      }
-      .modal-actions {
-        display: none !important;
-      }
-      .topbar,
-      .tab-nav,
-      .app-footer,
-      #toast-container {
-        display: none !important;
-      }
-      body {
-        background: white !important;
-      }
     }
 
     /* ============================
@@ -913,6 +961,9 @@
       }
       .stat-value {
         font-size: 1.5rem;
+      }
+      .factura-container .factura-info {
+        grid-template-columns: 1fr;
       }
     }
     @media (max-width: 480px) {
@@ -970,6 +1021,18 @@
     }
     .w-full {
       width: 100%;
+    }
+    .text-success {
+      color: var(--success);
+    }
+    .text-danger {
+      color: var(--error);
+    }
+    .text-warning {
+      color: var(--warning);
+    }
+    .text-primary-light {
+      color: var(--primary-light);
     }
   </style>
 </head>
@@ -1191,7 +1254,7 @@
   <div id="supportModal" class="modal-overlay hidden">
     <div class="modal-box">
       <div class="modal-title"><i class="fas fa-headset"></i> Soporte</div>
-      <p><strong>WhatsApp:</strong> <a href="https://wa.me/573142245598" target="_blank">314 224 5598</a></p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/573142245598" target="_blank" style="color:var(--primary-light);">314 224 5598</a></p>
       <p><strong>Dirección:</strong> Carrera 11 # 5-33, Úbate, Cundinamarca</p>
       <div class="modal-actions">
         <button class="btn btn-ghost" id="closeSupportBtn">Cerrar</button>
@@ -1239,10 +1302,10 @@
     </div>
   </div>
 
-  <!-- Modal: Cita rápida (mostrador) -->
+  <!-- Modal: Cita rápida -->
   <div id="appointmentModal" class="modal-overlay hidden">
     <div class="modal-box wide">
-      <div class="modal-title"><i class="fas fa-calendar-plus"></i> Agendar cita <span style="font-size:0.8rem;font-weight:400;color:var(--text-secondary)">(Mostrador)</span></div>
+      <div class="modal-title"><i class="fas fa-calendar-plus"></i> Agendar cita <span style="font-size:0.8rem;font-weight:400;color:var(--text-secondary);">(Mostrador)</span></div>
       <div class="form-group">
         <label for="appClientSearch">Buscar cliente (nombre o teléfono)</label>
         <input type="text" id="appClientSearch" placeholder="Escribe para buscar..." />
@@ -1251,7 +1314,7 @@
       <div class="grid-2" style="gap:12px;">
         <div class="form-group">
           <label>Cliente seleccionado</label>
-          <input type="text" id="appClientSelected" readonly placeholder="Ninguno" style="background:var(--bg-primary);" />
+          <input type="text" id="appClientSelected" readonly placeholder="Ninguno" style="background:rgba(139,26,42,0.1);" />
         </div>
         <div class="form-group">
           <label for="appPetSelect">Mascota</label>
@@ -1353,24 +1416,35 @@
     </div>
   </div>
 
+  <!-- Modal: Ver Factura -->
+  <div id="facturaModal" class="modal-overlay hidden">
+    <div class="modal-box wide" id="facturaContainer">
+      <div class="modal-title"><i class="fas fa-file-invoice"></i> Factura Electrónica</div>
+      <div id="facturaContent"></div>
+      <div class="modal-actions" style="justify-content:center;">
+        <button class="btn btn-primary" onclick="window.print()"><i class="fas fa-print"></i> Imprimir</button>
+        <button class="btn btn-success" onclick="downloadFacturaPDF()"><i class="fas fa-file-pdf"></i> Descargar PDF</button>
+        <button class="btn btn-ghost" id="closeFacturaBtn">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v5.0
+  SCRIPT - ARQUITECTURA EMPRESARIAL v6.0
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v5.0
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v6.0
      * ================================================================
-     * Implementa:
-     *   ✅ Dashboard con datos reales y gráficos dinámicos
-     *   ✅ Logout centralizado sin duplicación
-     *   ✅ Flujo de caja automatizado al finalizar cita
-     *   ✅ Alertas de stock crítico
-     *   ✅ Módulo de cartera (créditos y abonos)
-     *   ✅ Indicadores laborales (costo hora-hombre)
-     *   ✅ Aviso de privacidad (Ley 1581 de 2012)
-     *   ✅ Auditoría de inventario cíclico
-     *   ✅ Preparado para facturación electrónica
+     * Cambios realizados:
+     *   ✅ Nuevo diseño Vino Tinto + Negro (65% / 35%)
+     *   ✅ Sistema completo de facturación electrónica
+     *   ✅ Métodos de pago: Nequi, PSE, Efectivo
+     *   ✅ Visualización, descarga e impresión de facturas
+     *   ✅ Resumen de pagos por método
+     *   ✅ Cierre de caja diario
+     *   ✅ Reporte de IVA
      * ================================================================
      */
 
@@ -1396,12 +1470,14 @@
       SUPABASE_URL: 'https://aeetpxvalrrqzglylzld.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_tSciD_yZfoBGP_pNZWENzw_QP-lMujw',
       APP_NAME: 'Luthor',
-      APP_VERSION: '5.0.0',
+      APP_VERSION: '6.0.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
       CACHE_TTL: 300000,
       META_MENSUAL: 4000000,
-      COSTO_HORA_LABORAL: 15000, // Costo aproximado por hora (incluye prestaciones)
+      COSTO_HORA_LABORAL: 15000,
+      NIT_EMPRESA: '123.456.789-0',
+      REGIMEN: 'Régimen Simplificado',
       IS_DEBUG: false,
     };
 
@@ -1496,10 +1572,10 @@
     if (typeof supabase === 'undefined') {
       console.error('❌ Supabase no está cargado');
       document.body.innerHTML = `
-        <div style="padding:40px;text-align:center;font-family:sans-serif;">
-          <h1>⚠️ Error de carga</h1>
+        <div style="padding:40px;text-align:center;font-family:sans-serif;background:#1A0A0A;color:#F5F0EB;">
+          <h1 style="color:#8B1A2A;">⚠️ Error de carga</h1>
           <p>No se pudo cargar la librería de Supabase. Por favor, recarga la página.</p>
-          <button onclick="location.reload()" style="padding:10px 30px;background:#b8712a;color:white;border:none;border-radius:8px;cursor:pointer;">
+          <button onclick="location.reload()" style="padding:10px 30px;background:#8B1A2A;color:white;border:none;border-radius:8px;cursor:pointer;">
             Recargar
           </button>
         </div>
@@ -1675,6 +1751,32 @@
         Logger.success('Cita updated', { id });
       },
 
+      // --- Facturas ---
+      async getFacturas() {
+        const cacheKey = 'facturas_all';
+        const cached = Cache.get(cacheKey);
+        if (cached) return cached;
+
+        const { data, error } = await supabaseClient
+          .from('facturas')
+          .select('*')
+          .order('fecha_emision', { ascending: false });
+        if (error) throw new Error(error.message);
+        Cache.set(cacheKey, data);
+        return data || [];
+      },
+
+      async createFactura(facturaData) {
+        const { data, error } = await supabaseClient
+          .from('facturas')
+          .insert(facturaData)
+          .select();
+        if (error) throw new Error(error.message);
+        Cache.invalidate('facturas_all');
+        Logger.success('Factura created', data);
+        return data;
+      },
+
       // --- Pagos ---
       async getPagos() {
         const cacheKey = 'pagos_all';
@@ -1701,7 +1803,7 @@
         return data;
       },
 
-      // --- Cartera (Créditos) ---
+      // --- Cartera ---
       async getCreditosCliente(userId) {
         const cacheKey = `creditos_${userId}`;
         const cached = Cache.get(cacheKey);
@@ -1866,7 +1968,7 @@
         return data || [];
       },
 
-      // --- Usuarios (admin) ---
+      // --- Usuarios ---
       async getAllUsers() {
         const cacheKey = 'users_all';
         const cached = Cache.get(cacheKey);
@@ -1901,18 +2003,54 @@
         Logger.success('Sugerencia created');
       },
 
-      // --- Facturación Electrónica (Simulada) ---
+      // --- Facturación Electrónica ---
       async generateElectronicInvoice(invoiceData) {
-        // Simulación de integración con DIAN
         Logger.info('Generando factura electrónica', invoiceData);
-        // En producción, aquí se llamaría a la API de DIAN o un proveedor autorizado
-        const invoiceNumber = 'FE-' + Date.now().toString(36).toUpperCase();
-        return {
-          success: true,
+
+        // Simulación de integración con DIAN
+        const invoiceNumber = 'LUT-' + Date.now().toString(36).toUpperCase();
+        const cufe = 'CUFE-' + crypto.randomUUID().replace(/-/g, '').substring(0, 40);
+
+        const factura = {
           invoiceNumber: invoiceNumber,
-          cufe: 'CUFE-' + crypto.randomUUID(),
+          cufe: cufe,
+          fecha: new Date().toISOString(),
+          cliente: invoiceData.cliente,
+          nitCliente: invoiceData.nitCliente || 'N/A',
+          telefonoCliente: invoiceData.telefonoCliente || '',
+          correoCliente: invoiceData.correoCliente || '',
+          items: invoiceData.items || [{
+            descripcion: invoiceData.descripcion || 'Servicio de peluquería canina',
+            cantidad: 1,
+            valorUnitario: invoiceData.monto,
+            iva: invoiceData.iva || 0,
+            total: invoiceData.monto
+          }],
+          subtotal: invoiceData.monto,
+          ivaTotal: invoiceData.iva || 0,
+          total: invoiceData.monto + (invoiceData.iva || 0),
+          metodoPago: invoiceData.metodoPago || 'efectivo',
+          regimen: CONFIG.REGIMEN,
+          nitEmpresa: CONFIG.NIT_EMPRESA,
           qrCode: 'https://example.com/factura/' + invoiceNumber,
         };
+
+        // Guardar en la base de datos
+        await this.createFactura({
+          invoice_number: factura.invoiceNumber,
+          cufe: factura.cufe,
+          fecha_emision: factura.fecha,
+          cliente_nombre: factura.cliente,
+          cliente_nit: factura.nitCliente,
+          subtotal: factura.subtotal,
+          iva: factura.ivaTotal,
+          total: factura.total,
+          metodo_pago: factura.metodoPago,
+          items: JSON.stringify(factura.items),
+        });
+
+        Logger.success('Factura generada', { invoiceNumber });
+        return factura;
       },
     };
 
@@ -1937,6 +2075,7 @@
         usuarios: [],
         creditos: [],
         auditorias: [],
+        facturas: [],
         loading: false,
         initialized: false,
       },
@@ -2105,6 +2244,7 @@
           usuarios: [],
           creditos: [],
           auditorias: [],
+          facturas: [],
         });
         document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById('authPage').style.display = '';
@@ -2118,7 +2258,136 @@
     }
 
     // ================================================================
-    // 8. AUTH MODULE
+    // 8. FACTURA MODULE
+    // ================================================================
+
+    const FacturaModule = {
+      generarFacturaHTML(factura) {
+        const items = factura.items || [{
+          descripcion: 'Servicio de peluquería canina',
+          cantidad: 1,
+          valorUnitario: factura.total,
+          iva: factura.ivaTotal || 0,
+          total: factura.total
+        }];
+
+        return `
+          <div class="factura-container" id="facturaPrint">
+            <div class="factura-header">
+              <h2>LUTHOR</h2>
+              <p>Peluquería Canina · Estilo y Cuidado</p>
+              <p><strong>NIT:</strong> ${factura.nitEmpresa || CONFIG.NIT_EMPRESA}</p>
+              <p><strong>Régimen:</strong> ${factura.regimen || CONFIG.REGIMEN}</p>
+            </div>
+
+            <div class="factura-info">
+              <div>
+                <strong>Factura N°:</strong> ${factura.invoiceNumber}<br>
+                <strong>CUFE:</strong> ${factura.cufe || 'N/A'}<br>
+                <strong>Fecha:</strong> ${formatDate(factura.fecha)}
+              </div>
+              <div>
+                <strong>Cliente:</strong> ${escHtml(factura.cliente)}<br>
+                <strong>NIT/CC:</strong> ${escHtml(factura.nitCliente || 'N/A')}<br>
+                <strong>Teléfono:</strong> ${escHtml(factura.telefonoCliente || 'N/A')}<br>
+                <strong>Método de Pago:</strong> ${factura.metodoPago ? factura.metodoPago.toUpperCase() : 'EFECTIVO'}
+              </div>
+            </div>
+
+            <table class="factura-tabla">
+              <thead>
+                <tr>
+                  <th>Cant.</th>
+                  <th>Descripción</th>
+                  <th>Valor Unitario</th>
+                  <th>IVA</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${items.map(item => `
+                  <tr>
+                    <td>${item.cantidad}</td>
+                    <td>${escHtml(item.descripcion)}</td>
+                    <td>${formatCurrency(item.valorUnitario)}</td>
+                    <td>${formatCurrency(item.iva || 0)}</td>
+                    <td>${formatCurrency(item.total)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+
+            <div class="factura-total">
+              Subtotal: ${formatCurrency(factura.subtotal)}<br>
+              IVA (19%): ${formatCurrency(factura.ivaTotal || 0)}<br>
+              <strong>TOTAL: ${formatCurrency(factura.total)}</strong>
+            </div>
+
+            <div class="factura-qr">
+              <div class="qr-placeholder">
+                <i class="fas fa-qrcode" style="font-size:2rem;"></i>
+              </div>
+              <p style="font-size:0.7rem;color:#666;">Código QR de verificación</p>
+            </div>
+
+            <div class="factura-footer">
+              <p>Esta factura es un documento de soporte para el comprador y el vendedor.</p>
+              <p>¡Gracias por preferir Luthor! 🐾</p>
+            </div>
+          </div>
+        `;
+      },
+
+      mostrarFactura(factura) {
+        const content = document.getElementById('facturaContent');
+        content.innerHTML = this.generarFacturaHTML(factura);
+        window._facturaActual = factura;
+        openModal('facturaModal');
+      },
+
+      descargarPDF() {
+        const factura = window._facturaActual;
+        if (!factura) {
+          showToast('No hay factura para descargar', 'error');
+          return;
+        }
+
+        const content = document.getElementById('facturaContent');
+        const originalHTML = content.innerHTML;
+
+        // Crear ventana para impresión
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>Factura ${factura.invoiceNumber}</title>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+              <style>
+                body { font-family: 'Courier New', monospace; padding: 20px; background: white; }
+                .factura-container { max-width: 800px; margin: 0 auto; }
+                ${document.querySelector('style').innerHTML}
+                .modal-overlay { display: none !important; }
+                .modal-actions { display: none !important; }
+                .factura-container { background: white; color: #1A0A0A; }
+                .factura-container .factura-header h2 { color: #6B1A2A; }
+                .factura-container .factura-tabla th { background: #6B1A2A; color: white; }
+              </style>
+            </head>
+            <body>
+              ${this.generarFacturaHTML(factura)}
+              <script>
+                window.print();
+                window.close();
+              <\/script>
+            </body>
+          </html>
+        `);
+        printWindow.document.close();
+      },
+    };
+
+    // ================================================================
+    // 9. AUTH MODULE
     // ================================================================
 
     const AuthModule = {
@@ -2176,7 +2445,7 @@
         Logger.info('Loading admin data');
         State.set('loading', true);
         try {
-          const [citas, pagos, gastos, fotos, productos, usuarios, creditos, auditorias] = await Promise.all([
+          const [citas, pagos, gastos, fotos, productos, usuarios, creditos, auditorias, facturas] = await Promise.all([
             Services.getAllCitas(),
             Services.getPagos(),
             Services.getGastos(),
@@ -2185,8 +2454,9 @@
             Services.getAllUsers(),
             Services.getAllCreditos(),
             Services.getAuditorias(),
+            Services.getFacturas(),
           ]);
-          State.update({ citas, pagos, gastos, fotos, productos, usuarios, creditos, auditorias });
+          State.update({ citas, pagos, gastos, fotos, productos, usuarios, creditos, auditorias, facturas });
         } catch (error) {
           Logger.error('Admin data load error', error);
           showToast('Error al cargar datos: ' + error.message, 'error');
@@ -2199,12 +2469,13 @@
         Logger.info('Loading client data');
         State.set('loading', true);
         try {
-          const [citas, mascotas, creditos] = await Promise.all([
+          const [citas, mascotas, creditos, facturas] = await Promise.all([
             Services.getCitas(userId),
             Services.getMascotas(userId),
             Services.getCreditosCliente(userId),
+            Services.getFacturas(),
           ]);
-          State.update({ citas, mascotas, creditos });
+          State.update({ citas, mascotas, creditos, facturas });
         } catch (error) {
           Logger.error('Client data load error', error);
           showToast('Error al cargar datos: ' + error.message, 'error');
@@ -2285,7 +2556,6 @@
             return;
           }
 
-          // Aceptación de privacidad implícita al registrarse
           const aceptaPrivacidad = true;
 
           setLoading('registerBtn', true, 'Registrando...');
@@ -2338,7 +2608,7 @@
     };
 
     // ================================================================
-    // 9. PRIVACY POLICY
+    // 10. PRIVACY POLICY
     // ================================================================
 
     function showPrivacyPolicy() {
@@ -2350,8 +2620,20 @@
       showToast('Gracias por aceptar nuestro aviso de privacidad', 'success');
     };
 
+    document.getElementById('closeFacturaBtn').onclick = () => {
+      closeModal('facturaModal');
+    };
+
     // ================================================================
-    // 10. CLIENT MODULE
+    // 11. FUNCIONES GLOBALES PARA FACTURA
+    // ================================================================
+
+    function downloadFacturaPDF() {
+      FacturaModule.descargarPDF();
+    }
+
+    // ================================================================
+    // 12. CLIENT MODULE
     // ================================================================
 
     const ClientModule = {
@@ -2377,6 +2659,7 @@
           { id: 'mis_mascotas', label: '🐾 Mis mascotas' },
           { id: 'galeria', label: '📸 Galería' },
           { id: 'mi_cartera', label: '💳 Mi cartera' },
+          { id: 'mis_facturas', label: '📄 Mis facturas' },
         ];
 
         nav.innerHTML = tabs.map((t, i) =>
@@ -2399,7 +2682,7 @@
       },
 
       _renderTabs() {
-        ['agendar', 'mis_citas', 'mis_mascotas', 'galeria', 'mi_cartera'].forEach(tab => this._renderTab(tab));
+        ['agendar', 'mis_citas', 'mis_mascotas', 'galeria', 'mi_cartera', 'mis_facturas'].forEach(tab => this._renderTab(tab));
       },
 
       _renderTab(tab) {
@@ -2421,14 +2704,17 @@
           case 'mi_cartera':
             this._renderCartera(cont);
             break;
+          case 'mis_facturas':
+            this._renderFacturas(cont);
+            break;
         }
       },
 
       _renderBooking(cont) {
         const mascotas = State.get('mascotas') || [];
         cont.innerHTML = `
-          <div class="promo-banner" style="background:linear-gradient(95deg,#fff4d6,#ffeab5);padding:12px 20px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:20px;">
-            <i class="fas fa-paw" style="color:var(--primary);font-size:1.2rem;"></i>
+          <div class="promo-banner" style="background:linear-gradient(95deg,rgba(139,26,42,0.2),rgba(139,26,42,0.1));padding:12px 20px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:20px;border:1px solid rgba(139,26,42,0.2);">
+            <i class="fas fa-paw" style="color:var(--primary-light);font-size:1.2rem;"></i>
             <span style="font-weight:600;">¡Agenda la cita de tu peludo! Recuerda traer su carnet de vacunación.</span>
           </div>
           <div class="grid-2">
@@ -2476,7 +2762,7 @@
                 <textarea id="clientBookingNotes" rows="2" placeholder="Ej: perro nervioso, dejar bigote largo..."></textarea>
               </div>
               <div style="margin-top:8px;font-size:0.9rem;color:var(--text-secondary);">
-                Precio estimado: <strong id="clientPrecioEstimado" style="color:var(--primary);">-</strong>
+                Precio estimado: <strong id="clientPrecioEstimado" style="color:var(--primary-light);">-</strong>
               </div>
               <button class="btn btn-primary btn-block mt-2" id="clientBookBtn"><i class="fas fa-calendar-check"></i> Agendar cita</button>
               <div id="clientBookMsg" class="mt-1"></div>
@@ -2597,7 +2883,7 @@
                 'Cancelada': 'badge-danger'
               }[c.estado] || 'badge-pending';
               return `
-                <div class="order-card" style="background:var(--bg-white);border:1px solid #f0ece4;border-radius:12px;padding:16px;margin-bottom:12px;">
+                <div class="order-card" style="background:var(--bg-secondary);border:1px solid rgba(139,26,42,0.2);border-radius:12px;padding:16px;margin-bottom:12px;">
                   <div class="flex-between">
                     <div>
                       <strong>${escHtml(c.servicio || '')}</strong>
@@ -2641,7 +2927,7 @@
             ${mascotas.length ? `
               <div class="grid-3">
                 ${mascotas.map(m => `
-                  <div style="background:var(--bg-primary);border-radius:12px;padding:16px;text-align:center;">
+                  <div style="background:var(--bg-primary);border-radius:12px;padding:16px;text-align:center;border:1px solid rgba(139,26,42,0.1);">
                     <div style="font-size:2.5rem;margin-bottom:4px;">🐶</div>
                     <div><strong>${escHtml(m.nombre)}</strong></div>
                     <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(m.raza || 'Sin raza')}</div>
@@ -2778,7 +3064,7 @@
             <button class="btn btn-primary mb-2" id="clientUploadPhotoBtn"><i class="fas fa-upload"></i> Subir fotos</button>
             <div class="photo-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:16px;">
               ${autorizadas.length ? autorizadas.map(f => `
-                <div style="background:var(--bg-white);border-radius:12px;overflow:hidden;border:1px solid #f0ece4;">
+                <div style="background:var(--bg-secondary);border-radius:12px;overflow:hidden;border:1px solid rgba(139,26,42,0.2);">
                   <img src="${escHtml(f.url)}" alt="Foto" style="width:100%;height:180px;object-fit:cover;" />
                   <div style="padding:8px 12px;font-size:0.8rem;">
                     <div>${escHtml(f.descripcion || 'Sin descripción')}</div>
@@ -2844,6 +3130,40 @@
                 </table>
               </div>
             ` : '<p class="text-muted mt-2">No tienes movimientos en tu cartera.</p>'}
+          </div>
+        `;
+      },
+
+      _renderFacturas(cont) {
+        const facturas = State.get('facturas') || [];
+        const misFacturas = facturas.filter(f => f.cliente_nombre === State.get('nombre') || f.user_id === State.get(
+          'userId'));
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-file-invoice"></i> Mis facturas (${misFacturas.length})</div>
+            ${misFacturas.length ? `
+              <div class="table-wrap">
+                <table class="table">
+                  <thead>
+                    <tr><th>N° Factura</th><th>Fecha</th><th>Total</th><th>Método</th><th>Acciones</th></tr>
+                  </thead>
+                  <tbody>
+                    ${misFacturas.map(f => `
+                      <tr>
+                        <td><strong>${escHtml(f.invoice_number)}</strong></td>
+                        <td>${formatDateShort(f.fecha_emision)}</td>
+                        <td>${formatCurrency(f.total || 0)}</td>
+                        <td>${escHtml(f.metodo_pago || 'Efectivo')}</td>
+                        <td>
+                          <button class="btn btn-primary btn-sm" onclick="AdminModule.verFacturaAdmin('${f.id}')"><i class="fas fa-eye"></i></button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : '<p class="text-muted">No tienes facturas registradas.</p>'}
           </div>
         `;
       },
@@ -2954,7 +3274,7 @@
     window.ClientModule = ClientModule;
 
     // ================================================================
-    // 11. ADMIN MODULE
+    // 13. ADMIN MODULE
     // ================================================================
 
     const AdminModule = {
@@ -2982,6 +3302,7 @@
           { id: 'gastos', label: '💰 Gastos' },
           { id: 'caja', label: '💵 Caja' },
           { id: 'cartera', label: '💳 Cartera' },
+          { id: 'facturas', label: '📄 Facturas' },
           { id: 'laboral', label: '👷 Laboral' },
           { id: 'reportes', label: '📈 Reportes' },
         ];
@@ -3006,8 +3327,9 @@
       },
 
       _renderTabs() {
-        ['dashboard', 'agenda', 'clientes', 'fotos', 'inventario', 'gastos', 'caja', 'cartera', 'laboral', 'reportes']
-        .forEach(tab => this._renderTab(tab));
+        ['dashboard', 'agenda', 'clientes', 'fotos', 'inventario', 'gastos', 'caja', 'cartera', 'facturas', 'laboral',
+          'reportes'
+        ].forEach(tab => this._renderTab(tab));
       },
 
       _renderTab(tab) {
@@ -3038,6 +3360,9 @@
           case 'cartera':
             this._renderCartera(cont);
             break;
+          case 'facturas':
+            this._renderFacturas(cont);
+            break;
           case 'laboral':
             this._renderLaboral(cont);
             break;
@@ -3054,6 +3379,7 @@
         const fotos = State.get('fotos') || [];
         const productos = State.get('productos') || [];
         const creditos = State.get('creditos') || [];
+        const facturas = State.get('facturas') || [];
 
         // KPIs Reales
         const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
@@ -3067,7 +3393,12 @@
         const totalAbonos = creditos.reduce((s, c) => s + (c.abono || 0), 0);
         const saldoCartera = totalCartera - totalAbonos;
 
-        // Preparación de datos para el Chart (Agrupación por Mes)
+        // Pagos por método
+        const pagosEfectivo = pagos.filter(p => p.metodo === 'efectivo').reduce((s, p) => s + (p.monto || 0), 0);
+        const pagosNequi = pagos.filter(p => p.metodo === 'nequi').reduce((s, p) => s + (p.monto || 0), 0);
+        const pagosPSE = pagos.filter(p => p.metodo === 'pse').reduce((s, p) => s + (p.monto || 0), 0);
+
+        // Preparación de datos para el Chart
         const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         const ingresosPorMes = Array(12).fill(0);
         const gastosPorMes = Array(12).fill(0);
@@ -3085,12 +3416,11 @@
           }
         });
 
-        // Dividir por Millón para escala
         const ingresosData = ingresosPorMes.map(v => v / 1000000);
         const gastosData = gastosPorMes.map(v => v / 1000000);
 
         cont.innerHTML = `
-          <div class="meta-hero" style="background:linear-gradient(145deg,#1c0f05,#3a1e06,#5a2e0a);border-radius:16px;padding:24px;color:white;margin-bottom:20px;">
+          <div class="meta-hero" style="background:linear-gradient(145deg,#6B1A2A,#3A0A0A,#1A0A0A);border-radius:16px;padding:24px;color:white;margin-bottom:20px;border:1px solid rgba(139,26,42,0.3);">
             <div style="font-size:0.8rem;text-transform:uppercase;opacity:0.7;">Resumen del negocio</div>
             <div style="font-size:2.2rem;font-weight:700;color:var(--primary-light);">${formatCurrency(utilidad)}</div>
             <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;">
@@ -3101,9 +3431,9 @@
             </div>
           </div>
           ${stockCritico.length > 0 ? `
-            <div style="background:#fdf0ee;border-left:6px solid var(--error);padding:12px 20px;border-radius:8px;margin-bottom:20px;">
+            <div style="background:rgba(178,59,42,0.15);border-left:6px solid var(--error);padding:12px 20px;border-radius:8px;margin-bottom:20px;border:1px solid rgba(178,59,42,0.2);">
               <div style="font-weight:600;color:var(--error);">⚠️ ALERTA DE STOCK BAJO</div>
-              <div style="font-size:0.9rem;">Los siguientes productos tienen stock crítico: ${stockCritico.map(p => p.nombre).join(', ')}</div>
+              <div style="font-size:0.9rem;color:var(--text-secondary);">Los siguientes productos tienen stock crítico: ${stockCritico.map(p => p.nombre).join(', ')}</div>
             </div>
           ` : ''}
           <div class="grid-4" style="margin-bottom:20px;">
@@ -3128,9 +3458,26 @@
               <div class="stat-label">Gastos totales</div>
             </div>
           </div>
+          <div class="grid-3" style="margin-bottom:20px;">
+            <div class="stat-card" style="border-color:rgba(45,125,70,0.3);">
+              <div class="stat-icon">💵</div>
+              <div class="stat-value" style="color:var(--success);">${formatCurrency(pagosEfectivo)}</div>
+              <div class="stat-label">Pagos en Efectivo</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(42,109,140,0.3);">
+              <div class="stat-icon">📱</div>
+              <div class="stat-value" style="color:var(--info);">${formatCurrency(pagosNequi)}</div>
+              <div class="stat-label">Pagos con Nequi</div>
+            </div>
+            <div class="stat-card" style="border-color:rgba(245,166,35,0.3);">
+              <div class="stat-icon">🏦</div>
+              <div class="stat-value" style="color:var(--warning);">${formatCurrency(pagosPSE)}</div>
+              <div class="stat-label">Pagos con PSE</div>
+            </div>
+          </div>
           ${pendientes.length > 0 ? `
-            <div style="background:#fef7e0;border-left:6px solid var(--warning);padding:16px 20px;border-radius:8px;margin-bottom:20px;cursor:pointer;" onclick="AdminModule.goToTab('fotos')">
-              <div style="font-weight:600;">📸 Fotos pendientes de autorizar <span style="background:var(--error);color:white;border-radius:20px;padding:0 10px;">${pendientes.length}</span></div>
+            <div style="background:rgba(245,166,35,0.1);border-left:6px solid var(--warning);padding:16px 20px;border-radius:8px;margin-bottom:20px;cursor:pointer;border:1px solid rgba(245,166,35,0.2);" onclick="AdminModule.goToTab('fotos')">
+              <div style="font-weight:600;color:var(--warning);">📸 Fotos pendientes de autorizar <span style="background:var(--error);color:white;border-radius:20px;padding:0 10px;">${pendientes.length}</span></div>
               <div style="font-size:0.9rem;color:var(--text-secondary);">Haz clic para revisarlas.</div>
             </div>
           ` : ''}
@@ -3140,7 +3487,6 @@
           </div>
         `;
 
-        // Render del Chart con datos reales
         setTimeout(() => {
           const canvas = document.getElementById('dashboardChart');
           if (!canvas) return;
@@ -3153,18 +3499,32 @@
               datasets: [{
                 label: 'Ingresos (Millones)',
                 data: ingresosData,
-                backgroundColor: 'rgba(45,125,70,0.7)',
+                backgroundColor: 'rgba(139,26,42,0.7)',
               }, {
                 label: 'Gastos (Millones)',
                 data: gastosData,
-                backgroundColor: 'rgba(178,59,42,0.7)',
+                backgroundColor: 'rgba(178,59,42,0.5)',
               }]
             },
             options: {
               responsive: true,
               maintainAspectRatio: true,
-              plugins: { legend: { position: 'top' } },
-              scales: { y: { ticks: { callback: v => '$' + v.toFixed(1) + 'M' } } },
+              plugins: {
+                legend: {
+                  position: 'top',
+                  labels: { color: '#F5F0EB' }
+                }
+              },
+              scales: {
+                y: {
+                  ticks: { callback: v => '$' + v.toFixed(1) + 'M', color: '#C4A8A0' },
+                  grid: { color: 'rgba(139,26,42,0.1)' }
+                },
+                x: {
+                  ticks: { color: '#C4A8A0' },
+                  grid: { color: 'rgba(139,26,42,0.1)' }
+                }
+              },
             },
           });
         }, 100);
@@ -3177,7 +3537,7 @@
 
         cont.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
-            <h3 style="font-size:1.2rem;">📅 Citas de hoy (${citasHoy.length})</h3>
+            <h3 style="font-size:1.2rem;color:var(--text-primary);">📅 Citas de hoy (${citasHoy.length})</h3>
             <button class="btn btn-primary" id="adminNewAppointmentBtn"><i class="fas fa-plus"></i> Nueva cita</button>
           </div>
           <div id="adminAgendaList">
@@ -3207,7 +3567,7 @@
         const origen = c.origen === 'mostrador' ? '📌 Mostrador' : '🌐 Web';
 
         return `
-          <div style="background:var(--bg-white);border:1px solid #f0ece4;border-radius:12px;padding:16px;margin-bottom:12px;">
+          <div style="background:var(--bg-secondary);border:1px solid rgba(139,26,42,0.2);border-radius:12px;padding:16px;margin-bottom:12px;">
             <div class="flex-between" style="flex-wrap:wrap;gap:8px;">
               <div>
                 <span style="font-weight:600;">${escHtml(c.invoice_number || '')}</span>
@@ -3237,7 +3597,7 @@
           <div class="card">
             <div class="card-title"><i class="fas fa-users"></i> Gestión de clientes (${usuarios.length})</div>
             <div style="margin-bottom:12px;">
-              <input type="text" id="clientSearchInput" placeholder="🔍 Buscar por nombre o teléfono..." style="width:100%;padding:10px 16px;border:2px solid #e8e0d8;border-radius:8px;font-size:0.9rem;" />
+              <input type="text" id="clientSearchInput" placeholder="🔍 Buscar por nombre o teléfono..." style="width:100%;padding:10px 16px;border:2px solid rgba(139,26,42,0.2);border-radius:8px;font-size:0.9rem;background:var(--bg-primary);color:var(--text-primary);" />
             </div>
             <div class="table-wrap">
               <table class="table">
@@ -3247,7 +3607,7 @@
                 <tbody id="clientesTableBody">
                   ${usuarios.map(u => `
                     <tr>
-                      <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid #e8e0d8;border-radius:6px;" /></td>
+                      <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid rgba(139,26,42,0.2);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);" /></td>
                       <td>${escHtml(u.telefono || '')}</td>
                       <td>${escHtml(u.email || '')}</td>
                       <td>${u.acepta_privacidad ? '✅' : '❌'}</td>
@@ -3272,7 +3632,7 @@
           const tbody = document.getElementById('clientesTableBody');
           tbody.innerHTML = filtered.length ? filtered.map(u => `
             <tr>
-              <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid #e8e0d8;border-radius:6px;" /></td>
+              <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid rgba(139,26,42,0.2);border-radius:6px;background:var(--bg-primary);color:var(--text-primary);" /></td>
               <td>${escHtml(u.telefono || '')}</td>
               <td>${escHtml(u.email || '')}</td>
               <td>${u.acepta_privacidad ? '✅' : '❌'}</td>
@@ -3305,7 +3665,7 @@
       _fotoGrid(fotos, showActions) {
         return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
           ${fotos.map(f => `
-            <div style="background:var(--bg-white);border-radius:12px;overflow:hidden;border:1px solid #f0ece4;">
+            <div style="background:var(--bg-secondary);border-radius:12px;overflow:hidden;border:1px solid rgba(139,26,42,0.2);">
               <img src="${escHtml(f.url)}" alt="Foto" style="width:100%;height:160px;object-fit:cover;" />
               <div style="padding:8px 12px;font-size:0.8rem;">
                 <div><strong>${f.tipo_foto === 'antes' ? '📸 Antes' : f.tipo_foto === 'despues' ? '✨ Después' : '📷 General'}</strong>
@@ -3314,12 +3674,12 @@
                 ${f.descripcion ? `<div style="font-size:0.75rem;color:var(--text-secondary);">${escHtml(f.descripcion)}</div>` : ''}
               </div>
               ${showActions ? `
-                <div style="padding:8px 12px;border-top:1px solid #f0ece4;display:flex;gap:6px;">
+                <div style="padding:8px 12px;border-top:1px solid rgba(139,26,42,0.2);display:flex;gap:6px;">
                   <button class="btn btn-success btn-sm" onclick="AdminModule.autorizarFotoAdmin('${f.id}')"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger btn-sm" onclick="AdminModule.rechazarFotoAdmin('${f.id}')"><i class="fas fa-times"></i></button>
                 </div>
               ` : `
-                <div style="padding:8px 12px;border-top:1px solid #f0ece4;">
+                <div style="padding:8px 12px;border-top:1px solid rgba(139,26,42,0.2);">
                   <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarFotoAdmin('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
                 </div>
               `}
@@ -3398,7 +3758,6 @@
             }
           }
 
-          // Registrar auditoría
           await Services.createAuditoria({
             fecha_auditoria: new Date().toISOString(),
             usuario_id: State.get('userId'),
@@ -3470,12 +3829,34 @@
         const pagos = State.get('pagos') || [];
         const total = pagos.reduce((s, p) => s + (p.monto || 0), 0);
 
+        // Pagos por método
+        const pagosEfectivo = pagos.filter(p => p.metodo === 'efectivo').reduce((s, p) => s + (p.monto || 0), 0);
+        const pagosNequi = pagos.filter(p => p.metodo === 'nequi').reduce((s, p) => s + (p.monto || 0), 0);
+        const pagosPSE = pagos.filter(p => p.metodo === 'pse').reduce((s, p) => s + (p.monto || 0), 0);
+
         cont.innerHTML = `
           <div class="card">
             <div class="card-title"><i class="fas fa-cash-register"></i> Caja</div>
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
               <span>Total recaudado: <strong>${formatCurrency(total)}</strong></span>
               <button class="btn btn-primary" id="adminAddPagoBtn"><i class="fas fa-plus"></i> Registrar pago</button>
+            </div>
+            <div class="grid-3" style="margin-bottom:16px;">
+              <div class="stat-card" style="border-color:rgba(45,125,70,0.3);">
+                <div class="stat-icon">💵</div>
+                <div class="stat-value" style="color:var(--success);font-size:1.2rem;">${formatCurrency(pagosEfectivo)}</div>
+                <div class="stat-label">Efectivo</div>
+              </div>
+              <div class="stat-card" style="border-color:rgba(42,109,140,0.3);">
+                <div class="stat-icon">📱</div>
+                <div class="stat-value" style="color:var(--info);font-size:1.2rem;">${formatCurrency(pagosNequi)}</div>
+                <div class="stat-label">Nequi</div>
+              </div>
+              <div class="stat-card" style="border-color:rgba(245,166,35,0.3);">
+                <div class="stat-icon">🏦</div>
+                <div class="stat-value" style="color:var(--warning);font-size:1.2rem;">${formatCurrency(pagosPSE)}</div>
+                <div class="stat-label">PSE</div>
+              </div>
             </div>
             <div class="table-wrap">
               <table class="table">
@@ -3487,7 +3868,7 @@
                     <tr>
                       <td>${escHtml(p.referencia || '')}</td>
                       <td>${formatCurrency(p.monto || 0)}</td>
-                      <td>${escHtml(p.metodo || '')}</td>
+                      <td><span class="badge ${p.metodo === 'efectivo' ? 'badge-success' : p.metodo === 'nequi' ? 'badge-info' : 'badge-warning'}">${escHtml(p.metodo || '')}</span></td>
                       <td>${formatDateShort(p.fecha_pago)}</td>
                     </tr>
                   `).join('')}
@@ -3500,15 +3881,29 @@
         document.getElementById('adminAddPagoBtn').onclick = () => {
           const monto = parseFloat(prompt('Monto del pago:'));
           if (isNaN(monto) || monto <= 0) { showToast('Monto inválido', 'error'); return; }
-          const metodo = prompt('Método (efectivo, nequi, daviplata, transferencia):') || 'efectivo';
-          const referencia = prompt('Referencia (opcional):') || '';
+
+          // Selección de método de pago
+          const metodo = prompt('Método de pago:\n1. Efectivo\n2. Nequi\n3. PSE', '1');
+          let metodoStr = 'efectivo';
+          let referencia = '';
+
+          if (metodo === '2') {
+            metodoStr = 'nequi';
+            referencia = prompt('Número de teléfono Nequi:') || '';
+          } else if (metodo === '3') {
+            metodoStr = 'pse';
+            referencia = prompt('Banco o referencia PSE:') || '';
+          } else {
+            referencia = prompt('Referencia (opcional):') || '';
+          }
+
           Services.createPago({
             monto,
-            metodo,
-            referencia,
+            metodo: metodoStr,
+            referencia: referencia || `Pago ${metodoStr}`,
             fecha_pago: new Date().toISOString(),
           }).then(async () => {
-            showToast('Pago registrado', 'success');
+            showToast(`Pago de ${formatCurrency(monto)} registrado por ${metodoStr}`, 'success');
             const pagos = await Services.getPagos();
             State.set('pagos', pagos);
             this._renderTab('caja');
@@ -3591,12 +3986,127 @@
         };
       },
 
+      _renderFacturas(cont) {
+        const facturas = State.get('facturas') || [];
+        const totalFacturas = facturas.reduce((s, f) => s + (f.total || 0), 0);
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-file-invoice"></i> Facturación Electrónica</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+              <span>Total facturado: <strong>${formatCurrency(totalFacturas)}</strong></span>
+              <button class="btn btn-success" id="adminNuevaFacturaBtn"><i class="fas fa-plus"></i> Nueva factura</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>N° Factura</th><th>Cliente</th><th>Fecha</th><th>Subtotal</th><th>IVA</th><th>Total</th><th>Método</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                  ${facturas.map(f => `
+                    <tr>
+                      <td><strong>${escHtml(f.invoice_number)}</strong></td>
+                      <td>${escHtml(f.cliente_nombre || 'N/A')}</td>
+                      <td>${formatDateShort(f.fecha_emision)}</td>
+                      <td>${formatCurrency(f.subtotal || 0)}</td>
+                      <td>${formatCurrency(f.iva || 0)}</td>
+                      <td><strong>${formatCurrency(f.total || 0)}</strong></td>
+                      <td><span class="badge ${f.metodo_pago === 'efectivo' ? 'badge-success' : f.metodo_pago === 'nequi' ? 'badge-info' : 'badge-warning'}">${escHtml(f.metodo_pago || 'Efectivo')}</span></td>
+                      <td>
+                        <button class="btn btn-primary btn-sm" onclick="AdminModule.verFacturaAdmin('${f.id}')"><i class="fas fa-eye"></i></button>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('adminNuevaFacturaBtn').onclick = async () => {
+          const cliente = prompt('Nombre del cliente:');
+          if (!cliente) return;
+          const nitCliente = prompt('NIT/CC del cliente:') || 'N/A';
+          const telefonoCliente = prompt('Teléfono:') || '';
+          const correoCliente = prompt('Correo:') || '';
+
+          const monto = parseFloat(prompt('Monto del servicio:'));
+          if (isNaN(monto) || monto <= 0) { showToast('Monto inválido', 'error'); return; }
+
+          // Selección de método de pago
+          const metodoPago = prompt('Método de pago:\n1. Efectivo\n2. Nequi\n3. PSE', '1');
+          let metodo = 'efectivo';
+          if (metodoPago === '2') metodo = 'nequi';
+          else if (metodoPago === '3') metodo = 'pse';
+
+          const iva = monto * 0.19;
+
+          try {
+            const factura = await Services.generateElectronicInvoice({
+              cliente: cliente,
+              nitCliente: nitCliente,
+              telefonoCliente: telefonoCliente,
+              correoCliente: correoCliente,
+              monto: monto,
+              iva: iva,
+              metodoPago: metodo,
+              descripcion: 'Servicio de peluquería canina',
+            });
+
+            showToast(`✅ Factura ${factura.invoiceNumber} generada exitosamente`, 'success');
+
+            // Mostrar la factura
+            FacturaModule.mostrarFactura(factura);
+
+            // Recargar datos
+            const facturasActualizadas = await Services.getFacturas();
+            State.set('facturas', facturasActualizadas);
+            this._renderTab('facturas');
+
+          } catch (error) {
+            showToast('Error al generar factura: ' + error.message, 'error');
+          }
+        };
+      },
+
+      verFacturaAdmin: async function(id) {
+        try {
+          const facturas = State.get('facturas') || [];
+          const factura = facturas.find(f => f.id === id);
+          if (!factura) {
+            showToast('Factura no encontrada', 'error');
+            return;
+          }
+
+          // Reconstruir objeto factura para visualización
+          const facturaObj = {
+            invoiceNumber: factura.invoice_number,
+            cufe: factura.cufe,
+            fecha: factura.fecha_emision,
+            cliente: factura.cliente_nombre,
+            nitCliente: factura.cliente_nit,
+            subtotal: factura.subtotal,
+            ivaTotal: factura.iva,
+            total: factura.total,
+            metodoPago: factura.metodo_pago,
+            items: JSON.parse(factura.items || '[{"descripcion":"Servicio","cantidad":1,"valorUnitario":' + factura
+              .total + ',"iva":' + factura.iva + ',"total":' + factura.total + '}]'),
+            nitEmpresa: CONFIG.NIT_EMPRESA,
+            regimen: CONFIG.REGIMEN,
+          };
+
+          FacturaModule.mostrarFactura(facturaObj);
+
+        } catch (error) {
+          showToast('Error al ver factura: ' + error.message, 'error');
+        }
+      },
+
       _renderLaboral(cont) {
         const citas = State.get('citas') || [];
         const pagos = State.get('pagos') || [];
 
-        // Cálculo de horas laborales (estimado)
-        const horasTrabajadas = citas.filter(c => c.estado === 'Finalizada').length * 1.5; // 1.5 horas por cita
+        const horasTrabajadas = citas.filter(c => c.estado === 'Finalizada').length * 1.5;
         const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
         const costoHora = CONFIG.COSTO_HORA_LABORAL;
         const costoTotal = horasTrabajadas * costoHora;
@@ -3623,7 +4133,7 @@
                 <div class="stat-label">Rentabilidad por hora</div>
               </div>
             </div>
-            <div style="margin-top:16px;background:var(--bg-primary);padding:16px;border-radius:8px;font-size:0.9rem;">
+            <div style="margin-top:16px;background:var(--bg-primary);padding:16px;border-radius:8px;font-size:0.9rem;border:1px solid rgba(139,26,42,0.1);">
               <p><strong>💡 Interpretación:</strong></p>
               <p>• Costo hora laboral (estimado): <strong>${formatCurrency(costoHora)}</strong> (incluye prestaciones sociales)</p>
               <p>• Total citas finalizadas: <strong>${citas.filter(c => c.estado === 'Finalizada').length}</strong></p>
@@ -3642,6 +4152,7 @@
         const pagos = State.get('pagos') || [];
         const gastos = State.get('gastos') || [];
         const creditos = State.get('creditos') || [];
+        const facturas = State.get('facturas') || [];
 
         const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
         const totalGastos = gastos.reduce((s, g) => s + (g.monto || 0), 0);
@@ -3649,6 +4160,10 @@
         const totalCredito = creditos.reduce((s, c) => s + (c.monto || 0), 0);
         const totalAbonos = creditos.reduce((s, c) => s + (c.abono || 0), 0);
         const saldoCartera = totalCredito - totalAbonos;
+        const totalFacturado = facturas.reduce((s, f) => s + (f.total || 0), 0);
+
+        // IVA total facturado
+        const ivaTotal = facturas.reduce((s, f) => s + (f.iva || 0), 0);
 
         cont.innerHTML = `
           <div class="card">
@@ -3671,7 +4186,7 @@
               </div>
             </div>
             <div class="grid-2" style="margin-top:16px;">
-              <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
+              <div style="background:var(--bg-primary);padding:16px;border-radius:8px;border:1px solid rgba(139,26,42,0.1);">
                 <h4>📋 Resumen de citas</h4>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
                   <div><strong>Total:</strong> ${citas.length}</div>
@@ -3680,19 +4195,19 @@
                   <div><strong>Pendientes:</strong> ${citas.filter(c => c.estado === 'Pendiente').length}</div>
                 </div>
               </div>
-              <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
-                <h4>💳 Resumen de cartera</h4>
+              <div style="background:var(--bg-primary);padding:16px;border-radius:8px;border:1px solid rgba(139,26,42,0.1);">
+                <h4>📄 Resumen de facturación</h4>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
-                  <div><strong>Total créditos:</strong> ${formatCurrency(totalCredito)}</div>
-                  <div><strong>Total abonos:</strong> ${formatCurrency(totalAbonos)}</div>
-                  <div><strong>Saldo pendiente:</strong> ${formatCurrency(saldoCartera)}</div>
-                  <div><strong>Clientes con crédito:</strong> ${new Set(creditos.map(c => c.user_id)).size}</div>
+                  <div><strong>Total facturado:</strong> ${formatCurrency(totalFacturado)}</div>
+                  <div><strong>IVA total:</strong> ${formatCurrency(ivaTotal)}</div>
+                  <div><strong>Facturas emitidas:</strong> ${facturas.length}</div>
+                  <div><strong>IVA por pagar:</strong> ${formatCurrency(ivaTotal)}</div>
                 </div>
               </div>
             </div>
             <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;">
               <button class="btn btn-primary" onclick="AdminModule.exportarCSVAdmin()"><i class="fas fa-download"></i> Exportar reporte CSV</button>
-              <button class="btn btn-success" onclick="AdminModule.generarFacturaElectronica()"><i class="fas fa-file-invoice"></i> Factura electrónica</button>
+              <button class="btn btn-success" onclick="AdminModule.exportarFacturasCSV()"><i class="fas fa-file-invoice"></i> Exportar facturas CSV</button>
             </div>
           </div>
         `;
@@ -3704,60 +4219,67 @@
         const cita = (State.get('citas') || []).find(c => c.id === id);
         if (!cita) { showToast('Cita no encontrada', 'error'); return; }
 
-        const metodoPago = prompt('Método de pago? (efectivo, nequi, daviplata, transferencia)', 'efectivo');
-        if (!metodoPago) return;
+        // Selección de método de pago
+        const metodoPago = prompt('Método de pago:\n1. Efectivo\n2. Nequi\n3. PSE', '1');
+        let metodo = 'efectivo';
+        let referencia = '';
+
+        if (metodoPago === '2') {
+          metodo = 'nequi';
+          referencia = prompt('Número de teléfono Nequi:') || '';
+        } else if (metodoPago === '3') {
+          metodo = 'pse';
+          referencia = prompt('Banco o referencia PSE:') || '';
+        } else {
+          referencia = prompt('Referencia (opcional):') || '';
+        }
 
         try {
+          // 1. Actualizar estado de la cita
           await Services.updateCita(id, { estado: 'Finalizada' });
+
+          // 2. Registrar el pago
           await Services.createPago({
             cita_id: id,
             monto: cita.precio,
-            metodo: metodoPago,
-            referencia: `Pago cita ${cita.invoice_number}`,
+            metodo: metodo,
+            referencia: referencia || `Pago cita ${cita.invoice_number}`,
             fecha_pago: new Date().toISOString(),
           });
 
-          showToast(`¡Cita finalizada y pago de ${formatCurrency(cita.precio)} registrado!`, 'success');
+          // 3. Generar factura electrónica automática
+          const iva = cita.precio * 0.19;
+          const factura = await Services.generateElectronicInvoice({
+            cliente: State.get('nombre') || 'Cliente',
+            nitCliente: 'N/A',
+            telefonoCliente: State.get('telefono') || '',
+            correoCliente: State.get('email') || '',
+            monto: cita.precio,
+            iva: iva,
+            metodoPago: metodo,
+            descripcion: cita.servicio || 'Servicio de peluquería canina',
+          });
 
-          const [citas, pagos] = await Promise.all([
+          showToast(
+            `✅ Cita finalizada - Pago ${formatCurrency(cita.precio)} por ${metodo}\nFactura: ${factura.invoiceNumber}`,
+            'success', 6000
+          );
+
+          // 4. Recargar datos
+          const [citas, pagos, facturas] = await Promise.all([
             Services.getAllCitas(),
             Services.getPagos(),
+            Services.getFacturas(),
           ]);
-          State.set({ citas, pagos });
+          State.set({ citas, pagos, facturas });
           this._renderTab('agenda');
           this._renderTab('dashboard');
+          this._renderTab('facturas');
 
         } catch (error) {
           showToast('Error al finalizar: ' + error.message, 'error');
         }
       },
-
-      generarFacturaElectronica: async function() {
-        const monto = prompt('Monto de la factura:');
-        if (!monto || isNaN(monto) || parseFloat(monto) <= 0) {
-          showToast('Monto inválido', 'error');
-          return;
-        }
-        const cliente = prompt('Nombre del cliente:');
-        if (!cliente) return;
-
-        try {
-          const result = await Services.generateElectronicInvoice({
-            monto: parseFloat(monto),
-            cliente: cliente,
-            fecha: new Date().toISOString(),
-          });
-
-          showToast(
-            `✅ Factura electrónica generada\nNúmero: ${result.invoiceNumber}\nCUFE: ${result.cufe.slice(0, 20)}...`,
-            'success', 8000
-          );
-        } catch (error) {
-          showToast('Error al generar factura: ' + error.message, 'error');
-        }
-      },
-
-      // --- MÉTODOS AUXILIARES ---
 
       confirmarCitaAdmin(id) {
         Services.updateCita(id, { estado: 'Confirmada' })
@@ -3901,10 +4423,28 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `reporte_${new Date().toISOString().split('T')[0]}.csv`;
+        a.download = `reporte_citas_${new Date().toISOString().split('T')[0]}.csv`;
         a.click();
         URL.revokeObjectURL(url);
         showToast('Reporte exportado', 'success');
+      },
+
+      exportarFacturasCSV() {
+        const facturas = State.get('facturas') || [];
+        if (!facturas.length) { showToast('No hay facturas para exportar', 'warning'); return; }
+        let csv = 'N° Factura,Cliente,Fecha,Subtotal,IVA,Total,Método\n';
+        facturas.forEach(f => {
+          csv +=
+            `${f.invoice_number || ''},${f.cliente_nombre || ''},${new Date(f.fecha_emision).toLocaleDateString()},${f.subtotal || 0},${f.iva || 0},${f.total || 0},${f.metodo_pago || ''}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reporte_facturas_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Facturas exportadas', 'success');
       },
 
       goToTab(tab) {
@@ -3936,7 +4476,7 @@
                 .limit(5);
               if (data && data.length) {
                 resultsDiv.innerHTML = data.map(u =>
-                  `<div style="padding:8px 12px;cursor:pointer;border-bottom:1px solid #f0ece4;" onclick="AdminModule.seleccionarClienteAdmin('${u.user_id}','${escHtml(u.nombre)}','${escHtml(u.telefono || '')}')">
+                  `<div style="padding:8px 12px;cursor:pointer;border-bottom:1px solid rgba(139,26,42,0.1);" onclick="AdminModule.seleccionarClienteAdmin('${u.user_id}','${escHtml(u.nombre)}','${escHtml(u.telefono || '')}')">
                     ${escHtml(u.nombre)}${u.telefono ? ` - ${escHtml(u.telefono)}` : ''}
                   </div>`
                 ).join('');
@@ -4060,7 +4600,7 @@
     window.AdminModule = AdminModule;
 
     // ================================================================
-    // 12. FUNCIONES GLOBALES (Footer)
+    // 14. FUNCIONES GLOBALES (Footer)
     // ================================================================
 
     function renderFooter(id) {
@@ -4083,11 +4623,11 @@
     }
 
     // ================================================================
-    // 13. BOOTSTRAP
+    // 15. BOOTSTRAP
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v5.0 iniciando...');
+      Logger.info('🚀 Luthor v6.0 iniciando...');
 
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {

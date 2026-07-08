@@ -388,6 +388,10 @@
       padding: 6px 16px;
       font-size: 0.8rem;
     }
+    .btn-xs {
+      padding: 4px 10px;
+      font-size: 0.7rem;
+    }
 
     .link-forgot {
       display: block;
@@ -423,7 +427,7 @@
     }
 
     /* ============================
-       TOPBAR
+       TOPBAR MEJORADA
        ============================ */
     .topbar {
       background: var(--bg-white);
@@ -438,7 +442,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 24px;
+      padding: 10px 24px;
       flex-wrap: wrap;
       gap: 12px;
     }
@@ -451,6 +455,7 @@
       width: 40px;
       height: 40px;
       background: var(--logo-url) no-repeat center/contain;
+      border-radius: 50%;
     }
     .topbar-brand h2 {
       font-size: 1.1rem;
@@ -466,6 +471,65 @@
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
+    }
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 12px 4px 4px;
+      border-radius: 50px;
+      background: var(--bg-primary);
+      border: 1px solid #e8e0d8;
+      transition: var(--transition);
+    }
+    .user-profile:hover {
+      border-color: var(--primary-light);
+    }
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .user-name {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .user-role {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      display: block;
+      font-weight: 400;
+    }
+    .btn-logout {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 50px;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-logout:hover {
+      color: var(--error);
+      background: rgba(178, 59, 42, 0.08);
     }
 
     /* ============================
@@ -827,7 +891,7 @@
     }
 
     /* ============================
-       CORRECCIÓN DE VISIBILIDAD (CRÍTICO)
+       CORRECCIÓN DE VISIBILIDAD
        ============================ */
     #authPage {
       display: flex;
@@ -855,7 +919,6 @@
       opacity: 0;
     }
 
-    /* Asegurar que solo una página se muestre */
     .page-container {
       display: none;
     }
@@ -897,6 +960,9 @@
       .stat-value {
         font-size: 1.5rem;
       }
+      .user-name {
+        max-width: 80px;
+      }
     }
     @media (max-width: 480px) {
       .auth-brand h1 {
@@ -909,6 +975,13 @@
       .toast {
         font-size: 0.85rem;
         padding: 12px 16px;
+      }
+      .user-profile {
+        padding: 2px 8px 2px 2px;
+      }
+      .user-name {
+        font-size: 0.75rem;
+        max-width: 60px;
       }
     }
 
@@ -1030,8 +1103,14 @@
           </div>
         </div>
         <div class="topbar-actions">
-          <span id="clientWelcome" style="font-weight:500;font-size:0.9rem;"></span>
-          <button class="btn btn-ghost btn-sm" id="clientLogout"><i class="fas fa-sign-out-alt"></i> Salir</button>
+          <div class="user-profile">
+            <div class="user-avatar" id="clientAvatar">U</div>
+            <div>
+              <span class="user-name" id="clientWelcome">Usuario</span>
+              <span class="user-role">Cliente</span>
+            </div>
+          </div>
+          <button class="btn-logout" id="clientLogout"><i class="fas fa-sign-out-alt"></i> Salir</button>
         </div>
       </div>
     </header>
@@ -1054,9 +1133,15 @@
           </div>
         </div>
         <div class="topbar-actions">
-          <span class="badge badge-admin"><i class="fas fa-shield-alt"></i> Admin</span>
-          <span id="adminWelcome" style="font-weight:500;font-size:0.9rem;"></span>
-          <button class="btn btn-ghost btn-sm" id="adminLogout"><i class="fas fa-sign-out-alt"></i> Salir</button>
+          <div class="user-profile">
+            <div class="user-avatar" id="adminAvatar">A</div>
+            <div>
+              <span class="user-name" id="adminWelcome">Administrador</span>
+              <span class="user-role">Admin</span>
+            </div>
+          </div>
+          <span class="badge badge-admin" style="font-size:0.65rem;"><i class="fas fa-shield-alt"></i> Admin</span>
+          <button class="btn-logout" id="adminLogout"><i class="fas fa-sign-out-alt"></i> Salir</button>
         </div>
       </div>
     </header>
@@ -1314,19 +1399,18 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v4.7 (CORREGIDA)
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.8 (CORREGIDA)
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.7 (CORREGIDA)
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.8 (CORREGIDA)
      * ================================================================
      * Cambios realizados:
      *   1. ✅ CORREGIDO: Cierre de sesión con limpieza forzada
-     *   2. ✅ CORREGIDO: Botón "Salir" funciona en Admin y Cliente
-     *   3. ✅ CORREGIDO: Limpieza completa de localStorage/sessionStorage
-     *   4. ✅ MEJORADO: Logo en todas las páginas y marca de agua en facturas
-     *   5. ✅ CORREGIDO: Uso de window.location.reload(true) para forzar limpieza
+     *   2. ✅ MEJORADO: UI del usuario con avatar y diseño moderno
+     *   3. ✅ CORREGIDO: Botón "Salir" funciona en Admin y Cliente
+     *   4. ✅ MEJORADO: Logo en todas las páginas
      * ================================================================
      */
 
@@ -1352,7 +1436,7 @@
       SUPABASE_URL: 'https://aeetpxvalrrqzglylzld.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_tSciD_yZfoBGP_pNZWENzw_QP-lMujw',
       APP_NAME: 'Luthor',
-      APP_VERSION: '4.7.0',
+      APP_VERSION: '4.8.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
       CACHE_TTL: 300000,
@@ -1445,45 +1529,23 @@
     };
 
     // ================================================================
-    // 4. SERVICIOS
-    // ================================================================
-
-    if (typeof supabase === 'undefined') {
-      console.error('❌ Supabase no está cargado');
-      document.body.innerHTML = `
-        <div style="padding:40px;text-align:center;font-family:sans-serif;">
-          <h1>⚠️ Error de carga</h1>
-          <p>No se pudo cargar la librería de Supabase. Por favor, recarga la página.</p>
-          <button onclick="location.reload()" style="padding:10px 30px;background:#b8712a;color:white;border:none;border-radius:8px;cursor:pointer;">
-            Recargar
-          </button>
-        </div>
-      `;
-      throw new Error('Supabase library not loaded');
-    }
-
-    const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
-
-    // ================================================================
-    // FUNCIÓN DE LOGOUT GLOBAL (CORREGIDA)
+    // 4. FUNCIÓN DE LOGOUT GLOBAL (CORREGIDA)
     // ================================================================
 
     async function logoutAndRedirect() {
       try {
-        Logger.info('Iniciando cierre de sesión...');
+        Logger.info('🚪 Cerrando sesión...');
         // 1. Cerrar sesión en Supabase
         await supabaseClient.auth.signOut();
-        Logger.success('Sesión de Supabase cerrada');
-        
+        Logger.success('✅ Sesión de Supabase cerrada');
+
         // 2. Limpiar caché local
         Cache.clear();
-        Logger.debug('Caché limpiada');
-        
+
         // 3. Limpiar localStorage y sessionStorage
         localStorage.clear();
         sessionStorage.clear();
-        Logger.debug('Storage limpiado');
-        
+
         // 4. Limpiar estado global
         State.update({
           userId: null,
@@ -1502,22 +1564,21 @@
           loading: false,
           initialized: false,
         });
-        Logger.debug('Estado limpiado');
-        
+
         // 5. Mostrar página de autenticación
         showAuthPage();
         AuthModule._initAuthPageUI();
-        showToast('Sesión cerrada correctamente', 'success');
-        Logger.success('Cierre de sesión completado');
-        
+
         // 6. Recargar la página para limpiar completamente
         setTimeout(() => {
           window.location.href = window.location.pathname + '?t=' + Date.now();
         }, 300);
-        
+
+        showToast('Sesión cerrada correctamente', 'success');
+        Logger.success('✅ Cierre de sesión completado');
+
       } catch (error) {
-        Logger.error('Error en logout', error);
-        showToast('Error al cerrar sesión: ' + error.message, 'error');
+        Logger.error('❌ Error en logout', error);
         // Forzar recarga incluso si hay error
         setTimeout(() => {
           window.location.href = window.location.pathname + '?t=' + Date.now();
@@ -1725,202 +1786,24 @@
     }
 
     // ================================================================
-    // 8. AUTH MODULE
+    // 8. SERVICIOS
     // ================================================================
 
-    const AuthModule = {
-      async init() {
-        Logger.info('AuthModule init');
+    if (typeof supabase === 'undefined') {
+      console.error('❌ Supabase no está cargado');
+      document.body.innerHTML = `
+        <div style="padding:40px;text-align:center;font-family:sans-serif;">
+          <h1>⚠️ Error de carga</h1>
+          <p>No se pudo cargar la librería de Supabase. Por favor, recarga la página.</p>
+          <button onclick="location.reload()" style="padding:10px 30px;background:#b8712a;color:white;border:none;border-radius:8px;cursor:pointer;">
+            Recargar
+          </button>
+        </div>
+      `;
+      throw new Error('Supabase library not loaded');
+    }
 
-        try {
-          const session = await Services.getSession();
-          if (session) {
-            Logger.info('Session found', { userId: session.user.id });
-            await this._handleAuthenticated(session.user);
-            return true;
-          }
-        } catch (error) {
-          Logger.error('Session check error', error);
-        }
-
-        showAuthPage();
-        this._initAuthPageUI();
-        return false;
-      },
-
-      async _handleAuthenticated(user) {
-        try {
-          const profile = await Services.getUserProfile(user.id);
-
-          State.update({
-            userId: user.id,
-            profile: profile,
-            esAdmin: profile?.es_admin || false,
-            nombre: profile?.nombre || user.email?.split('@')[0] || 'Usuario',
-            email: user.email || '',
-            telefono: profile?.telefono || '',
-          });
-
-          if (State.get('esAdmin')) {
-            await this._loadAdminData();
-            showAdminPage();
-          } else {
-            await this._loadClientData(user.id);
-            showClientPage();
-          }
-
-          Logger.success('User authenticated', { userId: user.id, esAdmin: State.get('esAdmin') });
-          return true;
-        } catch (error) {
-          Logger.error('Auth handler error', error);
-          showToast('Error al cargar perfil: ' + error.message, 'error');
-          await Services.logout();
-          showAuthPage();
-          return false;
-        }
-      },
-
-      async _loadAdminData() {
-        Logger.info('Loading admin data');
-        State.set('loading', true);
-        try {
-          const [citas, pagos, gastos, fotos, productos, usuarios] = await Promise.all([
-            Services.getAllCitas(),
-            Services.getPagos(),
-            Services.getGastos(),
-            Services.getFotos(),
-            Services.getProductos(),
-            Services.getAllUsers(),
-          ]);
-          State.update({ citas, pagos, gastos, fotos, productos, usuarios });
-        } catch (error) {
-          Logger.error('Admin data load error', error);
-          showToast('Error al cargar datos: ' + error.message, 'error');
-        } finally {
-          State.set('loading', false);
-        }
-      },
-
-      async _loadClientData(userId) {
-        Logger.info('Loading client data');
-        State.set('loading', true);
-        try {
-          const [citas, mascotas] = await Promise.all([
-            Services.getCitas(userId),
-            Services.getMascotas(userId),
-          ]);
-          State.update({ citas, mascotas });
-        } catch (error) {
-          Logger.error('Client data load error', error);
-          showToast('Error al cargar datos: ' + error.message, 'error');
-        } finally {
-          State.set('loading', false);
-        }
-      },
-
-      _initAuthPageUI() {
-        const tabs = document.querySelectorAll('.auth-tab');
-        const loginPanel = document.getElementById('loginPanel');
-        const registerPanel = document.getElementById('registerPanel');
-
-        document.getElementById('tabLoginBtn').onclick = () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          document.getElementById('tabLoginBtn').classList.add('active');
-          loginPanel.classList.remove('hidden');
-          registerPanel.classList.add('hidden');
-        };
-
-        document.getElementById('tabRegisterBtn').onclick = () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          document.getElementById('tabRegisterBtn').classList.add('active');
-          registerPanel.classList.remove('hidden');
-          loginPanel.classList.add('hidden');
-        };
-
-        document.getElementById('loginBtn').onclick = async () => {
-          const email = getFormValue('loginEmail');
-          const pass = getFormValue('loginPass');
-          if (!email || !pass) {
-            showToast('Ingresa correo y contraseña', 'error');
-            return;
-          }
-          setLoading('loginBtn', true, 'Ingresando...');
-          try {
-            await Services.login(email, pass);
-            location.reload();
-          } catch (error) {
-            showToast(error.message, 'error');
-            setLoading('loginBtn', false);
-          }
-        };
-
-        document.getElementById('registerBtn').onclick = async () => {
-          const nombre = getFormValue('regNombre');
-          const telefono = getFormValue('regTelefono');
-          const email = getFormValue('regEmail');
-          const pass = getFormValue('regPassword');
-
-          if (!nombre || !email || !pass) {
-            showToast('Nombre, correo y contraseña son obligatorios', 'error');
-            return;
-          }
-          if (pass.length < 6) {
-            showToast('La contraseña debe tener al menos 6 caracteres', 'error');
-            return;
-          }
-
-          setLoading('registerBtn', true, 'Registrando...');
-          try {
-            await Services.register(email, pass, { nombre, telefono });
-            showToast('Cuenta creada. Por favor inicia sesión.', 'success');
-            document.getElementById('tabLoginBtn').click();
-            setFormValue('loginEmail', email);
-            setFormValue('loginPass', '');
-          } catch (error) {
-            showToast(error.message, 'error');
-          } finally {
-            setLoading('registerBtn', false);
-          }
-        };
-
-        document.getElementById('forgotPasswordLink').onclick = () => {
-          openModal('forgotModal');
-        };
-
-        document.getElementById('sendResetBtn').onclick = async () => {
-          const email = getFormValue('resetEmail');
-          if (!email) {
-            showToast('Ingresa tu correo', 'error');
-            return;
-          }
-          setLoading('sendResetBtn', true, 'Enviando...');
-          try {
-            await Services.resetPassword(email);
-            showToast('Instrucciones enviadas a tu correo', 'success');
-            closeModal('forgotModal');
-          } catch (error) {
-            showToast(error.message, 'error');
-          } finally {
-            setLoading('sendResetBtn', false);
-          }
-        };
-
-        document.getElementById('closeForgotBtn').onclick = () => closeModal('forgotModal');
-
-        document.getElementById('loginPass').addEventListener('keydown', e => {
-          if (e.key === 'Enter') document.getElementById('loginBtn').click();
-        });
-        document.getElementById('regPassword').addEventListener('keydown', e => {
-          if (e.key === 'Enter') document.getElementById('registerBtn').click();
-        });
-
-        renderFooter('footerAuth');
-      },
-    };
-
-    // ================================================================
-    // 9. SERVICIOS (COMPLETO)
-    // ================================================================
+    const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 
     const Services = {
       // --- Autenticación ---
@@ -2237,6 +2120,209 @@
     };
 
     // ================================================================
+    // 9. AUTH MODULE
+    // ================================================================
+
+    const AuthModule = {
+      async init() {
+        Logger.info('AuthModule init');
+
+        try {
+          const session = await Services.getSession();
+          if (session) {
+            Logger.info('Session found', { userId: session.user.id });
+            await this._handleAuthenticated(session.user);
+            return true;
+          }
+        } catch (error) {
+          Logger.error('Session check error', error);
+        }
+
+        showAuthPage();
+        this._initAuthPageUI();
+        return false;
+      },
+
+      async _handleAuthenticated(user) {
+        try {
+          const profile = await Services.getUserProfile(user.id);
+
+          State.update({
+            userId: user.id,
+            profile: profile,
+            esAdmin: profile?.es_admin || false,
+            nombre: profile?.nombre || user.email?.split('@')[0] || 'Usuario',
+            email: user.email || '',
+            telefono: profile?.telefono || '',
+          });
+
+          // Actualizar UI del usuario
+          const initial = State.get('nombre').charAt(0).toUpperCase();
+
+          if (State.get('esAdmin')) {
+            await this._loadAdminData();
+            showAdminPage();
+            const avatarEl = document.getElementById('adminAvatar');
+            if (avatarEl) avatarEl.textContent = initial || 'A';
+            document.getElementById('adminWelcome').textContent = State.get('nombre');
+          } else {
+            await this._loadClientData(user.id);
+            showClientPage();
+            const avatarEl = document.getElementById('clientAvatar');
+            if (avatarEl) avatarEl.textContent = initial || 'U';
+            document.getElementById('clientWelcome').textContent = State.get('nombre');
+          }
+
+          Logger.success('User authenticated', { userId: user.id, esAdmin: State.get('esAdmin') });
+          return true;
+        } catch (error) {
+          Logger.error('Auth handler error', error);
+          showToast('Error al cargar perfil: ' + error.message, 'error');
+          await Services.logout();
+          showAuthPage();
+          return false;
+        }
+      },
+
+      async _loadAdminData() {
+        Logger.info('Loading admin data');
+        State.set('loading', true);
+        try {
+          const [citas, pagos, gastos, fotos, productos, usuarios] = await Promise.all([
+            Services.getAllCitas(),
+            Services.getPagos(),
+            Services.getGastos(),
+            Services.getFotos(),
+            Services.getProductos(),
+            Services.getAllUsers(),
+          ]);
+          State.update({ citas, pagos, gastos, fotos, productos, usuarios });
+        } catch (error) {
+          Logger.error('Admin data load error', error);
+          showToast('Error al cargar datos: ' + error.message, 'error');
+        } finally {
+          State.set('loading', false);
+        }
+      },
+
+      async _loadClientData(userId) {
+        Logger.info('Loading client data');
+        State.set('loading', true);
+        try {
+          const [citas, mascotas] = await Promise.all([
+            Services.getCitas(userId),
+            Services.getMascotas(userId),
+          ]);
+          State.update({ citas, mascotas });
+        } catch (error) {
+          Logger.error('Client data load error', error);
+          showToast('Error al cargar datos: ' + error.message, 'error');
+        } finally {
+          State.set('loading', false);
+        }
+      },
+
+      _initAuthPageUI() {
+        const tabs = document.querySelectorAll('.auth-tab');
+        const loginPanel = document.getElementById('loginPanel');
+        const registerPanel = document.getElementById('registerPanel');
+
+        document.getElementById('tabLoginBtn').onclick = () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          document.getElementById('tabLoginBtn').classList.add('active');
+          loginPanel.classList.remove('hidden');
+          registerPanel.classList.add('hidden');
+        };
+
+        document.getElementById('tabRegisterBtn').onclick = () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          document.getElementById('tabRegisterBtn').classList.add('active');
+          registerPanel.classList.remove('hidden');
+          loginPanel.classList.add('hidden');
+        };
+
+        document.getElementById('loginBtn').onclick = async () => {
+          const email = getFormValue('loginEmail');
+          const pass = getFormValue('loginPass');
+          if (!email || !pass) {
+            showToast('Ingresa correo y contraseña', 'error');
+            return;
+          }
+          setLoading('loginBtn', true, 'Ingresando...');
+          try {
+            await Services.login(email, pass);
+            location.reload();
+          } catch (error) {
+            showToast(error.message, 'error');
+            setLoading('loginBtn', false);
+          }
+        };
+
+        document.getElementById('registerBtn').onclick = async () => {
+          const nombre = getFormValue('regNombre');
+          const telefono = getFormValue('regTelefono');
+          const email = getFormValue('regEmail');
+          const pass = getFormValue('regPassword');
+
+          if (!nombre || !email || !pass) {
+            showToast('Nombre, correo y contraseña son obligatorios', 'error');
+            return;
+          }
+          if (pass.length < 6) {
+            showToast('La contraseña debe tener al menos 6 caracteres', 'error');
+            return;
+          }
+
+          setLoading('registerBtn', true, 'Registrando...');
+          try {
+            await Services.register(email, pass, { nombre, telefono });
+            showToast('Cuenta creada. Por favor inicia sesión.', 'success');
+            document.getElementById('tabLoginBtn').click();
+            setFormValue('loginEmail', email);
+            setFormValue('loginPass', '');
+          } catch (error) {
+            showToast(error.message, 'error');
+          } finally {
+            setLoading('registerBtn', false);
+          }
+        };
+
+        document.getElementById('forgotPasswordLink').onclick = () => {
+          openModal('forgotModal');
+        };
+
+        document.getElementById('sendResetBtn').onclick = async () => {
+          const email = getFormValue('resetEmail');
+          if (!email) {
+            showToast('Ingresa tu correo', 'error');
+            return;
+          }
+          setLoading('sendResetBtn', true, 'Enviando...');
+          try {
+            await Services.resetPassword(email);
+            showToast('Instrucciones enviadas a tu correo', 'success');
+            closeModal('forgotModal');
+          } catch (error) {
+            showToast(error.message, 'error');
+          } finally {
+            setLoading('sendResetBtn', false);
+          }
+        };
+
+        document.getElementById('closeForgotBtn').onclick = () => closeModal('forgotModal');
+
+        document.getElementById('loginPass').addEventListener('keydown', e => {
+          if (e.key === 'Enter') document.getElementById('loginBtn').click();
+        });
+        document.getElementById('regPassword').addEventListener('keydown', e => {
+          if (e.key === 'Enter') document.getElementById('registerBtn').click();
+        });
+
+        renderFooter('footerAuth');
+      },
+    };
+
+    // ================================================================
     // 10. CLIENT MODULE (CON LOGOUT CORREGIDO)
     // ================================================================
 
@@ -2244,10 +2330,14 @@
       init() {
         Logger.info('ClientModule init');
         const nombre = State.get('nombre');
-        document.getElementById('clientWelcome').textContent = `Hola, ${nombre}`;
+        const initial = nombre.charAt(0).toUpperCase();
 
         // ✅ CORREGIDO: Usar la función global de logout
         document.getElementById('clientLogout').onclick = logoutAndRedirect;
+
+        // Actualizar avatar
+        const avatarEl = document.getElementById('clientAvatar');
+        if (avatarEl) avatarEl.textContent = initial || 'U';
 
         this._initTabs();
         this._renderTabs();
@@ -2256,7 +2346,534 @@
         renderFooter('footerClient');
       },
 
-      // ... (el resto del código de ClientModule se mantiene igual, solo cambia el logout)
+      _initTabs() {
+        const nav = document.getElementById('clientTabNav');
+        const main = document.getElementById('clientMain');
+        const tabs = [
+          { id: 'agendar', label: '📅 Agendar cita' },
+          { id: 'mis_citas', label: '📋 Mis citas' },
+          { id: 'mis_mascotas', label: '🐾 Mis mascotas' },
+          { id: 'galeria', label: '📸 Galería' },
+        ];
+
+        nav.innerHTML = tabs.map((t, i) =>
+          `<button class="tab-btn${i === 0 ? ' active' : ''}" data-ctab="${t.id}">${t.label}</button>`
+        ).join('');
+
+        main.innerHTML = tabs.map((t, i) =>
+          `<div id="ctab-${t.id}" class="panel${i === 0 ? ' active' : ''}"></div>`
+        ).join('');
+
+        nav.querySelectorAll('[data-ctab]').forEach(btn => {
+          btn.onclick = () => {
+            nav.querySelectorAll('[data-ctab]').forEach(b => b.classList.remove('active'));
+            main.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`ctab-${btn.dataset.ctab}`).classList.add('active');
+            this._renderTab(btn.dataset.ctab);
+          };
+        });
+      },
+
+      _renderTabs() {
+        ['agendar', 'mis_citas', 'mis_mascotas', 'galeria'].forEach(tab => this._renderTab(tab));
+      },
+
+      _renderTab(tab) {
+        const cont = document.getElementById(`ctab-${tab}`);
+        if (!cont) return;
+        switch (tab) {
+          case 'agendar':
+            this._renderBooking(cont);
+            break;
+          case 'mis_citas':
+            this._renderCitas(cont);
+            break;
+          case 'mis_mascotas':
+            this._renderMascotas(cont);
+            break;
+          case 'galeria':
+            this._renderGaleria(cont);
+            break;
+        }
+      },
+
+      _renderBooking(cont) {
+        const mascotas = State.get('mascotas') || [];
+        cont.innerHTML = `
+          <div class="promo-banner" style="background:linear-gradient(95deg,#fff4d6,#ffeab5);padding:12px 20px;border-radius:8px;display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <i class="fas fa-paw" style="color:var(--primary);font-size:1.2rem;"></i>
+            <span style="font-weight:600;">¡Agenda la cita de tu peludo! Recuerda traer su carnet de vacunación.</span>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-title"><i class="fas fa-dog"></i> Selecciona tu mascota</div>
+              <div class="form-group">
+                <label for="clientPetSelect">Mascota</label>
+                <select id="clientPetSelect">
+                  <option value="">-- Elige una mascota --</option>
+                  ${mascotas.map(m => `<option value="${m.id}" data-raza="${escHtml(m.raza || '')}" data-tamano="${escHtml(m.tamano || 'Mediano')}">${escHtml(m.nombre)} (${escHtml(m.raza || 'sin raza')})</option>`).join('')}
+                </select>
+                <button class="btn btn-primary btn-sm mt-1" id="clientNewPetBtn" type="button"><i class="fas fa-plus"></i> Nueva mascota</button>
+              </div>
+              <div class="form-group">
+                <label for="clientServiceSelect">Servicio</label>
+                <select id="clientServiceSelect">
+                  <option value="baño">Baño básico</option>
+                  <option value="corte">Corte estilizado</option>
+                  <option value="baño_corte">Baño + Corte</option>
+                  <option value="spa">Spa completo</option>
+                  <option value="uñas">Corte de uñas</option>
+                  <option value="oidos">Limpieza de oídos</option>
+                  <option value="cepillado">Cepillado / Deslanado</option>
+                  <option value="glandulas">Glándulas anales</option>
+                </select>
+              </div>
+              <div class="grid-2" style="gap:12px;">
+                <div class="form-group">
+                  <label for="clientBookingDate">Fecha</label>
+                  <input type="date" id="clientBookingDate" />
+                </div>
+                <div class="form-group">
+                  <label for="clientBookingTime">Hora</label>
+                  <select id="clientBookingTime">
+                    <option value="08:00">8:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="clientBookingNotes">Notas adicionales</label>
+                <textarea id="clientBookingNotes" rows="2" placeholder="Ej: perro nervioso, dejar bigote largo..."></textarea>
+              </div>
+              <div style="margin-top:8px;font-size:0.9rem;color:var(--text-secondary);">
+                Precio estimado: <strong id="clientPrecioEstimado" style="color:var(--primary);">-</strong>
+              </div>
+              <button class="btn btn-primary btn-block mt-2" id="clientBookBtn"><i class="fas fa-calendar-check"></i> Agendar cita</button>
+              <div id="clientBookMsg" class="mt-1"></div>
+            </div>
+            <div class="card">
+              <div class="card-title"><i class="fas fa-tag"></i> Precios de referencia</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.9rem;">
+                <div><strong>Pinscher</strong></div><div style="text-align:right;">$25.000</div>
+                <div><strong>Perros pequeños</strong></div><div style="text-align:right;">$40.000</div>
+                <div><strong>Perros medianos</strong></div><div style="text-align:right;">$50.000 - $70.000</div>
+                <div><strong>Perros grandes</strong></div><div style="text-align:right;">$70.000 - $100.000</div>
+                <div><strong>Perros extra grandes</strong></div><div style="text-align:right;">$100.000 - $150.000</div>
+              </div>
+              <div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary);font-style:italic;">* El precio final depende del estado del manto y el tamaño.</div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('clientNewPetBtn').onclick = () => {
+          this._openNewPetModal();
+        };
+
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        document.getElementById('clientBookingDate').value = tomorrow.toISOString().split('T')[0];
+
+        const updatePrecio = () => {
+          const select = document.getElementById('clientPetSelect');
+          const option = select.options[select.selectedIndex];
+          const raza = option ? option.dataset.raza : '';
+          const servicio = document.getElementById('clientServiceSelect').value;
+          const precios = { baño: 25000, corte: 35000, baño_corte: 50000, spa: 80000, uñas: 15000, oidos: 15000,
+            cepillado: 20000, glandulas: 10000 };
+          const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000, Gigante: 50000 };
+          const base = precios[servicio] || 40000;
+          const ajuste = ajustes[raza] || 0;
+          document.getElementById('clientPrecioEstimado').textContent = formatCurrency(base + ajuste);
+        };
+
+        document.getElementById('clientPetSelect').onchange = updatePrecio;
+        document.getElementById('clientServiceSelect').onchange = updatePrecio;
+        setTimeout(updatePrecio, 100);
+
+        document.getElementById('clientBookBtn').onclick = async () => {
+          const mascotaId = getFormValue('clientPetSelect');
+          const servicio = getFormValue('clientServiceSelect');
+          const fecha = getFormValue('clientBookingDate');
+          const hora = getFormValue('clientBookingTime');
+          const notas = getFormValue('clientBookingNotes');
+
+          if (!mascotaId) { showToast('Selecciona una mascota', 'error'); return; }
+          if (!fecha) { showToast('Selecciona una fecha', 'error'); return; }
+
+          setLoading('clientBookBtn', true, 'Agendando...');
+          try {
+            const allCitas = await Services.getAllCitas();
+            const target = new Date(`${fecha}T${hora}:00`).getTime();
+            const ocupado = allCitas.some(c => {
+              if (!c.fecha_hora || c.estado === 'Cancelada') return false;
+              return new Date(c.fecha_hora).getTime() === target;
+            });
+            if (ocupado) {
+              showToast('Ya hay una cita agendada para esa fecha y hora', 'error');
+              return;
+            }
+
+            const fechaHora = new Date(`${fecha}T${hora}:00`).toISOString();
+            const invoice = 'LUT-' + Date.now().toString(36).toUpperCase();
+            const select = document.getElementById('clientPetSelect');
+            const option = select.options[select.selectedIndex];
+            const raza = option ? option.dataset.raza : '';
+            const precios = { baño: 25000, corte: 35000, baño_corte: 50000, spa: 80000, uñas: 15000, oidos: 15000,
+              cepillado: 20000, glandulas: 10000 };
+            const ajustes = { Pinscher: 0, Pequeño: 5000, Mediano: 10000, Grande: 20000, ExtraGrande: 35000, Gigante: 50000 };
+            const precio = (precios[servicio] || 40000) + (ajustes[raza] || 0);
+
+            await Services.createCita({
+              invoice_number: invoice,
+              user_id: State.get('userId'),
+              mascota_id: mascotaId,
+              servicio: servicio,
+              fecha_hora: fechaHora,
+              precio: precio,
+              notas_cliente: notas,
+              estado: 'Pendiente',
+              origen: 'web',
+            });
+
+            showToast('¡Cita agendada! Código: ' + invoice, 'success');
+            document.getElementById('clientBookingNotes').value = '';
+            const citas = await Services.getCitas(State.get('userId'));
+            State.set('citas', citas);
+            this._renderTab('mis_citas');
+          } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+          } finally {
+            setLoading('clientBookBtn', false);
+          }
+        };
+      },
+
+      _renderCitas(cont) {
+        const citas = State.get('citas') || [];
+        if (!citas.length) {
+          cont.innerHTML =
+            `<div class="card"><div class="card-title"><i class="fas fa-calendar-alt"></i> Mis citas</div><p class="text-muted">No tienes citas registradas.</p></div>`;
+          return;
+        }
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-calendar-alt"></i> Mis citas (${citas.length})</div>
+            ${citas.map(c => {
+              const estadoClass = {
+                'Pendiente': 'badge-pending',
+                'Confirmada': 'badge-info',
+                'Finalizada': 'badge-success',
+                'Cancelada': 'badge-danger'
+              }[c.estado] || 'badge-pending';
+              return `
+                <div class="order-card" style="background:var(--bg-white);border:1px solid #f0ece4;border-radius:12px;padding:16px;margin-bottom:12px;">
+                  <div class="flex-between">
+                    <div>
+                      <strong>${escHtml(c.servicio || '')}</strong>
+                      <span class="badge ${estadoClass}" style="margin-left:8px;">${escHtml(c.estado || 'Pendiente')}</span>
+                    </div>
+                    <span class="text-muted" style="font-size:0.8rem;">${formatDate(c.fecha_hora)}</span>
+                  </div>
+                  <div style="margin-top:4px;font-size:0.9rem;">
+                    ${formatCurrency(c.precio || 0)}
+                    ${c.notas_cliente ? ` · <span class="text-muted">${escHtml(c.notas_cliente)}</span>` : ''}
+                  </div>
+                  ${c.estado === 'Pendiente' ? `
+                    <div style="margin-top:8px;">
+                      <button class="btn btn-danger btn-sm" onclick="ClientModule.cancelarCitaCliente('${c.id}')">Cancelar</button>
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      },
+
+      cancelarCitaCliente(id) {
+        if (!confirm('¿Cancelar esta cita?')) return;
+        Services.updateCita(id, { estado: 'Cancelada' })
+          .then(async () => {
+            showToast('Cita cancelada', 'info');
+            const citas = await Services.getCitas(State.get('userId'));
+            State.set('citas', citas);
+            this._renderTab('mis_citas');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      _renderMascotas(cont) {
+        const mascotas = State.get('mascotas') || [];
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-paw"></i> Mis mascotas (${mascotas.length})</div>
+            ${mascotas.length ? `
+              <div class="grid-3">
+                ${mascotas.map(m => `
+                  <div style="background:var(--bg-primary);border-radius:12px;padding:16px;text-align:center;">
+                    <div style="font-size:2.5rem;margin-bottom:4px;">🐶</div>
+                    <div><strong>${escHtml(m.nombre)}</strong></div>
+                    <div style="font-size:0.85rem;color:var(--text-secondary);">${escHtml(m.raza || 'Sin raza')}</div>
+                    <div style="font-size:0.8rem;color:var(--text-secondary);">${escHtml(m.tamano || 'Mediano')}</div>
+                    ${m.edad ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${m.edad} años</div>` : ''}
+                    ${m.peso ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${m.peso} kg</div>` : ''}
+                    ${m.sexo ? `<div style="font-size:0.8rem;color:var(--text-secondary);">${escHtml(m.sexo)}</div>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            ` : '<p class="text-muted">No tienes mascotas registradas. Agrega una desde "Agendar cita".</p>'}
+            <button class="btn btn-primary mt-2" onclick="ClientModule._openNewPetModal()"><i class="fas fa-plus"></i> Agregar mascota</button>
+          </div>
+        `;
+      },
+
+      _openNewPetModal() {
+        document.getElementById('newPetNombre').value = '';
+        document.getElementById('newPetRaza').value = '';
+        document.getElementById('newPetRazaOtra').value = '';
+        document.getElementById('newPetRazaOtra').style.display = 'none';
+        document.getElementById('newPetTamano').value = 'Mediano';
+        document.getElementById('newPetEdad').value = '';
+        document.getElementById('newPetPeso').value = '';
+        document.getElementById('newPetSexo').value = '';
+        document.getElementById('newPetMsg').innerHTML = '';
+        openModal('newPetModal');
+      },
+
+      _initNewPetModal() {
+        const modal = document.getElementById('newPetModal');
+        const btnCancel = document.getElementById('newPetCancelBtn');
+        const btnSave = document.getElementById('newPetSaveBtn');
+
+        document.getElementById('newPetRaza').onchange = function() {
+          const otraInput = document.getElementById('newPetRazaOtra');
+          if (this.value === 'otra') {
+            otraInput.style.display = 'block';
+            otraInput.focus();
+          } else {
+            otraInput.style.display = 'none';
+          }
+        };
+
+        btnCancel.onclick = () => closeModal('newPetModal');
+
+        btnSave.onclick = async () => {
+          const nombre = document.getElementById('newPetNombre').value.trim();
+          let raza = document.getElementById('newPetRaza').value;
+          const razaOtra = document.getElementById('newPetRazaOtra').value.trim();
+          const tamano = document.getElementById('newPetTamano').value;
+          const edad = parseInt(document.getElementById('newPetEdad').value) || null;
+          const peso = parseFloat(document.getElementById('newPetPeso').value) || null;
+          const sexo = document.getElementById('newPetSexo').value;
+
+          if (!nombre) {
+            showToast('El nombre de la mascota es obligatorio', 'error');
+            document.getElementById('newPetNombre').focus();
+            return;
+          }
+          if (nombre.length < 2) {
+            showToast('El nombre debe tener al menos 2 caracteres', 'error');
+            document.getElementById('newPetNombre').focus();
+            return;
+          }
+
+          if (raza === 'otra') {
+            if (!razaOtra) {
+              showToast('Especifica la raza de tu mascota', 'error');
+              document.getElementById('newPetRazaOtra').focus();
+              return;
+            }
+            raza = razaOtra;
+          } else if (!raza) {
+            showToast('Selecciona o especifica la raza', 'error');
+            document.getElementById('newPetRaza').focus();
+            return;
+          }
+
+          if (peso !== null && peso <= 0) {
+            showToast('El peso debe ser mayor a 0', 'error');
+            document.getElementById('newPetPeso').focus();
+            return;
+          }
+
+          if (edad !== null && edad < 0) {
+            showToast('La edad no puede ser negativa', 'error');
+            document.getElementById('newPetEdad').focus();
+            return;
+          }
+
+          setLoading('newPetSaveBtn', true, 'Guardando...');
+          try {
+            await Services.createMascota({
+              user_id: State.get('userId'),
+              nombre: nombre,
+              raza: raza,
+              tamano: tamano,
+              edad: edad,
+              peso: peso,
+              sexo: sexo,
+            });
+
+            showToast('¡Mascota registrada exitosamente!', 'success');
+            closeModal('newPetModal');
+
+            const mascotas = await Services.getMascotas(State.get('userId'));
+            State.set('mascotas', mascotas);
+            this._renderTab('agendar');
+            this._renderTab('mis_mascotas');
+
+            document.getElementById('newPetNombre').value = '';
+            document.getElementById('newPetRaza').value = '';
+            document.getElementById('newPetRazaOtra').value = '';
+            document.getElementById('newPetRazaOtra').style.display = 'none';
+            document.getElementById('newPetEdad').value = '';
+            document.getElementById('newPetPeso').value = '';
+            document.getElementById('newPetSexo').value = '';
+
+          } catch (error) {
+            showToast('Error al guardar: ' + error.message, 'error');
+          } finally {
+            setLoading('newPetSaveBtn', false);
+          }
+        };
+      },
+
+      _renderGaleria(cont) {
+        const fotos = State.get('fotos') || [];
+        const autorizadas = fotos.filter(f => f.estado === 'autorizada');
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-images"></i> Galería de fotos</div>
+            <button class="btn btn-primary mb-2" id="clientUploadPhotoBtn"><i class="fas fa-upload"></i> Subir fotos</button>
+            <div class="photo-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-top:16px;">
+              ${autorizadas.length ? autorizadas.map(f => `
+                <div style="background:var(--bg-white);border-radius:12px;overflow:hidden;border:1px solid #f0ece4;">
+                  <img src="${escHtml(f.url)}" alt="Foto" style="width:100%;height:180px;object-fit:cover;" />
+                  <div style="padding:8px 12px;font-size:0.8rem;">
+                    <div>${escHtml(f.descripcion || 'Sin descripción')}</div>
+                    <div class="text-muted" style="font-size:0.7rem;">${formatDateShort(f.fecha_subida)}</div>
+                  </div>
+                </div>
+              `).join('') : '<p class="text-muted">No hay fotos autorizadas. Sube fotos de tus mascotas para compartir.</p>'}
+            </div>
+          </div>
+        `;
+
+        document.getElementById('clientUploadPhotoBtn').onclick = () => {
+          const mascotas = State.get('mascotas') || [];
+          const select = document.getElementById('photoPetSelect');
+          select.innerHTML = '<option value="">-- Elige --</option>' +
+            mascotas.map(m => `<option value="${m.id}">${escHtml(m.nombre)}</option>`).join('');
+          openModal('photoUploadModal');
+        };
+      },
+
+      _initModals() {
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+          m.addEventListener('click', e => {
+            if (e.target === m) m.classList.add('hidden');
+          });
+        });
+
+        document.getElementById('photoUploadBtn').onclick = async () => {
+          const mascotaId = getFormValue('photoPetSelect');
+          const beforeFile = document.getElementById('photoBefore').files[0];
+          const afterFile = document.getElementById('photoAfter').files[0];
+          const desc = getFormValue('photoDesc');
+
+          if (!mascotaId) { showToast('Selecciona una mascota', 'error'); return; }
+          if (!beforeFile) { showToast('La foto "Antes" es obligatoria', 'error'); return; }
+
+          setLoading('photoUploadBtn', true, 'Subiendo...');
+          try {
+            const beforePath = `mascotas/${mascotaId}/antes_${Date.now()}.jpg`;
+            const { error: beforeError } = await supabaseClient.storage
+              .from('fotos')
+              .upload(beforePath, beforeFile);
+            if (beforeError) throw new Error(beforeError.message);
+
+            const { data: beforeUrl } = supabaseClient.storage
+              .from('fotos')
+              .getPublicUrl(beforePath);
+
+            await Services.createFoto({
+              mascota_id: mascotaId,
+              url: beforeUrl.publicUrl,
+              tipo_foto: 'antes',
+              descripcion: desc || 'Antes del servicio',
+              estado: 'pendiente',
+            });
+
+            if (afterFile) {
+              const afterPath = `mascotas/${mascotaId}/despues_${Date.now()}.jpg`;
+              const { error: afterError } = await supabaseClient.storage
+                .from('fotos')
+                .upload(afterPath, afterFile);
+              if (!afterError) {
+                const { data: afterUrl } = supabaseClient.storage
+                  .from('fotos')
+                  .getPublicUrl(afterPath);
+                await Services.createFoto({
+                  mascota_id: mascotaId,
+                  url: afterUrl.publicUrl,
+                  tipo_foto: 'despues',
+                  descripcion: desc || 'Después del servicio',
+                  estado: 'pendiente',
+                });
+              }
+            }
+
+            showToast('Fotos subidas y en revisión', 'success');
+            closeModal('photoUploadModal');
+            document.getElementById('photoBefore').value = '';
+            document.getElementById('photoAfter').value = '';
+            document.getElementById('photoDesc').value = '';
+
+            const fotos = await Services.getFotos();
+            State.set('fotos', fotos);
+            this._renderTab('galeria');
+          } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+          } finally {
+            setLoading('photoUploadBtn', false);
+          }
+        };
+
+        document.getElementById('photoUploadCancelBtn').onclick = () => {
+          closeModal('photoUploadModal');
+        };
+
+        document.getElementById('closeSupportBtn').onclick = () => closeModal('supportModal');
+        document.getElementById('closeSugBtn').onclick = () => closeModal('suggestionModal');
+
+        document.getElementById('sendSugBtn').onclick = async () => {
+          const nombre = getFormValue('sugNombre');
+          const email = getFormValue('sugEmail');
+          const mensaje = getFormValue('sugMsg');
+          if (!nombre || !mensaje) {
+            showToast('Nombre y mensaje son obligatorios', 'error');
+            return;
+          }
+          setLoading('sendSugBtn', true, 'Enviando...');
+          try {
+            await Services.createSugerencia({ nombre, email, mensaje });
+            showToast('¡Gracias por tu sugerencia!', 'success');
+            closeModal('suggestionModal');
+            setFormValue('sugNombre', '');
+            setFormValue('sugEmail', '');
+            setFormValue('sugMsg', '');
+          } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+          } finally {
+            setLoading('sendSugBtn', false);
+          }
+        };
+      },
     };
 
     window.ClientModule = ClientModule;
@@ -2269,10 +2886,15 @@
       init() {
         Logger.info('AdminModule init');
         const nombre = State.get('nombre');
-        document.getElementById('adminWelcome').textContent = nombre;
+        const initial = nombre.charAt(0).toUpperCase();
 
         // ✅ CORREGIDO: Usar la función global de logout
         document.getElementById('adminLogout').onclick = logoutAndRedirect;
+
+        // Actualizar avatar
+        const avatarEl = document.getElementById('adminAvatar');
+        if (avatarEl) avatarEl.textContent = initial || 'A';
+        document.getElementById('adminWelcome').textContent = nombre;
 
         this._initTabs();
         this._renderTabs();
@@ -2280,7 +2902,837 @@
         renderFooter('footerAdmin');
       },
 
-      // ... (el resto del código de AdminModule se mantiene igual)
+      _initTabs() {
+        const nav = document.getElementById('adminTabNav');
+        const main = document.getElementById('adminMain');
+        const tabs = [
+          { id: 'dashboard', label: '📊 Dashboard' },
+          { id: 'agenda', label: '📅 Agenda' },
+          { id: 'clientes', label: '👥 Clientes' },
+          { id: 'fotos', label: '📸 Fotos' },
+          { id: 'inventario', label: '📦 Inventario' },
+          { id: 'gastos', label: '💰 Gastos' },
+          { id: 'caja', label: '💵 Caja' },
+          { id: 'reportes', label: '📈 Reportes' },
+        ];
+
+        nav.innerHTML = tabs.map((t, i) =>
+          `<button class="tab-btn${i === 0 ? ' active' : ''}" data-atab="${t.id}">${t.label}</button>`
+        ).join('');
+
+        main.innerHTML = tabs.map((t, i) =>
+          `<div id="atab-${t.id}" class="panel${i === 0 ? ' active' : ''}"></div>`
+        ).join('');
+
+        nav.querySelectorAll('[data-atab]').forEach(btn => {
+          btn.onclick = () => {
+            nav.querySelectorAll('[data-atab]').forEach(b => b.classList.remove('active'));
+            main.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(`atab-${btn.dataset.atab}`).classList.add('active');
+            this._renderTab(btn.dataset.atab);
+          };
+        });
+      },
+
+      _renderTabs() {
+        ['dashboard', 'agenda', 'clientes', 'fotos', 'inventario', 'gastos', 'caja', 'reportes'].forEach(tab =>
+          this._renderTab(tab));
+      },
+
+      _renderTab(tab) {
+        const cont = document.getElementById(`atab-${tab}`);
+        if (!cont) return;
+        switch (tab) {
+          case 'dashboard':
+            this._renderDashboard(cont);
+            break;
+          case 'agenda':
+            this._renderAgenda(cont);
+            break;
+          case 'clientes':
+            this._renderClientes(cont);
+            break;
+          case 'fotos':
+            this._renderFotos(cont);
+            break;
+          case 'inventario':
+            this._renderInventario(cont);
+            break;
+          case 'gastos':
+            this._renderGastos(cont);
+            break;
+          case 'caja':
+            this._renderCaja(cont);
+            break;
+          case 'reportes':
+            this._renderReportes(cont);
+            break;
+        }
+      },
+
+      _renderDashboard(cont) {
+        const citas = State.get('citas') || [];
+        const pagos = State.get('pagos') || [];
+        const gastos = State.get('gastos') || [];
+        const fotos = State.get('fotos') || [];
+        const usuarios = State.get('usuarios') || [];
+
+        const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
+        const totalGastos = gastos.reduce((s, g) => s + (g.monto || 0), 0);
+        const utilidad = totalIngresos - totalGastos;
+        const pendientes = fotos.filter(f => f.estado === 'pendiente');
+        const hoy = new Date().toISOString().split('T')[0];
+        const citasHoy = citas.filter(c => c.fecha_hora && c.fecha_hora.startsWith(hoy));
+
+        cont.innerHTML = `
+          <div class="meta-hero" style="background:linear-gradient(145deg,#1c0f05,#3a1e06,#5a2e0a);border-radius:16px;padding:24px;color:white;margin-bottom:20px;">
+            <div style="font-size:0.8rem;text-transform:uppercase;opacity:0.7;">Resumen del negocio</div>
+            <div style="font-size:2.2rem;font-weight:700;color:var(--primary-light);">${formatCurrency(utilidad)}</div>
+            <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:8px;">
+              <span>Ingresos: <strong>${formatCurrency(totalIngresos)}</strong></span>
+              <span>Gastos: <strong>${formatCurrency(totalGastos)}</strong></span>
+              <span>Citas hoy: <strong>${citasHoy.length}</strong></span>
+            </div>
+          </div>
+          <div class="grid-4" style="margin-bottom:20px;">
+            <div class="stat-card">
+              <div class="stat-icon">📅</div>
+              <div class="stat-value">${citas.length}</div>
+              <div class="stat-label">Total citas</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📸</div>
+              <div class="stat-value">${pendientes.length}</div>
+              <div class="stat-label">Fotos pendientes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-value">${formatCurrency(totalIngresos)}</div>
+              <div class="stat-label">Ingresos totales</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">💳</div>
+              <div class="stat-value">${formatCurrency(totalGastos)}</div>
+              <div class="stat-label">Gastos totales</div>
+            </div>
+          </div>
+          ${pendientes.length > 0 ? `
+            <div style="background:#fef7e0;border-left:6px solid var(--warning);padding:16px 20px;border-radius:8px;margin-bottom:20px;cursor:pointer;" onclick="AdminModule.goToTab('fotos')">
+              <div style="font-weight:600;">📸 Fotos pendientes de autorizar <span style="background:var(--error);color:white;border-radius:20px;padding:0 10px;">${pendientes.length}</span></div>
+              <div style="font-size:0.9rem;color:var(--text-secondary);">Haz clic para revisarlas.</div>
+            </div>
+          ` : ''}
+          <div class="card">
+            <div class="card-title"><i class="fas fa-chart-bar"></i> Ingresos vs Gastos</div>
+            <canvas id="dashboardChart" height="120"></canvas>
+          </div>
+        `;
+
+        setTimeout(() => {
+          const canvas = document.getElementById('dashboardChart');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          if (window._dashboardChart) window._dashboardChart.destroy();
+          window._dashboardChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+              datasets: [{
+                label: 'Ingresos',
+                data: [2.5, 3.0, 2.8, 3.5, 4.0, 3.8, 4.2, 4.5, 4.8, 5.0, 4.6, 5.2],
+                backgroundColor: 'rgba(45,125,70,0.7)',
+              }, {
+                label: 'Gastos',
+                data: [1.2, 1.5, 1.3, 1.8, 2.0, 1.9, 2.1, 2.2, 2.3, 2.5, 2.4, 2.6],
+                backgroundColor: 'rgba(178,59,42,0.7)',
+              }],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: { legend: { position: 'top' } },
+              scales: { y: { ticks: { callback: v => '$' + v + 'M' } } },
+            },
+          });
+        }, 100);
+      },
+
+      _renderAgenda(cont) {
+        const citas = State.get('citas') || [];
+        const hoy = new Date().toISOString().split('T')[0];
+        const citasHoy = citas.filter(c => c.fecha_hora && c.fecha_hora.startsWith(hoy));
+
+        cont.innerHTML = `
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+            <h3 style="font-size:1.2rem;">📅 Citas de hoy (${citasHoy.length})</h3>
+            <button class="btn btn-primary" id="adminNewAppointmentBtn"><i class="fas fa-plus"></i> Nueva cita</button>
+          </div>
+          <div id="adminAgendaList">
+            ${citasHoy.length ? citasHoy.map(c => this._citaCard(c)).join('') : '<p class="text-muted">No hay citas para hoy.</p>'}
+          </div>
+          <div class="card mt-2">
+            <div class="card-title"><i class="fas fa-list"></i> Todas las citas</div>
+            <div id="adminAllCitasList">
+              ${citas.slice(0, 20).map(c => this._citaCard(c)).join('') || '<p class="text-muted">No hay citas registradas.</p>'}
+            </div>
+          </div>
+        `;
+
+        document.getElementById('adminNewAppointmentBtn').onclick = () => {
+          openModal('appointmentModal');
+        };
+      },
+
+      _citaCard(c) {
+        const estadoClass = {
+          'Pendiente': 'badge-pending',
+          'Confirmada': 'badge-info',
+          'Finalizada': 'badge-success',
+          'Cancelada': 'badge-danger',
+        } [c.estado] || 'badge-pending';
+
+        const origen = c.origen === 'mostrador' ? '📌 Mostrador' : '🌐 Web';
+
+        return `
+          <div style="background:var(--bg-white);border:1px solid #f0ece4;border-radius:12px;padding:16px;margin-bottom:12px;">
+            <div class="flex-between" style="flex-wrap:wrap;gap:8px;">
+              <div>
+                <span style="font-weight:600;">${escHtml(c.invoice_number || '')}</span>
+                <span class="badge ${estadoClass}" style="margin-left:8px;">${escHtml(c.estado || 'Pendiente')}</span>
+                <span style="font-size:0.75rem;color:var(--text-secondary);margin-left:8px;">${origen}</span>
+              </div>
+              <span style="font-size:0.8rem;color:var(--text-secondary);">${formatDate(c.fecha_hora)}</span>
+            </div>
+            <div style="margin-top:4px;font-size:0.9rem;">
+              <strong>${escHtml(c.servicio || '')}</strong> · ${formatCurrency(c.precio || 0)}
+              ${c.notas_cliente ? ` · <span style="font-style:italic;color:var(--text-secondary);">${escHtml(c.notas_cliente)}</span>` : ''}
+              ${c.notas_admin ? ` · <span style="color:var(--info);font-size:0.85rem;">📝 ${escHtml(c.notas_admin)}</span>` : ''}
+            </div>
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+              ${c.estado === 'Pendiente' ? `<button class="btn btn-info btn-sm" onclick="AdminModule.confirmarCitaAdmin('${c.id}')">Confirmar</button>` : ''}
+              ${c.estado === 'Confirmada' || c.estado === 'Pendiente' ? `<button class="btn btn-success btn-sm" onclick="AdminModule.finalizarCitaAdmin('${c.id}')">Finalizar</button>` : ''}
+              ${c.estado !== 'Cancelada' && c.estado !== 'Finalizada' ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.cancelarCitaAdmin('${c.id}')">Cancelar</button>` : ''}
+              <button class="btn btn-ghost btn-sm" onclick="AdminModule.verCitaAdmin('${c.id}')">Detalles</button>
+            </div>
+          </div>
+        `;
+      },
+
+      _renderClientes(cont) {
+        const usuarios = State.get('usuarios') || [];
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-users"></i> Gestión de clientes (${usuarios.length})</div>
+            <div style="margin-bottom:12px;">
+              <input type="text" id="clientSearchInput" placeholder="🔍 Buscar por nombre o teléfono..." style="width:100%;padding:10px 16px;border:2px solid #e8e0d8;border-radius:8px;font-size:0.9rem;" />
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>Nombre</th><th>Teléfono</th><th>Email</th><th>Acciones</th></tr>
+                </thead>
+                <tbody id="clientesTableBody">
+                  ${usuarios.map(u => `
+                    <tr>
+                      <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid #e8e0d8;border-radius:6px;" /></td>
+                      <td>${escHtml(u.telefono || '')}</td>
+                      <td>${escHtml(u.email || '')}</td>
+                      <td>
+                        <button class="btn btn-primary btn-sm" onclick="AdminModule.guardarClienteAdmin('${u.user_id}')">Guardar</button>
+                        ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarClienteAdmin('${u.user_id}')">Eliminar</button>` : ''}
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('clientSearchInput').addEventListener('input', function() {
+          const query = this.value.toLowerCase().trim();
+          const filtered = (State.get('usuarios') || []).filter(u =>
+            (u.nombre || '').toLowerCase().includes(query) ||
+            (u.telefono || '').includes(query)
+          );
+          const tbody = document.getElementById('clientesTableBody');
+          tbody.innerHTML = filtered.length ? filtered.map(u => `
+            <tr>
+              <td><input id="ac_n_${u.user_id}" value="${escHtml(u.nombre || '')}" style="width:100%;padding:6px 10px;border:1px solid #e8e0d8;border-radius:6px;" /></td>
+              <td>${escHtml(u.telefono || '')}</td>
+              <td>${escHtml(u.email || '')}</td>
+              <td>
+                <button class="btn btn-primary btn-sm" onclick="AdminModule.guardarClienteAdmin('${u.user_id}')">Guardar</button>
+                ${u.user_id !== State.get('userId') ? `<button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarClienteAdmin('${u.user_id}')">Eliminar</button>` : ''}
+              </td>
+            </tr>
+          `).join('') : '<tr><td colspan="4" class="text-muted text-center">No se encontraron clientes</td></tr>';
+        });
+      },
+
+      _renderFotos(cont) {
+        const fotos = State.get('fotos') || [];
+        const pendientes = fotos.filter(f => f.estado === 'pendiente');
+        const autorizadas = fotos.filter(f => f.estado === 'autorizada');
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-clock"></i> Fotos pendientes (${pendientes.length})</div>
+            ${pendientes.length ? this._fotoGrid(pendientes, true) : '<p class="text-muted">No hay fotos pendientes</p>'}
+          </div>
+          <div class="card">
+            <div class="card-title"><i class="fas fa-check-circle" style="color:var(--success);"></i> Fotos autorizadas (${autorizadas.length})</div>
+            ${autorizadas.length ? this._fotoGrid(autorizadas.slice(0, 20), false) : '<p class="text-muted">No hay fotos autorizadas</p>'}
+          </div>
+        `;
+      },
+
+      _fotoGrid(fotos, showActions) {
+        return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;">
+          ${fotos.map(f => `
+            <div style="background:var(--bg-white);border-radius:12px;overflow:hidden;border:1px solid #f0ece4;">
+              <img src="${escHtml(f.url)}" alt="Foto" style="width:100%;height:160px;object-fit:cover;" />
+              <div style="padding:8px 12px;font-size:0.8rem;">
+                <div><strong>${f.tipo_foto === 'antes' ? '📸 Antes' : f.tipo_foto === 'despues' ? '✨ Después' : '📷 General'}</strong>
+                <span class="badge ${f.estado === 'pendiente' ? 'badge-pending' : f.estado === 'autorizada' ? 'badge-success' : 'badge-danger'}" style="margin-left:6px;">${escHtml(f.estado)}</span></div>
+                <div class="text-muted" style="font-size:0.7rem;">${formatDateShort(f.fecha_subida)}</div>
+                ${f.descripcion ? `<div style="font-size:0.75rem;color:var(--text-secondary);">${escHtml(f.descripcion)}</div>` : ''}
+              </div>
+              ${showActions ? `
+                <div style="padding:8px 12px;border-top:1px solid #f0ece4;display:flex;gap:6px;">
+                  <button class="btn btn-success btn-sm" onclick="AdminModule.autorizarFotoAdmin('${f.id}')"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-danger btn-sm" onclick="AdminModule.rechazarFotoAdmin('${f.id}')"><i class="fas fa-times"></i></button>
+                </div>
+              ` : `
+                <div style="padding:8px 12px;border-top:1px solid #f0ece4;">
+                  <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarFotoAdmin('${f.id}')"><i class="fas fa-trash"></i> Eliminar</button>
+                </div>
+              `}
+            </div>
+          `).join('')}
+        </div>`;
+      },
+
+      _renderInventario(cont) {
+        const productos = State.get('productos') || [];
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-boxes"></i> Inventario (${productos.length})</div>
+            <button class="btn btn-primary mb-2" id="adminAddProductBtn"><i class="fas fa-plus"></i> Agregar producto</button>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>Nombre</th><th>Categoría</th><th>Stock</th><th>Min.</th><th>Precio compra</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                  ${productos.map(p => `
+                    <tr>
+                      <td>${escHtml(p.nombre || '')}</td>
+                      <td>${escHtml(p.categoria || '')}</td>
+                      <td><span style="font-weight:600;${p.stock_actual <= p.stock_minimo ? 'color:var(--error);' : ''}">${p.stock_actual || 0}</span></td>
+                      <td>${p.stock_minimo || 0}</td>
+                      <td>${formatCurrency(p.precio_compra || 0)}</td>
+                      <td>
+                        <button class="btn btn-info btn-sm" onclick="AdminModule.ajustarStockAdmin('${p.id}')">Ajustar</button>
+                        <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarProductoAdmin('${p.id}')">Eliminar</button>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('adminAddProductBtn').onclick = () => {
+          const nombre = prompt('Nombre del producto:');
+          if (!nombre) return;
+          const categoria = prompt('Categoría:') || '';
+          const stock = parseInt(prompt('Stock inicial:')) || 0;
+          const precio = parseFloat(prompt('Precio de compra:')) || 0;
+          Services.createProducto({
+            nombre,
+            categoria,
+            stock_actual: stock,
+            stock_minimo: 5,
+            precio_compra: precio,
+          }).then(async () => {
+            showToast('Producto agregado', 'success');
+            const productos = await Services.getProductos();
+            State.set('productos', productos);
+            this._renderTab('inventario');
+          }).catch(err => showToast('Error: ' + err.message, 'error'));
+        };
+      },
+
+      _renderGastos(cont) {
+        const gastos = State.get('gastos') || [];
+        const total = gastos.reduce((s, g) => s + (g.monto || 0), 0);
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-coins"></i> Gastos operativos</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+              <span>Total: <strong>${formatCurrency(total)}</strong></span>
+              <button class="btn btn-primary" id="adminAddGastoBtn"><i class="fas fa-plus"></i> Registrar gasto</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>Concepto</th><th>Categoría</th><th>Monto</th><th>Fecha</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                  ${gastos.map(g => `
+                    <tr>
+                      <td>${escHtml(g.concepto || '')}</td>
+                      <td>${escHtml(g.categoria || '')}</td>
+                      <td>${formatCurrency(g.monto || 0)}</td>
+                      <td>${formatDateShort(g.fecha)}</td>
+                      <td>
+                        <button class="btn btn-danger btn-sm" onclick="AdminModule.eliminarGastoAdmin('${g.id}')">Eliminar</button>
+                      </td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('adminAddGastoBtn').onclick = () => {
+          const concepto = prompt('Concepto del gasto:');
+          if (!concepto) return;
+          const categoria = prompt('Categoría:') || 'OTROS';
+          const monto = parseFloat(prompt('Monto:'));
+          if (isNaN(monto) || monto <= 0) { showToast('Monto inválido', 'error'); return; }
+          Services.createGasto({
+            concepto,
+            categoria,
+            monto,
+            fecha: new Date().toISOString().split('T')[0],
+          }).then(async () => {
+            showToast('Gasto registrado', 'success');
+            const gastos = await Services.getGastos();
+            State.set('gastos', gastos);
+            this._renderTab('gastos');
+          }).catch(err => showToast('Error: ' + err.message, 'error'));
+        };
+      },
+
+      _renderCaja(cont) {
+        const pagos = State.get('pagos') || [];
+        const total = pagos.reduce((s, p) => s + (p.monto || 0), 0);
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-cash-register"></i> Caja</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+              <span>Total recaudado: <strong>${formatCurrency(total)}</strong></span>
+              <button class="btn btn-primary" id="adminAddPagoBtn"><i class="fas fa-plus"></i> Registrar pago</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr><th>Referencia</th><th>Monto</th><th>Método</th><th>Fecha</th></tr>
+                </thead>
+                <tbody>
+                  ${pagos.map(p => `
+                    <tr>
+                      <td>${escHtml(p.referencia || '')}</td>
+                      <td>${formatCurrency(p.monto || 0)}</td>
+                      <td>${escHtml(p.metodo || '')}</td>
+                      <td>${formatDateShort(p.fecha_pago)}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('adminAddPagoBtn').onclick = () => {
+          const monto = parseFloat(prompt('Monto del pago:'));
+          if (isNaN(monto) || monto <= 0) { showToast('Monto inválido', 'error'); return; }
+          const metodo = prompt('Método (efectivo, nequi, daviplata, transferencia):') || 'efectivo';
+          const referencia = prompt('Referencia (opcional):') || '';
+          Services.createPago({
+            monto,
+            metodo,
+            referencia,
+            fecha_pago: new Date().toISOString(),
+          }).then(async () => {
+            showToast('Pago registrado', 'success');
+            const pagos = await Services.getPagos();
+            State.set('pagos', pagos);
+            this._renderTab('caja');
+          }).catch(err => showToast('Error: ' + err.message, 'error'));
+        };
+      },
+
+      _renderReportes(cont) {
+        const citas = State.get('citas') || [];
+        const pagos = State.get('pagos') || [];
+        const gastos = State.get('gastos') || [];
+
+        const totalIngresos = pagos.reduce((s, p) => s + (p.monto || 0), 0);
+        const totalGastos = gastos.reduce((s, g) => s + (g.monto || 0), 0);
+        const utilidad = totalIngresos - totalGastos;
+
+        cont.innerHTML = `
+          <div class="card">
+            <div class="card-title"><i class="fas fa-file-alt"></i> Reportes financieros</div>
+            <div class="grid-3">
+              <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value">${formatCurrency(totalIngresos)}</div>
+                <div class="stat-label">Ingresos totales</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">💳</div>
+                <div class="stat-value">${formatCurrency(totalGastos)}</div>
+                <div class="stat-label">Gastos totales</div>
+              </div>
+              <div class="stat-card" style="border-color:${utilidad >= 0 ? 'var(--success)' : 'var(--error)'};">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value" style="color:${utilidad >= 0 ? 'var(--success)' : 'var(--error)'};">${formatCurrency(utilidad)}</div>
+                <div class="stat-label">Utilidad / Pérdida</div>
+              </div>
+            </div>
+            <div style="margin-top:16px;">
+              <h4>Resumen de citas</h4>
+              <div class="grid-2">
+                <div><strong>Total citas:</strong> ${citas.length}</div>
+                <div><strong>Completadas:</strong> ${citas.filter(c => c.estado === 'Finalizada' || c.estado === 'Completada').length}</div>
+                <div><strong>Canceladas:</strong> ${citas.filter(c => c.estado === 'Cancelada').length}</div>
+                <div><strong>Pendientes:</strong> ${citas.filter(c => c.estado === 'Pendiente').length}</div>
+              </div>
+            </div>
+            <button class="btn btn-primary mt-2" onclick="AdminModule.exportarCSVAdmin()"><i class="fas fa-download"></i> Exportar reporte CSV</button>
+          </div>
+        `;
+      },
+
+      _initModals() {
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+          m.addEventListener('click', e => {
+            if (e.target === m) m.classList.add('hidden');
+          });
+        });
+
+        const searchInput = document.getElementById('appClientSearch');
+        const resultsDiv = document.getElementById('appClientResults');
+        let searchTimeout;
+
+        searchInput.oninput = () => {
+          clearTimeout(searchTimeout);
+          const query = searchInput.value.trim();
+          if (query.length < 2) { resultsDiv.innerHTML = ''; return; }
+          searchTimeout = setTimeout(async () => {
+            try {
+              const { data } = await supabaseClient
+                .from('usuarios')
+                .select('user_id, nombre, telefono, email')
+                .ilike('nombre', `%${query}%`)
+                .limit(5);
+              if (data && data.length) {
+                resultsDiv.innerHTML = data.map(u =>
+                  `<div style="padding:8px 12px;cursor:pointer;border-bottom:1px solid #f0ece4;" onclick="AdminModule.seleccionarClienteAdmin('${u.user_id}','${escHtml(u.nombre)}','${escHtml(u.telefono || '')}')">
+                    ${escHtml(u.nombre)}${u.telefono ? ` - ${escHtml(u.telefono)}` : ''}
+                  </div>`
+                ).join('');
+              } else {
+                resultsDiv.innerHTML =
+                  `<div style="padding:8px 12px;color:var(--text-secondary);">No se encontraron clientes. <button class="btn btn-primary btn-sm" onclick="AdminModule.crearClienteRapidoAdmin()">Crear nuevo</button></div>`;
+              }
+            } catch (e) {
+              resultsDiv.innerHTML = '';
+            }
+          }, 300);
+        };
+
+        document.getElementById('appCancelBtn').onclick = () => closeModal('appointmentModal');
+
+        document.getElementById('appConfirmBtn').onclick = async () => {
+          const clienteId = window._appSelectedClientId;
+          const mascotaId = getFormValue('appPetSelect');
+          const servicio = getFormValue('appServiceSelect');
+          const precio = parseFloat(getFormValue('appPrice')) || 0;
+          const fecha = getFormValue('appDate');
+          const hora = getFormValue('appTime');
+          const notas = getFormValue('appNotes');
+
+          if (!clienteId) { showToast('Selecciona un cliente', 'error'); return; }
+          if (!mascotaId) { showToast('Selecciona una mascota', 'error'); return; }
+          if (!fecha) { showToast('Selecciona una fecha', 'error'); return; }
+
+          setLoading('appConfirmBtn', true, 'Guardando...');
+          try {
+            const fechaHora = new Date(`${fecha}T${hora}:00`).toISOString();
+            const invoice = 'LUT-' + Date.now().toString(36).toUpperCase();
+            await Services.createCita({
+              invoice_number: invoice,
+              user_id: clienteId,
+              mascota_id: mascotaId,
+              servicio: servicio,
+              fecha_hora: fechaHora,
+              precio: precio,
+              notas_cliente: notas,
+              estado: 'Confirmada',
+              origen: 'mostrador',
+            });
+            showToast('¡Cita agendada!', 'success');
+            closeModal('appointmentModal');
+            const citas = await Services.getAllCitas();
+            State.set('citas', citas);
+            this._renderTab('agenda');
+          } catch (error) {
+            showToast('Error: ' + error.message, 'error');
+          } finally {
+            setLoading('appConfirmBtn', false);
+          }
+        };
+
+        document.getElementById('appNewPetBtn').onclick = () => {
+          const userId = window._appSelectedClientId;
+          if (!userId) { showToast('Selecciona un cliente primero', 'error'); return; }
+          ClientModule._openNewPetModal();
+        };
+
+        document.getElementById('appDate').value = new Date().toISOString().split('T')[0];
+      },
+
+      seleccionarClienteAdmin(userId, nombre, telefono) {
+        document.getElementById('appClientSelected').value = nombre + (telefono ? ` - ${telefono}` : '');
+        document.getElementById('appClientResults').innerHTML = '';
+        window._appSelectedClientId = userId;
+        this._cargarMascotasModal(userId);
+      },
+
+      crearClienteRapidoAdmin() {
+        const nombre = prompt('Nombre del cliente:');
+        if (!nombre) return;
+        const telefono = prompt('Teléfono:') || '';
+        const uid = crypto.randomUUID();
+        supabaseClient.from('usuarios').insert({
+          user_id: uid,
+          nombre,
+          telefono,
+          tipo: 'cliente',
+          es_admin: false,
+        }).then(() => {
+          window._appSelectedClientId = uid;
+          document.getElementById('appClientSelected').value = nombre + (telefono ? ` - ${telefono}` : '');
+          document.getElementById('appClientResults').innerHTML = '';
+          this._cargarMascotasModal(uid);
+          showToast('Cliente creado', 'success');
+        }).catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      async _cargarMascotasModal(userId) {
+        try {
+          const { data } = await supabaseClient
+            .from('mascotas')
+            .select('*')
+            .eq('user_id', userId);
+          const sel = document.getElementById('appPetSelect');
+          sel.innerHTML = '<option value="">-- Selecciona --</option>' +
+            (data || []).map(m => `<option value="${m.id}">${escHtml(m.nombre)} (${escHtml(m.raza || 'sin raza')})</option>`).join('');
+          if (!data || !data.length) {
+            sel.innerHTML += '<option value="new">+ Crear nueva mascota</option>';
+          }
+          sel.onchange = () => {
+            if (sel.value === 'new') {
+              const nombre = prompt('Nombre de la mascota:');
+              if (nombre) {
+                Services.createMascota({ user_id: userId, nombre })
+                  .then(() => this._cargarMascotasModal(userId));
+              }
+              sel.value = '';
+            }
+          };
+        } catch (e) {
+          // Silenciar
+        }
+      },
+
+      confirmarCitaAdmin(id) {
+        Services.updateCita(id, { estado: 'Confirmada' })
+          .then(async () => {
+            showToast('Cita confirmada', 'success');
+            const citas = await Services.getAllCitas();
+            State.set('citas', citas);
+            this._renderTab('agenda');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      finalizarCitaAdmin(id) {
+        Services.updateCita(id, { estado: 'Finalizada' })
+          .then(async () => {
+            const cita = (State.get('citas') || []).find(c => c.id === id);
+            if (cita && cita.precio) {
+              await Services.createPago({
+                cita_id: id,
+                monto: cita.precio,
+                metodo: 'efectivo',
+                referencia: `Pago cita ${cita.invoice_number}`,
+                fecha_pago: new Date().toISOString(),
+              });
+            }
+            showToast('Cita finalizada y pago registrado', 'success');
+            const [citas, pagos] = await Promise.all([
+              Services.getAllCitas(),
+              Services.getPagos(),
+            ]);
+            State.set({ citas, pagos });
+            this._renderTab('agenda');
+            this._renderTab('dashboard');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      cancelarCitaAdmin(id) {
+        if (!confirm('¿Cancelar esta cita?')) return;
+        Services.updateCita(id, { estado: 'Cancelada' })
+          .then(async () => {
+            showToast('Cita cancelada', 'info');
+            const citas = await Services.getAllCitas();
+            State.set('citas', citas);
+            this._renderTab('agenda');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      verCitaAdmin(id) {
+        const cita = (State.get('citas') || []).find(c => c.id === id);
+        if (!cita) return;
+        showToast(
+          `📋 ${cita.invoice_number}\nServicio: ${cita.servicio}\nPrecio: ${formatCurrency(cita.precio || 0)}\nEstado: ${cita.estado}\nFecha: ${formatDate(cita.fecha_hora)}`,
+          'info', 8000
+        );
+      },
+
+      guardarClienteAdmin(uid) {
+        const nombre = document.getElementById(`ac_n_${uid}`).value.trim();
+        if (!nombre) { showToast('El nombre no puede estar vacío', 'error'); return; }
+        Services.updateUser(uid, { nombre })
+          .then(async () => {
+            showToast('Cliente actualizado', 'success');
+            const usuarios = await Services.getAllUsers();
+            State.set('usuarios', usuarios);
+            this._renderTab('clientes');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      eliminarClienteAdmin(uid) {
+        if (uid === State.get('userId')) { showToast('No puedes eliminarte a ti mismo', 'error'); return; }
+        if (!confirm('¿Eliminar este cliente? Esta acción no se puede deshacer.')) return;
+        supabaseClient.from('usuarios').delete().eq('user_id', uid)
+          .then(async () => {
+            showToast('Cliente eliminado', 'info');
+            const usuarios = await Services.getAllUsers();
+            State.set('usuarios', usuarios);
+            this._renderTab('clientes');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      autorizarFotoAdmin(id) {
+        Services.updateFoto(id, { estado: 'autorizada', fecha_autorizacion: new Date().toISOString() })
+          .then(async () => {
+            showToast('Foto autorizada', 'success');
+            const fotos = await Services.getFotos();
+            State.set('fotos', fotos);
+            this._renderTab('fotos');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      rechazarFotoAdmin(id) {
+        if (!confirm('¿Rechazar esta foto?')) return;
+        Services.updateFoto(id, { estado: 'rechazada' })
+          .then(async () => {
+            showToast('Foto rechazada', 'info');
+            const fotos = await Services.getFotos();
+            State.set('fotos', fotos);
+            this._renderTab('fotos');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      eliminarFotoAdmin(id) {
+        if (!confirm('¿Eliminar esta foto permanentemente?')) return;
+        supabaseClient.from('fotos_mascotas').delete().eq('id', id)
+          .then(async () => {
+            showToast('Foto eliminada', 'info');
+            const fotos = await Services.getFotos();
+            State.set('fotos', fotos);
+            this._renderTab('fotos');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      ajustarStockAdmin(id) {
+        const cantidad = parseInt(prompt('Nuevo stock:'));
+        if (isNaN(cantidad) || cantidad < 0) { showToast('Cantidad inválida', 'error'); return; }
+        Services.updateProducto(id, { stock_actual: cantidad })
+          .then(async () => {
+            showToast('Stock actualizado', 'success');
+            const productos = await Services.getProductos();
+            State.set('productos', productos);
+            this._renderTab('inventario');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      eliminarProductoAdmin(id) {
+        if (!confirm('¿Eliminar este producto?')) return;
+        supabaseClient.from('productos_inventario').delete().eq('id', id)
+          .then(async () => {
+            showToast('Producto eliminado', 'info');
+            const productos = await Services.getProductos();
+            State.set('productos', productos);
+            this._renderTab('inventario');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      eliminarGastoAdmin(id) {
+        if (!confirm('¿Eliminar este gasto?')) return;
+        supabaseClient.from('gastos_operativos').delete().eq('id', id)
+          .then(async () => {
+            showToast('Gasto eliminado', 'info');
+            const gastos = await Services.getGastos();
+            State.set('gastos', gastos);
+            this._renderTab('gastos');
+          })
+          .catch(err => showToast('Error: ' + err.message, 'error'));
+      },
+
+      exportarCSVAdmin() {
+        const citas = State.get('citas') || [];
+        if (!citas.length) { showToast('No hay datos para exportar', 'warning'); return; }
+        let csv = 'Número,Servicio,Precio,Estado,Fecha\n';
+        citas.forEach(c => {
+          csv +=
+            `${c.invoice_number || ''},${c.servicio || ''},${c.precio || 0},${c.estado || ''},${new Date(c.fecha_hora).toLocaleDateString()}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `reporte_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Reporte exportado', 'success');
+      },
+
+      goToTab(tab) {
+        const btn = document.querySelector(`[data-atab="${tab}"]`);
+        if (btn) btn.click();
+      },
     };
 
     window.AdminModule = AdminModule;
@@ -2290,7 +3742,7 @@
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v4.7 iniciando...');
+      Logger.info('🚀 Luthor v4.8 iniciando...');
 
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {

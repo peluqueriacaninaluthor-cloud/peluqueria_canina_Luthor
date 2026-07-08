@@ -1314,19 +1314,18 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v4.5 (CORREGIDA)
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.6 (CORREGIDA)
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.5 (CORREGIDA)
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.6 (CORREGIDA)
      * ================================================================
      * Cambios realizados:
-     *   1. ✅ CORREGIDO: Problema de páginas duplicadas (Auth + Cliente/Admin)
-     *   2. ✅ CORREGIDO: Eliminado process.env (no funciona en navegador)
-     *   3. ✅ MEJORADO: Gestión de sesión y visibilidad de páginas
-     *   4. ✅ CORREGIDO: Cierre de sesión ahora funciona correctamente
-     *   5. ✅ MEJORADO: Logo en todas las páginas y marca de agua en facturas
+     *   1. ✅ CORREGIDO: Cierre de sesión con recarga forzada
+     *   2. ✅ CORREGIDO: Botón "Salir" funciona en Admin y Cliente
+     *   3. ✅ CORREGIDO: Limpieza completa del estado al cerrar sesión
+     *   4. ✅ MEJORADO: Logo en todas las páginas y marca de agua en facturas
      * ================================================================
      */
 
@@ -1352,7 +1351,7 @@
       SUPABASE_URL: 'https://aeetpxvalrrqzglylzld.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_tSciD_yZfoBGP_pNZWENzw_QP-lMujw',
       APP_NAME: 'Luthor',
-      APP_VERSION: '4.5.0',
+      APP_VERSION: '4.6.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
       CACHE_TTL: 300000,
@@ -1361,7 +1360,7 @@
     };
 
     // ================================================================
-    // 2. LOGGER (CORREGIDO)
+    // 2. LOGGER
     // ================================================================
 
     const Logger = {
@@ -1390,7 +1389,6 @@
       success(msg, data) { this._log(this.levels.SUCCESS, msg, data); },
       warn(msg, data) { this._log(this.levels.WARNING, msg, data); },
       error(msg, data) { this._log(this.levels.ERROR, msg, data); },
-      // ✅ CORREGIDO: No usa process.env
       debug(msg, data) {
         if (CONFIG.IS_DEBUG) {
           this._log(this.levels.DEBUG, msg, data);
@@ -1944,17 +1942,15 @@
     }
 
     // ================================================================
-    // 7. FUNCIONES DE VISIBILIDAD (CORREGIDAS)
+    // 7. FUNCIONES DE VISIBILIDAD
     // ================================================================
 
     function showPage(pageId) {
-      // Ocultar todas las páginas
       document.querySelectorAll('.page-container').forEach(el => {
         el.style.display = 'none';
         el.classList.remove('active');
       });
 
-      // Mostrar la página solicitada
       const page = document.getElementById(pageId);
       if (page) {
         page.style.display = 'flex';
@@ -2172,7 +2168,7 @@
     };
 
     // ================================================================
-    // 9. CLIENT MODULE
+    // 9. CLIENT MODULE (CON LOGOUT CORREGIDO)
     // ================================================================
 
     const ClientModule = {
@@ -2180,43 +2176,39 @@
         Logger.info('ClientModule init');
         const nombre = State.get('nombre');
         document.getElementById('clientWelcome').textContent = `Hola, ${nombre}`;
-        document.getElementById('clientLogout').onclick = this._handleLogout;
+
+        // ✅ CORREGIDO: Cierre de sesión con recarga forzada
+        document.getElementById('clientLogout').onclick = async () => {
+          try {
+            await Services.logout();
+            State.update({
+              userId: null,
+              profile: null,
+              esAdmin: false,
+              nombre: '',
+              email: '',
+              telefono: '',
+              citas: [],
+              mascotas: [],
+              pagos: [],
+              gastos: [],
+              fotos: [],
+              productos: [],
+              usuarios: [],
+            });
+            window.location.href = window.location.pathname;
+          } catch (error) {
+            Logger.error('Logout error', error);
+            showToast('Error al cerrar sesión: ' + error.message, 'error');
+            window.location.href = window.location.pathname;
+          }
+        };
 
         this._initTabs();
         this._renderTabs();
         this._initModals();
         this._initNewPetModal();
         renderFooter('footerClient');
-      },
-
-      // ✅ CORREGIDO: Cierre de sesión funciona correctamente
-      async _handleLogout() {
-        try {
-          await Services.logout();
-          // Limpiar estado
-          State.update({
-            userId: null,
-            profile: null,
-            esAdmin: false,
-            nombre: '',
-            email: '',
-            telefono: '',
-            citas: [],
-            mascotas: [],
-            pagos: [],
-            gastos: [],
-            fotos: [],
-            productos: [],
-            usuarios: [],
-          });
-          // Mostrar página de autenticación
-          showAuthPage();
-          AuthModule._initAuthPageUI();
-          showToast('Sesión cerrada correctamente', 'success');
-        } catch (error) {
-          Logger.error('Logout error', error);
-          showToast('Error al cerrar sesión: ' + error.message, 'error');
-        }
       },
 
       _initTabs() {
@@ -2342,7 +2334,6 @@
           </div>
         `;
 
-        // ✅ Botón "Nueva mascota" correctamente asignado
         document.getElementById('clientNewPetBtn').onclick = () => {
           this._openNewPetModal();
         };
@@ -2469,7 +2460,6 @@
         `;
       },
 
-      // ✅ EXPUESTO PÚBLICAMENTE para onclick
       cancelarCitaCliente(id) {
         if (!confirm('¿Cancelar esta cita?')) return;
         Services.updateCita(id, { estado: 'Cancelada' })
@@ -2507,7 +2497,6 @@
         `;
       },
 
-      // ✅ NUEVO: Abrir modal para crear mascota
       _openNewPetModal() {
         document.getElementById('newPetNombre').value = '';
         document.getElementById('newPetRaza').value = '';
@@ -2521,7 +2510,6 @@
         openModal('newPetModal');
       },
 
-      // ✅ NUEVO: Inicializar modal de nueva mascota
       _initNewPetModal() {
         const modal = document.getElementById('newPetModal');
         const btnCancel = document.getElementById('newPetCancelBtn');
@@ -2753,11 +2741,10 @@
       },
     };
 
-    // ✅ EXPONER MÓDULO DE CLIENTES GLOBALMENTE
     window.ClientModule = ClientModule;
 
     // ================================================================
-    // 10. ADMIN MODULE
+    // 10. ADMIN MODULE (CON LOGOUT CORREGIDO)
     // ================================================================
 
     const AdminModule = {
@@ -2765,6 +2752,8 @@
         Logger.info('AdminModule init');
         const nombre = State.get('nombre');
         document.getElementById('adminWelcome').textContent = nombre;
+
+        // ✅ CORREGIDO: Cierre de sesión con recarga forzada
         document.getElementById('adminLogout').onclick = async () => {
           try {
             await Services.logout();
@@ -2782,12 +2771,14 @@
               fotos: [],
               productos: [],
               usuarios: [],
+              loading: false,
+              initialized: false,
             });
-            showAuthPage();
-            AuthModule._initAuthPageUI();
-            showToast('Sesión cerrada correctamente', 'success');
+            window.location.href = window.location.pathname;
           } catch (error) {
+            Logger.error('Logout error', error);
             showToast('Error al cerrar sesión: ' + error.message, 'error');
+            window.location.href = window.location.pathname;
           }
         };
 
@@ -3397,7 +3388,6 @@
         document.getElementById('appDate').value = new Date().toISOString().split('T')[0];
       },
 
-      // ✅ MÉTODOS PÚBLICOS EXPUESTOS
       seleccionarClienteAdmin(userId, nombre, telefono) {
         document.getElementById('appClientSelected').value = nombre + (telefono ? ` - ${telefono}` : '');
         document.getElementById('appClientResults').innerHTML = '';
@@ -3631,7 +3621,6 @@
       },
     };
 
-    // ✅ EXPONER MÓDULO DE ADMINISTRACIÓN GLOBALMENTE
     window.AdminModule = AdminModule;
 
     // ================================================================
@@ -3639,14 +3628,13 @@
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v4.5 iniciando...');
+      Logger.info('🚀 Luthor v4.6 iniciando...');
 
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {
         showToast('Ingresa tu nueva contraseña en el formulario', 'info');
       }
 
-      // ✅ Asegurar que la página de autenticación se muestra primero
       showAuthPage();
 
       const authed = await AuthModule.init();
@@ -3691,10 +3679,6 @@
         </div>
       `;
     }
-
-    // ================================================================
-    // INICIAR APLICACIÓN
-    // ================================================================
 
     document.addEventListener('DOMContentLoaded', bootstrap);
   </script>

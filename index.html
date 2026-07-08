@@ -827,6 +827,43 @@
     }
 
     /* ============================
+       CORRECCIÓN DE VISIBILIDAD (CRÍTICO)
+       ============================ */
+    #authPage {
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #clientPage,
+    #adminPage {
+      display: none !important;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    #clientPage.active,
+    #adminPage.active {
+      display: flex !important;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    #authPage.hidden {
+      display: none !important;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    /* Asegurar que solo una página se muestre */
+    .page-container {
+      display: none;
+    }
+    .page-container.active {
+      display: flex;
+    }
+
+    /* ============================
        RESPONSIVE
        ============================ */
     @media (max-width: 1024px) {
@@ -929,7 +966,7 @@
   <!-- ============================
   AUTH PAGE
   ============================ -->
-  <div id="authPage" class="page">
+  <div id="authPage" class="page page-container active">
     <div class="auth-container">
       <div class="auth-brand">
         <span class="logo-icon" aria-label="Logo Luthor"></span>
@@ -982,7 +1019,7 @@
   <!-- ============================
   CLIENT PAGE
   ============================ -->
-  <div id="clientPage" class="page">
+  <div id="clientPage" class="page page-container">
     <header class="topbar">
       <div class="topbar-inner">
         <div class="topbar-brand">
@@ -1006,7 +1043,7 @@
   <!-- ============================
   ADMIN PAGE
   ============================ -->
-  <div id="adminPage" class="page">
+  <div id="adminPage" class="page page-container">
     <header class="topbar">
       <div class="topbar-inner">
         <div class="topbar-brand">
@@ -1277,19 +1314,19 @@
   </div>
 
   <!-- ============================
-  SCRIPT - ARQUITECTURA EMPRESARIAL v4.4 (CORREGIDA)
+  SCRIPT - ARQUITECTURA EMPRESARIAL v4.5 (CORREGIDA)
   ============================ -->
   <script>
     /**
      * ================================================================
-     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.4 (CORREGIDA)
+     * LUTHOR · ARQUITECTURA EMPRESARIAL v4.5 (CORREGIDA)
      * ================================================================
      * Cambios realizados:
-     *   1. ✅ CORREGIDO: Cierre de sesión ahora funciona correctamente
-     *   2. ✅ NUEVO: Botón "+ Nueva mascota" funcional en agendar cita
-     *   3. ✅ CORREGIDO: Validación de campos en creación de mascotas
-     *   4. ✅ MEJORADO: Logo en todas las páginas y marca de agua en facturas
-     *   5. ✅ OPTIMIZADO: Código más limpio y eficiente
+     *   1. ✅ CORREGIDO: Problema de páginas duplicadas (Auth + Cliente/Admin)
+     *   2. ✅ CORREGIDO: Eliminado process.env (no funciona en navegador)
+     *   3. ✅ MEJORADO: Gestión de sesión y visibilidad de páginas
+     *   4. ✅ CORREGIDO: Cierre de sesión ahora funciona correctamente
+     *   5. ✅ MEJORADO: Logo en todas las páginas y marca de agua en facturas
      * ================================================================
      */
 
@@ -1315,7 +1352,7 @@
       SUPABASE_URL: 'https://aeetpxvalrrqzglylzld.supabase.co',
       SUPABASE_ANON_KEY: 'sb_publishable_tSciD_yZfoBGP_pNZWENzw_QP-lMujw',
       APP_NAME: 'Luthor',
-      APP_VERSION: '4.4.0',
+      APP_VERSION: '4.5.0',
       TOAST_DURATION: 4000,
       MAX_LOGIN_ATTEMPTS: 5,
       CACHE_TTL: 300000,
@@ -1324,7 +1361,7 @@
     };
 
     // ================================================================
-    // 2. LOGGER
+    // 2. LOGGER (CORREGIDO)
     // ================================================================
 
     const Logger = {
@@ -1353,6 +1390,7 @@
       success(msg, data) { this._log(this.levels.SUCCESS, msg, data); },
       warn(msg, data) { this._log(this.levels.WARNING, msg, data); },
       error(msg, data) { this._log(this.levels.ERROR, msg, data); },
+      // ✅ CORREGIDO: No usa process.env
       debug(msg, data) {
         if (CONFIG.IS_DEBUG) {
           this._log(this.levels.DEBUG, msg, data);
@@ -1906,7 +1944,41 @@
     }
 
     // ================================================================
-    // 7. AUTH MODULE
+    // 7. FUNCIONES DE VISIBILIDAD (CORREGIDAS)
+    // ================================================================
+
+    function showPage(pageId) {
+      // Ocultar todas las páginas
+      document.querySelectorAll('.page-container').forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+      });
+
+      // Mostrar la página solicitada
+      const page = document.getElementById(pageId);
+      if (page) {
+        page.style.display = 'flex';
+        page.classList.add('active');
+      }
+    }
+
+    function showAuthPage() {
+      showPage('authPage');
+      document.getElementById('authPage').style.display = 'flex';
+    }
+
+    function showClientPage() {
+      showPage('clientPage');
+      document.getElementById('clientPage').style.display = 'flex';
+    }
+
+    function showAdminPage() {
+      showPage('adminPage');
+      document.getElementById('adminPage').style.display = 'flex';
+    }
+
+    // ================================================================
+    // 8. AUTH MODULE
     // ================================================================
 
     const AuthModule = {
@@ -1924,7 +1996,8 @@
           Logger.error('Session check error', error);
         }
 
-        this._showAuthPage();
+        showAuthPage();
+        this._initAuthPageUI();
         return false;
       },
 
@@ -1943,10 +2016,10 @@
 
           if (State.get('esAdmin')) {
             await this._loadAdminData();
-            this._showAdminPage();
+            showAdminPage();
           } else {
             await this._loadClientData(user.id);
-            this._showClientPage();
+            showClientPage();
           }
 
           Logger.success('User authenticated', { userId: user.id, esAdmin: State.get('esAdmin') });
@@ -1955,7 +2028,7 @@
           Logger.error('Auth handler error', error);
           showToast('Error al cargar perfil: ' + error.message, 'error');
           await Services.logout();
-          this._showAuthPage();
+          showAuthPage();
           return false;
         }
       },
@@ -1996,27 +2069,6 @@
         } finally {
           State.set('loading', false);
         }
-      },
-
-      _showAuthPage() {
-        document.getElementById('authPage').style.display = '';
-        document.getElementById('clientPage').classList.remove('active');
-        document.getElementById('adminPage').classList.remove('active');
-        this._initAuthPageUI();
-      },
-
-      _showClientPage() {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('clientPage').classList.add('active');
-        document.getElementById('adminPage').classList.remove('active');
-        ClientModule.init();
-      },
-
-      _showAdminPage() {
-        document.getElementById('authPage').style.display = 'none';
-        document.getElementById('clientPage').classList.remove('active');
-        document.getElementById('adminPage').classList.add('active');
-        AdminModule.init();
       },
 
       _initAuthPageUI() {
@@ -2120,7 +2172,7 @@
     };
 
     // ================================================================
-    // 8. CLIENT MODULE (CORREGIDO)
+    // 9. CLIENT MODULE
     // ================================================================
 
     const ClientModule = {
@@ -2158,9 +2210,7 @@
             usuarios: [],
           });
           // Mostrar página de autenticación
-          document.getElementById('clientPage').classList.remove('active');
-          document.getElementById('adminPage').classList.remove('active');
-          document.getElementById('authPage').style.display = '';
+          showAuthPage();
           AuthModule._initAuthPageUI();
           showToast('Sesión cerrada correctamente', 'success');
         } catch (error) {
@@ -2221,7 +2271,6 @@
         }
       },
 
-      // ✅ CORREGIDO: Botón "+ Nueva mascota" funcional
       _renderBooking(cont) {
         const mascotas = State.get('mascotas') || [];
         cont.innerHTML = `
@@ -2708,7 +2757,7 @@
     window.ClientModule = ClientModule;
 
     // ================================================================
-    // 9. ADMIN MODULE (CORREGIDO)
+    // 10. ADMIN MODULE
     // ================================================================
 
     const AdminModule = {
@@ -2734,9 +2783,7 @@
               productos: [],
               usuarios: [],
             });
-            document.getElementById('adminPage').classList.remove('active');
-            document.getElementById('clientPage').classList.remove('active');
-            document.getElementById('authPage').style.display = '';
+            showAuthPage();
             AuthModule._initAuthPageUI();
             showToast('Sesión cerrada correctamente', 'success');
           } catch (error) {
@@ -3588,16 +3635,19 @@
     window.AdminModule = AdminModule;
 
     // ================================================================
-    // 10. BOOTSTRAP
+    // 11. BOOTSTRAP
     // ================================================================
 
     async function bootstrap() {
-      Logger.info('🚀 Luthor v4.4 iniciando...');
+      Logger.info('🚀 Luthor v4.5 iniciando...');
 
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       if (hashParams.get('type') === 'recovery') {
         showToast('Ingresa tu nueva contraseña en el formulario', 'info');
       }
+
+      // ✅ Asegurar que la página de autenticación se muestra primero
+      showAuthPage();
 
       const authed = await AuthModule.init();
 
